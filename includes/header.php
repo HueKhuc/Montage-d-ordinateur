@@ -1,3 +1,14 @@
+<?php
+session_start();
+require_once 'autoload.php';
+require_once 'config.inc.php';
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -27,10 +38,54 @@
                             <li class="nav-item">
                                 <a class="nav-link active" href="#">Liste des pièces</a>
                             </li>
+                            <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Contact</a>
+        </li>
+        <?php
+        if (isset($_SESSION['nom'])) {
+        ?>
+        <li class="nav-item">
+        <a class="nav-link" href="?page=commun/login"><?php echo $_SESSION['nom']; ?></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="?page=commun/logout">Deconnexion</a>
+        </li>
+        
+        <?php
+    } else {
+    ?>
+    <li class="nav-item">
+        <a class="nav-link" href="?page=commun/login">Connexion</a>
+        </li>
+        <?php
+    }?>
+    </ul>
+
+    </div>
+</div>
+</nav>
+<?php
+if (isset($_GET['login']) && $_GET['login'] == "success") {
+?>
+<div class="alert alert-success" role="alert">
+  Vous êtes connecté ! 
+</div>
+<?php
+}
+
+
+if(isset($_GET['logout']) && $_GET['logout'] == "success") {
+  
+?>
+<div class="alert alert-success" role="alert">
+  Vous êtes deconnecté ! 
+</div>
+
+<?php
+}
+?>
                         </ul>
-                        <div class="navbar-nav">
-                                <a class="nav-link active nav-item" href="#">Connexion</a>
-                        </div>
+                        
                     </div>
                 </div>
             </nav>
