@@ -1,5 +1,4 @@
 <?php
-
 class MemoireVive extends Composant {
 
   protected string $capacite;

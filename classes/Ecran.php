@@ -1,5 +1,4 @@
 <?php
-
 class Ecran extends Composant {
 
   protected string $taille;

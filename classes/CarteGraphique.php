@@ -1,6 +1,5 @@
 <?php
-class CarteGraphique extends Composant
-{
+class CarteGraphique extends Composant {
 	protected string $chipset;
 	protected float $memoire;
 

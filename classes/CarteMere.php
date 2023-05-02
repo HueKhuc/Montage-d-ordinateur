@@ -1,6 +1,5 @@
 <?php
-class CarteMere extends Composant
-{
+class CarteMere extends Composant {
     const CARTE_MERE_FORMAT = ["mini-ITX", "micro-ATX", "ATX", "E-ATX"];
     protected string $socket;
     protected string $format;

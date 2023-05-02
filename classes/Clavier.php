@@ -1,6 +1,5 @@
 <?php
-class Clavier extends Composant
-{
+class Clavier extends Composant {
 	protected bool $sansFil;
 	protected bool $paveNumerique;
 	protected string $typeTouche;

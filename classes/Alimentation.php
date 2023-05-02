@@ -1,6 +1,5 @@
 <?php
-class Alimentation extends Composant
-{
+class Alimentation extends Composant {
     protected float $puissance;
 
     public function getPuissance(): float

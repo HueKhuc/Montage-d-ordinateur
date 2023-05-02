@@ -1,5 +1,4 @@
 <?php
-
 class Modele {
 
   protected int $id;

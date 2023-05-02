@@ -1,5 +1,4 @@
 <?php
-
 class Modele extends Composant {
 
   protected string $frequence;
