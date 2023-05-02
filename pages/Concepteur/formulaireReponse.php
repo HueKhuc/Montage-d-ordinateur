@@ -6,9 +6,9 @@ if (!empty($_POST)) {
 <div class=" container">
     <form class="row g-3 mt-5" method="post" action="">
         <div class="mb-3">
-            <h5>Question : </h5>
+            <h5>Commentaire : </h5>
             <p>
-                <?php echo $commentaire->getQuestion(); ?>
+                <?php echo $message->getTexte(); ?>
             </p>
         </div>
         <div class="mb-3">
