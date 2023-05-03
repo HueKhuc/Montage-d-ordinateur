@@ -14,6 +14,6 @@ Dans le dossier pages :
 
 Notre MCD se trouve dans le dossier images de notre projet
 
-![MCD](images/MCD_-_ProjetCo.png)
+![MCD](images/Image_MCD.png)
 
 

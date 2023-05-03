@@ -39,7 +39,7 @@ require_once 'config.inc.php';
                                 <a class="nav-link active" href="#">Liste des pièces</a>
                             </li>
                             <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Contact</a>
+        <a class="nav-link active" aria-current="page" href="?page=commun/inscription">S'inscrire</a>
         </li>
         <?php
         if (isset($_SESSION['nom'])) {
