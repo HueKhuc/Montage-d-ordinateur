@@ -1,12 +1,12 @@
 <?php
 class Ecran extends Composant {
 
-  protected string $taille;
+  protected float $taille;
 
-	public function getTaille(): string {
+	public function getTaille(): float {
 		return $this->taille;
 	}
-	public function setTaille(string $taille): self {
+	public function setTaille(float $taille): self {
 		$this->taille = $taille;
 		return $this;
 	}
