@@ -2,7 +2,6 @@
 
 $pageTitle = "Inscription";
 
-
 if (isset($_POST["nom"]) && isset($_POST["password"])) {
 
     $password = $_POST['password'];
@@ -25,6 +24,11 @@ if (isset($_POST["nom"]) && isset($_POST["password"])) {
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
     }
+    ?>
+    <div class="alert alert-success" role="alert">
+        Vous êtes inscrit ! 
+    </div>
+    <?php
 }
 ?>
 
@@ -55,3 +59,6 @@ if (isset($_POST["nom"]) && isset($_POST["password"])) {
 
             </form>
         </div>
+
+        <?php
+

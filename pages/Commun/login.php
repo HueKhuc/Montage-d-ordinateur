@@ -2,7 +2,7 @@
 
         $pageTitle = "Connexion";
 
-
+        var_dump($_POST);
         $loginErrors = [];
 
 
@@ -10,12 +10,22 @@
         if (isset($_POST["nom"]) && isset($_POST["password"])) {
             $password = $_POST["password"];
             $nom = $_POST["nom"];
-            $subStatement = $db->prepare('SELECT password FROM utilisateur WHERE nom= :nom');
+            $subStatement = $db->prepare('SELECT 
+                utilisateur.password,
+                utilisateur.Id_Utilisateur AS IdU,
+                concepteur.Id_Utilisateur AS IdC,
+                monteur.Id_Utilisateur AS IdM
+                FROM utilisateur
+                LEFT JOIN concepteur ON utilisateur.Id_Utilisateur = concepteur.Id_Utilisateur
+                LEFT JOIN monteur ON utilisateur.Id_Utilisateur = monteur.Id_Utilisateur
+                WHERE nom = :nom'
+        );
             $subStatement->execute([
                 ':nom' => $nom,
             ]);
-            $passwordBdd = $subStatement->fetch(PDO::FETCH_COLUMN);
-
+            $results = $subStatement->fetch();
+            $passwordBdd = $results['password'];
+            
             if (empty($password)) {
                 $loginErrors[] = "Veuillez saisir un mot de passe";
             } elseif (password_verify($password, $passwordBdd) === false) {
@@ -28,7 +38,14 @@
 
             if (empty($loginErrors) && password_verify($password, $passwordBdd) == true) {
                 $_SESSION["nom"] = $_POST["nom"];
-                header("Location: index.php?page=commun/home&loginSuccess=1");
+                $_SESSION["id"] = $results['IdU'];
+                $_SESSION['type'] = 'utilisateur';
+                if ($results['IdC'] != null) {
+                    $_SESSION["type"] = "concepteur";
+                } elseif ($results['IdM'] != null) {
+                    $_SESSION["type"] = "monteur";
+                }
+                header("Location: index.php?page=commun/home&login=success");
             }
             foreach ($loginErrors as $loginError) {
         ?>
