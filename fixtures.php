@@ -96,7 +96,6 @@ $carteMere4->setArchivage(false);
 $carteMere4->setSocket('AMD AM4');
 $carteMere4->setFormat('Micro-ATX');
 
-
 $disqueDur1 = new DisqueDur();
 $disqueDur1->setNom("BarraCuda 2 To");
 $disqueDur1->setMarque('Seagate');
@@ -140,7 +139,6 @@ $disqueDur4->setIsLaptop(true);
 $disqueDur4->setArchivage(false);
 $disqueDur4->setSsd(true);
 $disqueDur4->setCapacite(1000);
-
 
 $memoireVive1 = new MemoireVive();
 $memoireVive1->setNom("Akura CL18");
@@ -415,18 +413,75 @@ $processeur4->setNbCoeurs(6);
 $processeur4->setChipsetCompatible('HDMP-1032');
 
 $composants = [
-
+    $alimentation1,
+    $alimentation2,
+    $alimentation3,
+    $alimentation4,
+    $carteMere1,
+    $carteMere2,
+    $carteMere3,
+    $carteMere4,
+    $disqueDur1,
+    $disqueDur2,
+    $disqueDur3,
+    $disqueDur4,
+    $memoireVive1,
+    $memoireVive2,
+    $memoireVive3,
+    $memoireVive4,
+    $carteGraphique1,
+    $carteGraphique2,
+    $carteGraphique3,
+    $carteGraphique4,
+    $clavier1,
+    $clavier2,
+    $clavier3,
+    $clavier4,
+    $ecran1,
+    $ecran2,
+    $ecran3,
+    $ecran4,
+    $souris1,
+    $souris2,
+    $souris3,
+    $souris4,
+    $processeur1,
+    $processeur2,
+    $processeur3,
+    $processeur4,
 ];
 
 foreach ($composants as $composant) {
-    $pdoStatement->bindValue(':nom', $composant->getNom, PDO::PARAM_STR);
+    $pdoStatement->bindValue(':nom', $composant->getNom(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':marque', $composant->getMarque(), PDO::PARAM_INT);
     $pdoStatement->bindValue(':categorie', $composant->getCategorie(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':prix', $composant->getPrix(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':quantite', $composant->getQuantite(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':isLaptop', $composant->getIsLaptop(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':archivage', $composant->getArchivage(), PDO::PARAM_STR);
-    // $count = $pdoStatement->execute();
+    $count = $pdoStatement->execute();
+
+    $id = $connection->lastInsertId();
+
+    if ($composant instanceof Alimentation) {
+        $sql = 'INSERT INTO Alimentation';
+    } elseif ($composant instanceof CarteMere) {
+        $sql = 'INSERT INTO carte_mere';
+    } elseif ($composant instanceof DisqueDur) {
+        $sql = 'INSERT INTO disque_dur';
+    } elseif ($composant instanceof MemoireVive) {
+        $sql = 'INSERT INTO memoire_vive';
+    } elseif ($composant instanceof CarteGraphique) {
+        $sql = 'INSERT INTO carte_graphique';
+    } elseif ($composant instanceof Clavier) {
+        $sql = 'INSERT INTO clavier';
+    } elseif ($composant instanceof Ecran) {
+        $sql = 'INSERT INTO ecran';
+    } elseif ($composant instanceof Souris) {
+        $sql = 'INSERT INTO souris';
+    } elseif ($composant instanceof Processeur) {
+        $sql = 'INSERT INTO processeur';
+    }
 }
 
 // var_dump($count);
