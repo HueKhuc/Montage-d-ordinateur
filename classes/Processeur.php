@@ -1,5 +1,5 @@
 <?php
-class Modele extends Composant {
+class Processeur extends Composant {
 
   protected string $frequence;
   protected int $nbCoeurs;

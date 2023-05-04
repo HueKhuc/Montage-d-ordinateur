@@ -190,6 +190,229 @@ $memoireVive4->setCapacite(32);
 $memoireVive4->setNbBarrettes(2);
 $memoireVive4->setType('DDR5 6000 MHz PC4-32400');
 
+$carteGraphique1 = new CarteGraphique();
+$carteGraphique1->setNom('Radeon RX 6500 XT OC');
+$carteGraphique1->setMarque('ASUS');
+$carteGraphique1->setCategorie('Carte Graphique');
+$carteGraphique1->setPrix(180.27);
+$carteGraphique1->setQuantite(10);
+$carteGraphique1->setIsLaptop(true);
+$carteGraphique1->setArchivage(false);
+$carteGraphique1->setChipset('AMD');
+$carteGraphique1->setMemoire(4);
+
+$carteGraphique2 = new CarteGraphique();
+$carteGraphique2->setNom('Radeon RX 550 GDDR5');
+$carteGraphique2->setMarque('Maxsun');
+$carteGraphique2->setCategorie('Carte Graphique');
+$carteGraphique2->setPrix(103.67);
+$carteGraphique2->setQuantite(20);
+$carteGraphique2->setIsLaptop(false);
+$carteGraphique2->setArchivage(false);
+$carteGraphique2->setChipset('AMD');
+$carteGraphique2->setMemoire(4);
+
+$carteGraphique3 = new CarteGraphique();
+$carteGraphique3->setNom('Radeon RX 6600 Gaming GDDR6');
+$carteGraphique3->setMarque('Sapphire');
+$carteGraphique3->setCategorie('Carte Graphique');
+$carteGraphique3->setPrix(259.99);
+$carteGraphique3->setQuantite(5);
+$carteGraphique3->setIsLaptop(true);
+$carteGraphique3->setArchivage(false);
+$carteGraphique3->setChipset('AMD');
+$carteGraphique3->setMemoire(8);
+
+$carteGraphique4 = new CarteGraphique();
+$carteGraphique4->setNom('GT 710 DDR3 Evo');
+$carteGraphique4->setMarque('ASUS');
+$carteGraphique4->setCategorie('Carte Graphique');
+$carteGraphique4->setPrix(50.10);
+$carteGraphique4->setQuantite(50);
+$carteGraphique4->setIsLaptop(false);
+$carteGraphique4->setArchivage(false);
+$carteGraphique4->setChipset('NVIDIA');
+$carteGraphique4->setMemoire(2);
+
+$clavier1 = new Clavier();
+$clavier1->setNom('K120 Clavier filaire Business Windows');
+$clavier1->setMarque('Logitech');
+$clavier1->setCategorie('Clavier');
+$clavier1->setPrix(12.99);
+$clavier1->setQuantite(20);
+$clavier1->setIsLaptop(true);
+$clavier1->setArchivage(false);
+$clavier1->setSansFil(false);
+$clavier1->setPaveNumerique(true);
+$clavier1->setTypeTouche('Clavier à membrane');
+
+$clavier2 = new Clavier();
+$clavier2->setNom('G815 LIGHTSPEED Clavier Gamer');
+$clavier2->setMarque('Logitech');
+$clavier2->setCategorie('Clavier');
+$clavier2->setPrix(155.99);
+$clavier2->setQuantite(10);
+$clavier2->setIsLaptop(true);
+$clavier2->setArchivage(false);
+$clavier2->setSansFil(true);
+$clavier2->setPaveNumerique(true);
+$clavier2->setTypeTouche('Clavier mécanique');
+
+$clavier3 = new Clavier();
+$clavier3->setNom('Clavier sans Fil Rechargeable');
+$clavier3->setMarque('JELLY OFFICE');
+$clavier3->setCategorie('Clavier');
+$clavier3->setPrix(44.99);
+$clavier3->setQuantite(25);
+$clavier3->setIsLaptop(true);
+$clavier3->setArchivage(false);
+$clavier3->setSansFil(true);
+$clavier3->setPaveNumerique(true);
+$clavier3->setTypeTouche('Clavier mécanique');
+
+$clavier4 = new Clavier();
+$clavier4->setNom('Balance Keyboard Wired');
+$clavier4->setMarque('Contour');
+$clavier4->setCategorie('Clavier');
+$clavier4->setPrix(125.57);
+$clavier4->setQuantite(5);
+$clavier4->setIsLaptop(true);
+$clavier4->setArchivage(false);
+$clavier4->setSansFil(false);
+$clavier4->setPaveNumerique(true);
+$clavier4->setTypeTouche('Ergonomique');
+
+$ecran1 = new Ecran();
+$ecran1->setNom('S24R35AFHU');
+$ecran1->setMarque('Samsung');
+$ecran1->setCategorie('Ecran');
+$ecran1->setPrix(129);
+$ecran1->setQuantite(30);
+$ecran1->setIsLaptop(false);
+$ecran1->setArchivage(false);
+$ecran1->setTaille(24);
+
+$ecran2 = new Ecran();
+$ecran2->setNom('EK240YC');
+$ecran2->setMarque('Acer');
+$ecran2->setCategorie('Ecran');
+$ecran2->setPrix(99);
+$ecran2->setQuantite(5);
+$ecran2->setIsLaptop(false);
+$ecran2->setArchivage(false);
+$ecran2->setTaille(23.8);
+
+$ecran3 = new Ecran();
+$ecran3->setNom('273V7QDSB/00');
+$ecran3->setMarque('Philips');
+$ecran3->setCategorie('Ecran');
+$ecran3->setPrix(126.52);
+$ecran3->setQuantite(35);
+$ecran3->setIsLaptop(false);
+$ecran3->setArchivage(false);
+$ecran3->setTaille(27);
+
+$ecran4 = new Ecran();
+$ecran4->setNom('Zenscreen MB165B');
+$ecran4->setMarque('ASUS');
+$ecran4->setCategorie('Ecran');
+$ecran4->setPrix(150.90);
+$ecran4->setQuantite(15);
+$ecran4->setIsLaptop(true);
+$ecran4->setArchivage(false);
+$ecran4->setTaille(15.6);
+
+$souris1 = new Souris();
+$souris1->setNom('');
+$souris1->setMarque('Logitech');
+$souris1->setCategorie('Souris');
+$souris1->setPrix(13.99);
+$souris1->setQuantite(40);
+$souris1->setIsLaptop(true);
+$souris1->setArchivage(false);
+$souris1->setSansFil(true);
+$souris1->setNbTouche(2);
+
+$souris2 = new Souris();
+$souris2->setNom('Scimitar ELITE MOBA/MMO');
+$souris2->setMarque('Corsair');
+$souris2->setCategorie('Souris');
+$souris2->setPrix(69.99);
+$souris2->setQuantite(5);
+$souris2->setIsLaptop(true);
+$souris2->setArchivage(false);
+$souris2->setSansFil(true);
+$souris2->setNbTouche(17);
+
+$souris3 = new Souris();
+$souris3->setNom('G600 MMO');
+$souris3->setMarque('Logitech ');
+$souris3->setCategorie('Souris');
+$souris3->setPrix(57.20);
+$souris3->setQuantite(15);
+$souris3->setIsLaptop(true);
+$souris3->setArchivage(false);
+$souris3->setSansFil(false);
+$souris3->setNbTouche(20);
+
+$souris4 = new Souris();
+$souris4->setNom('Tartarus V2');
+$souris4->setMarque('Razer');
+$souris4->setCategorie('Souris');
+$souris4->setPrix(83.30);
+$souris4->setQuantite(21);
+$souris4->setIsLaptop(true);
+$souris4->setArchivage(false);
+$souris4->setSansFil(false);
+$souris4->setNbTouche(32);
+
+$processeur1 = new Processeur();
+$processeur1->setNom('AMD Ryzen 7 5800X');
+$processeur1->setMarque('AMD');
+$processeur1->setCategorie('Processeur');
+$processeur1->setPrix(250.04);
+$processeur1->setQuantite(10);
+$processeur1->setIsLaptop(false);
+$processeur1->setArchivage(false);
+$processeur1->setFrequence(3.8);
+$processeur1->setNbCoeurs(8);
+$processeur1->setChipsetCompatible('HDMP-1032');
+
+$processeur2 = new Processeur();
+$processeur2->setNom('Core i5-12400F');
+$processeur2->setMarque('Intel');
+$processeur2->setCategorie('Processeur');
+$processeur2->setPrix(177.33);
+$processeur2->setQuantite(15);
+$processeur2->setIsLaptop(true);
+$processeur2->setArchivage(false);
+$processeur2->setFrequence(2.5);
+$processeur2->setNbCoeurs(6);
+$processeur2->setChipsetCompatible('HDMP-1034');
+
+$processeur3 = new Processeur();
+$processeur3->setNom('Core i7-13700KF');
+$processeur3->setMarque('Intel');
+$processeur3->setCategorie('Processeur');
+$processeur3->setPrix(443.16);
+$processeur3->setQuantite(10);
+$processeur3->setIsLaptop(true);
+$processeur3->setArchivage(false);
+$processeur3->setFrequence(2.5);
+$processeur3->setNbCoeurs(16);
+$processeur3->setChipsetCompatible('HDMP-1034');
+
+$processeur4 = new Processeur();
+$processeur4->setNom('CoreTM i5-10400F');
+$processeur4->setMarque('Intel');
+$processeur4->setCategorie('Processeur');
+$processeur4->setPrix(110.27);
+$processeur4->setQuantite(10);
+$processeur4->setIsLaptop(true);
+$processeur4->setArchivage(false);
+$processeur4->setFrequence(4.3);
+$processeur4->setNbCoeurs(6);
+$processeur4->setChipsetCompatible('HDMP-1032');
 
 $composants = [
 
@@ -201,7 +424,6 @@ foreach ($composants as $composant) {
     $pdoStatement->bindValue(':categorie', $composant->getCategorie(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':prix', $composant->getPrix(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':quantite', $composant->getQuantite(), PDO::PARAM_STR);
-    $pdoStatement->bindValue(':dateAjout', $composant->getDateAjout(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':isLaptop', $composant->getIsLaptop(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':archivage', $composant->getArchivage(), PDO::PARAM_STR);
     // $count = $pdoStatement->execute();
