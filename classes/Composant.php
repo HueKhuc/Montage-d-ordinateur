@@ -1,5 +1,5 @@
 <?php
-abstract class Composant
+class Composant
 {
 
 	protected int $id;
