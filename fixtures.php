@@ -3,13 +3,32 @@ spl_autoload_register(function ($class) {
     require_once 'classes/' . $class . '.php';
 });
 
-require_once 'function.php';
-require_once 'config.inc.php';
+require_once 'includes/function.php';
+require_once 'includes/config.inc.php';
+
+$sqlTruncate = 'SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE composant;
+TRUNCATE TABLE alimentation;
+TRUNCATE TABLE carte_mere;
+TRUNCATE TABLE disque_dur;
+TRUNCATE TABLE memoire_vive;
+TRUNCATE TABLE carte_graphique;
+TRUNCATE TABLE clavier;
+TRUNCATE TABLE ecran;
+TRUNCATE TABLE souris;
+TRUNCATE TABLE processeur;
+TRUNCATE TABLE gestion_stock;
+TRUNCATE TABLE assembler;
+TRUNCATE TABLE gerer;
+TRUNCATE TABLE message;
+TRUNCATE TABLE modele;
+SET FOREIGN_KEY_CHECKS = 1;';
+$db->exec($sqlTruncate);
 
 $sqlComposant = 'INSERT INTO composant(nom, marque, categorie, prix, quantite, isLaptop, archivage)
         VALUES (:nom, :marque, :categorie, :prix, :quantite, :isLaptop, :archivage)';
 
-$pdoStatement = $connection->prepare($sqlComposant);
+$pdoStatement = $db->prepare($sqlComposant);
 
 $alimentation1 = new Alimentation();
 $alimentation1->setNom("LUX 750");
@@ -50,7 +69,6 @@ $alimentation4->setQuantite(6);
 $alimentation4->setIsLaptop(false);
 $alimentation4->setArchivage(false);
 $alimentation4->setPuissance(850);
-
 
 $carteMere1 = new CarteMere();
 $carteMere1->setNom("A620M");
@@ -453,7 +471,7 @@ $composants = [
 
 foreach ($composants as $composant) {
     $pdoStatement->bindValue(':nom', $composant->getNom(), PDO::PARAM_STR);
-    $pdoStatement->bindValue(':marque', $composant->getMarque(), PDO::PARAM_INT);
+    $pdoStatement->bindValue(':marque', $composant->getMarque(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':categorie', $composant->getCategorie(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':prix', $composant->getPrix(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':quantite', $composant->getQuantite(), PDO::PARAM_STR);
@@ -461,28 +479,93 @@ foreach ($composants as $composant) {
     $pdoStatement->bindValue(':archivage', $composant->getArchivage(), PDO::PARAM_STR);
     $count = $pdoStatement->execute();
 
-    $id = $connection->lastInsertId();
+    $id = $db->lastInsertId();
 
     if ($composant instanceof Alimentation) {
-        $sql = 'INSERT INTO Alimentation';
+        $sql = 'INSERT INTO alimentation(Id_Composant, puissance)
+        VALUES (:id, :puissance)';
+        $params = [
+            ':id' => $id,
+            ':puissance' => $composant->getPuissance(),
+            
+        ];
     } elseif ($composant instanceof CarteMere) {
-        $sql = 'INSERT INTO carte_mere';
+        $sql = 'INSERT INTO carte_mere
+        VALUES (:id, :socket, :format)';
+        $params = [
+            ':id' => $id,
+            ':socket' => $composant->getSocket(),
+            ':format' => $composant->getFormat(),
+            
+        ];
     } elseif ($composant instanceof DisqueDur) {
-        $sql = 'INSERT INTO disque_dur';
+        $sql = 'INSERT INTO disque_dur
+        VALUES (:id, :ssd, :capacite)';
+        $params = [
+            ':id' => $id,
+            ':ssd' => $composant->getSsd(),
+            ':capacite' => $composant->getCapacite(),
+            
+        ];
     } elseif ($composant instanceof MemoireVive) {
-        $sql = 'INSERT INTO memoire_vive';
+        $sql = 'INSERT INTO memoire_vive
+        VALUES (:id, :capacite, :nbBarrettes, :type)';
+        $params = [
+            ':id' => $id,
+            ':capacite' => $composant->getCapacite(),
+            ':nbBarrettes' => $composant->getNbBarrettes(),
+            ':type' => $composant->getType(),
+        ];
     } elseif ($composant instanceof CarteGraphique) {
-        $sql = 'INSERT INTO carte_graphique';
+        $sql = 'INSERT INTO carte_graphique
+        VALUES (:id, :chipset, :memoire)';
+        $params = [
+            ':id' => $id,
+            ':chipset' => $composant->getChipset(),
+            ':memoire' => $composant->getMemoire(),
+            
+        ];
     } elseif ($composant instanceof Clavier) {
-        $sql = 'INSERT INTO clavier';
+        $sql = 'INSERT INTO clavier
+        VALUES (:id, :sansfil, :pavenumerique, :typetouche)';
+        $params = [
+            ':id' => $id,
+            ':sansfil' => $composant->getSansFil(),
+            ':pavenumerique' => $composant->getPaveNumerique(),
+            ':typetouche' => $composant->getTypeTouche(),
+            
+        ];
     } elseif ($composant instanceof Ecran) {
-        $sql = 'INSERT INTO ecran';
+        $sql = 'INSERT INTO ecran
+        VALUES (:id, :taille)';
+        $params = [
+            ':id' => $id,
+            ':taille' => $composant->getTaille(),
+            
+        ];
     } elseif ($composant instanceof Souris) {
-        $sql = 'INSERT INTO souris';
+        $sql = 'INSERT INTO souris
+        VALUES (:id, :sansfil, :nbtouche)';
+        $params = [
+            ':id' => $id,
+            ':sansfil' => $composant->getSansFil(),
+            ':nbtouche' => $composant->getNbTouche(),
+            
+        ];
     } elseif ($composant instanceof Processeur) {
-        $sql = 'INSERT INTO processeur';
+        $sql = 'INSERT INTO processeur
+        VALUES (:id, :frequence, :nbcoeurs, :chipsetcompatible)';
+        $params = [
+            ':id' => $id,
+            ':frequence' => $composant->getFrequence(),
+            ':nbcoeurs' => $composant->getNbCoeurs(),
+            ':chipsetcompatible' => $composant->getChipsetCompatible(),
+            
+        ];
     }
-}
 
-// var_dump($count);
+    $stmt = $db->prepare($sql);
+    $stmt->execute($params);
+
+}
 ?>
