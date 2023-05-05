@@ -339,7 +339,7 @@ $ecran4->setArchivage(false);
 $ecran4->setTaille(15.6);
 
 $souris1 = new Souris();
-$souris1->setNom('');
+$souris1->setNom('M185');
 $souris1->setMarque('Logitech');
 $souris1->setCategorie('Souris');
 $souris1->setPrix(13.99);
