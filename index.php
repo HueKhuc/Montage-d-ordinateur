@@ -1,4 +1,4 @@
-<?php
+<?php 
 require_once 'includes/header.php';
 $page = 'commun/home';
 if (isset($_GET['page'])) {

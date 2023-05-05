@@ -34,7 +34,7 @@ $alimentation1->setNom("LUX 750");
 $alimentation1->setMarque('Aerocool');
 $alimentation1->setCategorie('Alimentation');
 $alimentation1->setprix(80);
-$alimentation1->setQuantite(3);
+$alimentation1->setQuantite(0);
 $alimentation1->setIsLaptop(false);
 $alimentation1->setArchivage(false);
 $alimentation1->setPuissance(750);

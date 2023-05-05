@@ -1,30 +1,62 @@
 <?php
-$sql_order = 'SELECT nom, marque, quantite, prix, categorie, datAjout FROM composant';
+$sql_order = 'SELECT nom, marque, quantite, prix, categorie, datAjout, isLaptop FROM composant';
 
-$tri = $_POST['trier'];
-if ($tri === 'quantite') {
-    $sql_order .= ' ORDER BY ' . $tri;
-} elseif ($tri === 'nom') {
-    $sql_order .= ' ORDER BY ' . $tri;
-} elseif ($tri === 'marque') {
-    $sql_order .= ' ORDER BY ' . $tri;
-} elseif ($tri === 'prix') {
-    $sql_order .= ' ORDER BY ' . $tri;
-} elseif ($tri === 'datAjout') {
-    $sql_order .= ' ORDER BY ' . $tri;
-} else {
-    $sql_order .= ' ORDER BY Id_Composant';
+$tri = '';
+if (isset($_POST['trier'])) {
+    $tri = $_POST['trier'];
+    if ($tri === 'quantite') {
+        $sql_order .= ' ORDER BY ' . $tri;
+    } elseif ($tri === 'nom') {
+        $sql_order .= ' ORDER BY ' . $tri;
+    } elseif ($tri === 'marque') {
+        $sql_order .= ' ORDER BY ' . $tri;
+    } elseif ($tri === 'prix') {
+        $sql_order .= ' ORDER BY ' . $tri;
+    } elseif ($tri === 'datAjout') {
+        $sql_order .= ' ORDER BY ' . $tri;
+    } else {
+        $sql_order .= ' ORDER BY Id_Composant';
+    }
 }
-;
+
 
 $sth = $db->prepare($sql_order);
 $sth->setFetchMode(PDO::FETCH_CLASS, Composant::class);
 $sth->execute();
 $results = $sth->fetchAll();
 
+$piecesfilter = new PiecesFilter($_POST, $results);
 ?>
 
-<!-- tri de tableau-->
+<form action="" method="post" class="container">
+    <div class="d-flex flex-column gap-2 mt-5">
+        <label for="marque">Marque :</label>
+        <input type="text" name="marque" id="marque" value="<?php if ($piecesfilter->getMarque()) {
+            echo $piecesfilter->getMarque();
+        } ?>">
+
+        <label for="quantite">En stock</label>
+        <input type="checkbox" name="quantite" id="quantite" value="1" <?php if ($piecesfilter->getQuantite()) {
+            echo "checked";
+        } ?>>
+
+        <label for="islaptop">Compatible PC portable</label>
+        <input type="checkbox" name="islaptop" id="islaptop" value="1" <?php if ($piecesfilter->getIsLaptop()) {
+            echo "checked";
+        } ?>>
+
+        <label for="prixmin">Prix min :</label>
+        <input type="number" name="prixmin" id="prixmin" value="<?php if ($piecesfilter->getPrixmin()) {
+            echo $piecesfilter->getPrixmin();
+        } ?>">
+        <label for="prixmax">Prix max :</label>
+        <input type="number" name="prixmax" id="prixmax" value="<?php if ($piecesfilter->getPrixmax()) {
+            echo $piecesfilter->getPrixmax();
+        } ?>">
+        <button type="submit" class="btn btn-primary">Filtrer</button>
+    </div>
+</form>
+
 <div class='mt-5'>
     <h2 class='text-center m-3 text-uppercase'>Liste de pièces</h2>
     <form method="POST" action="">
@@ -81,7 +113,7 @@ $results = $sth->fetchAll();
         </thead>
         <tbody class="table-group-divider">
             <?php
-            foreach ($results as $key => $composant) {
+            foreach ($piecesfilter->getComposants() as $key => $composant) {
                 $nom = $composant->getNom();
                 $marque = $composant->getMarque();
                 $quantite = $composant->getQuantite();
