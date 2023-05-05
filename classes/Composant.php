@@ -1,8 +1,18 @@
 <?php
-abstract class Composant
+class Composant
 {
-
-	protected int $id;
+	const CATEGORIES = [
+		'alimentation' => 'Alimentation',
+		'carte_mere' => 'Carte Mere',
+		'disque_dur' => 'Disque dur',
+		'memoire_vive' => 'Memoire vive',
+		'carte_graphique' => 'Carte Graphique',
+		'clavier' => 'Clavier',
+		'ecran' => 'Ecran',
+		'souris' => 'Souris',
+		'processeur' => 'Processeur',
+	];
+	protected int $Id_Composant;
 	protected string $nom;
 	protected string $marque;
 	protected string $categorie;
@@ -14,11 +24,11 @@ abstract class Composant
 
 	public function getId(): int
 	{
-		return $this->id;
+		return $this->Id_Composant;
 	}
 	public function setId(int $id): self
 	{
-		$this->id = $id;
+		$this->Id_Composant = $id;
 		return $this;
 	}
 

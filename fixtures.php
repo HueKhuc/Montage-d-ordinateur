@@ -568,4 +568,50 @@ foreach ($composants as $composant) {
     $stmt->execute($params);
 
 }
+
+
+// $modele1 = new Modele();
+// $modele1->setNom('AsusFX-015');
+// $modele1->setQuantite(4);
+// $modele1->setPortable(true);
+
+// $modele2 = new Modele();
+// $modele2->setNom('MSI-015');
+// $modele2->setQuantite(10);
+// $modele2->setPortable(true);
+
+// $modele3 = new Modele();
+// $modele3->setNom('Asus Rogue');
+// $modele3->setQuantite(2);
+// $modele3->setPortable(false);
+
+// $modele4 = new Modele();
+// $modele4->setNom('Dell');
+// $modele4->setQuantite(16);
+// $modele4->setPortable(false);
+
+// $sqlModele = 'INSERT INTO modele (nom, quantite, portable)
+// VALUES (:nom, :quantite, :portable)';
+
+// $stat = $db->prepare($sqlModele);
+// $modele = [
+//     $modele1,
+//     $modele2,
+//     $modele3,
+//     $modele4,
+// ];
+
+
+
+// foreach ($modele as $modele) {
+
+// $stat->bindValue(':nom', $modele->getNom(), PDO::PARAM_STR);
+// $stat->bindValue(':quantite', $modele->getQuantite(), PDO::PARAM_INT);
+// $stat->bindValue(':portable', $modele->getPortable(), PDO::PARAM_BOOL);
+
+// $stat->execute();
+// }
+
+
+
 ?>
