@@ -1,6 +1,5 @@
 <?php
 class Ecran extends Composant {
-
   protected float $taille;
 
 	public function getTaille(): float {
@@ -11,5 +10,4 @@ class Ecran extends Composant {
 		return $this;
 	}
 }
-
 ?>
