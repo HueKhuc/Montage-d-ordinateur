@@ -86,10 +86,10 @@ class PiecesFilter
 		return $this;
 	}
 
-  public function getIsLaptop(): string {
+  public function getIsLaptop(): bool {
 		return $this->isLaptop;
 	}
-	public function setIsLaptop(string $isLaptop): self {
+	public function setIsLaptop(bool $isLaptop): self {
 		$this->composants = array_filter($this->composants, function (Composant $composant) use ($isLaptop): bool {
 			return $isLaptop == $composant->getIsLaptop();
 		});
