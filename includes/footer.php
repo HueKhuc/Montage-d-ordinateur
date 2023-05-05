@@ -26,7 +26,7 @@
       </a>
       <ul class="nav col-md-4 justify-content-end">
         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Accueil</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Liste de pièces</a></li>
+        <li class="nav-item"><a href="?page=concepteur/listComposant" class="nav-link px-2 text-white">Liste de pièces</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Liste de modèles</a></li>
       </ul>
     </footer>

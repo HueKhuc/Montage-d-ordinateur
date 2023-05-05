@@ -46,7 +46,7 @@ require_once 'config.inc.php';
                     }  ?> </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link active" href="?page=concepteur/listComposant">
                                     <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'monteur') {
                         echo "Liste des pièces"; 
                     } elseif (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
