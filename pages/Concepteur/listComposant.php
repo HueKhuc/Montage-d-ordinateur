@@ -1,6 +1,5 @@
 <?php
 $sql_order = 'SELECT nom, marque, quantite, prix, categorie, datAjout, isLaptop FROM composant';
-
 $tri = '';
 if (isset($_POST['trier'])) {
     $tri = $_POST['trier'];
@@ -18,18 +17,29 @@ if (isset($_POST['trier'])) {
         $sql_order .= ' ORDER BY Id_Composant';
     }
 }
-
-
 $sth = $db->prepare($sql_order);
 $sth->setFetchMode(PDO::FETCH_CLASS, Composant::class);
 $sth->execute();
 $results = $sth->fetchAll();
-
 $piecesfilter = new PiecesFilter($_POST, $results);
 ?>
-
 <form action="" method="post" class="container">
     <div class="d-flex flex-column gap-2 mt-5">
+    <label for="categorie">Catégorie :</label>
+    <select name="categorie" id="categorie">
+      <option value=""></option>
+      <?php
+      foreach (Composant::CATEGORIES as $id => $categorie) {
+        ?>
+        <option value="<?= $categorie ?>" <?php if ($piecesfilter->getCategorie() == $categorie) {
+            echo 'selected';
+          } ?>>
+          <?= $categorie ?>
+        </option>
+        <?php
+      }
+      ?>
+    </select>
         <label for="marque">Marque :</label>
         <input type="text" name="marque" id="marque" value="<?php if ($piecesfilter->getMarque()) {
             echo $piecesfilter->getMarque();
