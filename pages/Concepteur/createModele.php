@@ -4,12 +4,21 @@ $sta->setFetchMode(PDO::FETCH_CLASS, Composant::class);
 $sta->execute();
 $results = $sta->fetchAll();
 
+$errors = [];
+
 
 if (isset ($_POST['modele'])) {
 
+    foreach (Composant::LIMITS as $slug => $limit) {
+        if (empty($_POST[$slug.'_quantite'])) {
+            $errors[$slug] = "Veuillez saisir la quantité";
+        } elseif ($_POST[$slug] && $_POST[$slug.'_quantite'] >$limit) {
+            $errors[$slug] = "Trop grande quantité";
+        }
+    }
+    ?>
 
-
-    
+    <?php
     $sqlModele = 'INSERT INTO modele(nom, portable, quantite, Id_Utilisateur)
             VALUES (:nom, :portable, :quantite, :Id_Utilisateur)';
     $pdoStat = $db->prepare($sqlModele);
@@ -58,8 +67,13 @@ if (isset ($_POST['modele'])) {
                 }
                 ?>
             </select>
-            <label for="quantite"></label>
-            <input type="number" name="<?= $slug; ?>_quantite" id="quantite" placeholder="Quantite">
+            <label for="<?= $slug; ?>_quantite">
+                <input type="number" name="<?= $slug; ?>_quantite" id="<?= $slug; ?>_quantite" placeholder="Quantite" value="<?= $_POST[$slug.'_quantite']; ?>">
+                <?php if(isset($errors[$slug])) {?>
+                <span class="error"><?= $errors[$slug]; }?></span>
+    
+            </label>
+    
         </div>
     <?php
     }
