@@ -1,6 +1,5 @@
 <?php
 class DisqueDur extends Composant {
-
   protected bool $ssd;
   protected int $capacite;
 
@@ -20,5 +19,4 @@ class DisqueDur extends Composant {
 		return $this;
 	}
 }
-
 ?>

@@ -1,6 +1,5 @@
 <?php
 class Processeur extends Composant {
-
   protected string $frequence;
   protected int $nbCoeurs;
   protected string $chipsetCompatible;
@@ -29,5 +28,4 @@ class Processeur extends Composant {
 		return $this;
 	}
 }
-
 ?>

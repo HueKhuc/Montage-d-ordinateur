@@ -18,9 +18,9 @@ class Composant
 	protected string $categorie;
 	protected float $prix;
 	protected int $quantite;
-	protected string $dateAjout;
-	protected bool $isLaptop;
-	protected bool $archivage;
+	protected string $datAjout;
+	protected bool $isLaptop = false;
+	protected bool $archivage = false;
 
 	public function getId(): int
 	{
@@ -82,13 +82,13 @@ class Composant
 		return $this;
 	}
 
-	public function getDateAjout(): string
+	public function getDatAjout(): string
 	{
-		return $this->dateAjout;
+		return $this->datAjout;
 	}
-	public function setDateAjout(string $dateAjout): self
+	public function setDatAjout(string $dateAjout): self
 	{
-		$this->dateAjout = $dateAjout;
+		$this->datAjout = $dateAjout;
 		return $this;
 	}
 
@@ -112,5 +112,4 @@ class Composant
 		return $this;
 	}
 }
-
 ?>

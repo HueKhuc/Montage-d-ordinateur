@@ -1,6 +1,5 @@
 <?php
 class MemoireVive extends Composant {
-
   protected string $capacite;
   protected int $nbBarrettes;
   protected string $type;
@@ -29,5 +28,4 @@ class MemoireVive extends Composant {
 		return $this;
 	}
 }
-
 ?>

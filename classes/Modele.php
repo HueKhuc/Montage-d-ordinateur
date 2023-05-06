@@ -1,6 +1,5 @@
 <?php
 class Modele {
-
   protected int $id;
   protected string $nom;
   protected int $quantite;
@@ -47,5 +46,4 @@ class Modele {
 		return $this;
 	}
 }
-
 ?>
