@@ -68,7 +68,8 @@ if (isset ($_POST['modele'])) {
                 ?>
             </select>
             <label for="<?= $slug; ?>_quantite">
-                <input type="number" name="<?= $slug; ?>_quantite" id="<?= $slug; ?>_quantite" placeholder="Quantite" value="<?= $_POST[$slug.'_quantite']; ?>">
+                <input type="number" name="<?= $slug; ?>_quantite" id="<?= $slug; ?>_quantite" placeholder="Quantite" value="<?php if (isset($_POST[$slug.'_quantite'])) { echo $_POST[$slug.'_quantite']; }
+                ?>">
                 <?php if(isset($errors[$slug])) {?>
                 <span class="error"><?= $errors[$slug]; }?></span>
     
