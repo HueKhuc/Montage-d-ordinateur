@@ -55,6 +55,13 @@ require_once 'config.inc.php';
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link active" href="?page=concepteur/listModeleConcepteur">
+                                    <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
+                        echo "Liste modèle";
+                    }?>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link active" href="#">
                                     <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'monteur') {
                         echo "Commentaires "; 
