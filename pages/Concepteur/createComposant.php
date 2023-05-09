@@ -1,11 +1,12 @@
 <?php
-// à faire : vérification input,tableau d'erreurs, 
 // Récupération de données de la table Composant
 $sqlClass = 'SELECT * FROM composant';
 $sth = $db->prepare($sqlClass);
 $sth->setFetchMode(PDO::FETCH_CLASS, Composant::class);
 $sth->execute();
 $results = $sth->fetchAll();
+
+if(isset($_POST['portable'])){var_dump($_POST['portable']);}
 
 if (isset($_POST['piece'])) {
     echo '<div class="alert alert-success my-5" role="alert">Done</div>';
@@ -155,30 +156,30 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
         <form class="d-flex flex-column gap-3" method="POST">
                 <div class="form-group">
                     <label for="nom">Nom</label>
-                    <input type="text" class="form-control" id="nom" name="nom">
+                    <input type="text" class="form-control" id="nom" name="nom" required>
                 </div>
                 <div class="form-group">
                     <label for="marque">Marque</label>
-                    <input type="text" class="form-control" id="marque" name="marque">
+                    <input type="text" class="form-control" id="marque" name="marque" required>
                 </div>
 
                 <div class="form-group">
                     <label for="prix">Prix</label>
-                    <input type="number" step="0.01" min = 0 class="form-control" id="prix" name="prix">
+                    <input type="number" step="0.01" min = 0 class="form-control" id="prix" name="prix" required>
                 </div>
                 <div class="form-group">
                     <label for="quantite">Quantite</label>
-                    <input type="number" min = 0 class="form-control" id="quantite" name="quantite">
+                    <input type="number" min = 0 class="form-control" id="quantite" name="quantite" required>
                 </div>
                 <div class="form-group">
                     <label for="isLaptop">Compatible</label>
                     <div class="form-check">
                         <label class="form-check-label" for="portable">Compatible avec ordinateur portable</label>
-                        <input type="checkbox" class="form-check-input" id="portable" name="portable">
+                        <input type="radio" class="form-check-input" id="portable" name="portable" value="on" required>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="tour">Compatible avec ordinateur fixe</label>
-                        <input type="checkbox" class="form-check-input" id="tour" name="tour">
+                        <input type="radio" class="form-check-input" id="tour" name="portable" value="off" required>
                     </div>
                 </div>
                 
@@ -188,55 +189,55 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
             echo '
                     <div class="form-group">
                         <label for="puissance">Puissance (en W)</label>
-                        <input type="number" min=0 class="form-control" name="puissance">
+                        <input type="number" min=0 class="form-control" name="puissance" required>
                     </div>';
         } elseif ($_POST['categorie'] == "Carte Graphique") {
             echo '
                     <div class="form-group">
                         <label for="chipset">Chipset</label>
-                        <input type="text" class="form-control" name="chipset">
+                        <input type="text" class="form-control" name="chipset" required>
                     </div>
                     <div class="form-group">
                         <label for="memoire">Mémoire (en Go)</label>
-                        <input type="number" class="form-control" name="memoire">
+                        <input type="number" class="form-control" name="memoire" required>
                     </div>';
         } elseif ($_POST['categorie'] == "Carte Mere") {
             echo '
                     <div class="form-group">
                         <label for="socket">Socket / chipset</label>
-                        <input type="text" class="form-control" name="socket">
+                        <input type="text" class="form-control" name="socket" required>
                     </div>
                     <div class="form-group">
                         <label for="format">Format (ATX, micro-ATX, etc.)</label>
-                        <input type="text" class="form-control" name="format">
+                        <input type="text" class="form-control" name="format" required>
                     </div>';
         } elseif ($_POST['categorie'] == "Processeur") {
             echo '
                     <div class="form-group">
                         <label for="frequence">Fréquence CPU (en GHz)</label>
-                        <input type="number" step="0.01" min = 0 class="form-control" name="frequence">
+                        <input type="number" step="0.01" min = 0 class="form-control" name="frequence" required>
                     </div>
                     <div class="form-group">
                         <label for="nbcoeurs">Nombre de cœurs</label>
-                        <input type="number" class="form-control" name="nbcoeurs">
+                        <input type="number" class="form-control" name="nbcoeurs" required>
                     </div>
                     <div class="form-group">
                         <label for="chipsetCompatible">Chipsets compatibles</label>
-                        <input type="text" class="form-control" name="chipsetCompatible">
+                        <input type="text" class="form-control" name="chipsetCompatible" required>
                     </div>';
         } elseif ($_POST['categorie'] == "Memoire vive") {
             echo '
                 <div class="form-group">
                     <label for="capacite">Capacité (en Go)</label>
-                    <input type="number" class="form-control" name="capacite">
+                    <input type="number" class="form-control" name="capacite" required>
                 </div>
                 <div class="form-group">
                     <label for="nbBarrettes">Nombre de barrettes</label>
-                    <input type="number" class="form-control" name="nbBarrettes">
+                    <input type="number" class="form-control" name="nbBarrettes" required>
                 </div>
                 <div class="form-group">
                     <label for="type">Type + Fréquence + norme mémoire (exemple : DDR4 3200 MHz PC4-25600)</label>
-                    <input type="text" class="form-control" name="type">
+                    <input type="text" class="form-control" name="type" required>
                 </div>';
         } elseif ($_POST['categorie'] == "Clavier") {
             echo '
@@ -264,7 +265,7 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
                     </div>
                     <div class="form-group">
                         <label for="typeTouche">Type de touches</label>
-                        <input type="text" class="form-control" name="typeTouche">
+                        <input type="text" class="form-control" name="typeTouche" required>
                     </div>
                     ';
         } elseif ($_POST['categorie'] == "Souris") {
@@ -282,14 +283,14 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
                 </div>
                 <div class="form-group">
                     <label for="nbTouche">Nombre de touches</label>
-                    <input type="number" class="form-control" name="nbTouche">
+                    <input type="number" class="form-control" name="nbTouche" required>
                 </div>
                 ';
         } elseif ($_POST['categorie'] == "Ecran") {
             echo '
                 <div class="form-group">
                     <label for="taille">Taille de la diagonale</label>
-                    <input type="number" class="form-control" name="taille">
+                    <input type="number" class="form-control" name="taille" required>
                 </div>
                 ';
         } elseif ($_POST['categorie'] == "Disque dur") {
@@ -307,7 +308,7 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
                 </div>
                 <div class="form-group">
                     <label for="capaciteDisqueDur">Capacité (en Go)</label>
-                    <input type="number" class="form-control" name="capaciteDisqueDur">
+                    <input type="number" class="form-control" name="capaciteDisqueDur" required>
                 </div>
                 ';
         }
