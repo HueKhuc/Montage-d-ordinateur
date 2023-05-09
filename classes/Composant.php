@@ -29,6 +29,7 @@ class Composant
 	protected string $categorie;
 	protected float $prix;
 	protected int $quantite;
+	protected int $quantiteModele = 0;
 	protected string $datAjout;
 	protected bool $isLaptop = false;
 	protected bool $archivage = false;
@@ -120,6 +121,22 @@ class Composant
 	public function setArchivage(bool $archivage): self
 	{
 		$this->archivage = $archivage;
+		return $this;
+	}
+
+	/**
+	 * @return 
+	 */
+	public function getQuantiteModele(): int {
+		return $this->quantiteModele;
+	}
+	
+	/**
+	 * @param  $quantiteModele 
+	 * @return self
+	 */
+	public function setQuantiteModele(int $quantiteModele): self {
+		$this->quantiteModele = $quantiteModele;
 		return $this;
 	}
 }

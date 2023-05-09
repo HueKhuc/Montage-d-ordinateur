@@ -1,16 +1,18 @@
 <?php
 class Modele {
-  protected int $id;
+  protected int $Id_Modele;
   protected string $nom;
   protected int $quantite;
   protected bool $portable;
   protected string $dateAjout;
+
+  protected int $Id_Utilisateur;
   
 	public function getId(): int {
-		return $this->id;
+		return $this->Id_Modele;
 	}
 	public function setId(int $id): self {
-		$this->id = $id;
+		$this->Id_Modele = $id;
 		return $this;
 	}
 
@@ -43,6 +45,22 @@ class Modele {
 	}
 	public function setDateAjout(string $dateAjout): self {
 		$this->dateAjout = $dateAjout;
+		return $this;
+	}
+
+	/**
+	 * @return 
+	 */
+	public function getIdUtilisateur(): int {
+		return $this->Id_Utilisateur;
+	}
+	
+	/**
+	 * @param  $Id_Utilisateur 
+	 * @return self
+	 */
+	public function setIdUtilisateur(int $Id_Utilisateur): self {
+		$this->Id_Utilisateur = $Id_Utilisateur;
 		return $this;
 	}
 }
