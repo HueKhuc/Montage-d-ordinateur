@@ -12,6 +12,17 @@ class Composant
 		'souris' => 'Souris',
 		'processeur' => 'Processeur',
 	];
+	const LIMITS = [
+		'alimentation' => 1,
+		'carte_mere' => 1,
+		'disque_dur' => 4,
+		'memoire_vive' => 4,
+		'carte_graphique' => 2,
+		'clavier' => 1,
+		'ecran' => 3,
+		'souris' => 1,
+		'processeur' => 1,
+	];
 	protected int $Id_Composant;
 	protected string $nom;
 	protected string $marque;
