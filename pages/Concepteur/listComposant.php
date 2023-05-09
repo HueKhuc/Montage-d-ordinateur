@@ -67,46 +67,48 @@ $piecesfilter = new PiecesFilter($_POST, $results);
     </div>
 </form>
 
-<div class='mt-5'>
-    <h2 class='text-center m-3 text-uppercase'>Liste de pièces</h2>
-    <form method="POST" action="">
-        <div class="col-2 my-5 mx-2 d-flex flex-row">
-            <select class="form-select p-1" aria-label="Default select example" name="trier">
-                <option selected class="text-center">#</option>
-                <option value="quantite" <?php if ($tri === 'quantite') {
-                    echo 'selected';
-                } ?>>
-                    Quantité en stock
-                </option>
-                <option value="nom" <?php if ($tri === 'nom') {
-                    echo 'selected';
-                } ?>>
-                    Nom
-                </option>
-                <option value="marque" <?php if ($tri === 'marque') {
-                    echo 'selected';
-                } ?>>
-                    Marque
-                </option>
-                <option value="prix" <?php if ($tri === 'prix') {
-                    echo 'selected';
-                } ?>>
-                    Prix
-                </option>
-                <option value="datAjout" <?php if ($tri === 'datAjout') {
-                    echo 'selected';
-                } ?>>
-                    Date d'ajout
-                </option>
-                <option value="modele" <?php if ($tri === 'modele') {
-                    echo 'selected';
-                } ?>>
-                    Modèles créés avec cette pièce
-                </option>
-            </select>
-            <input type="submit" name="submit" value="Trier" />
-        </div>
-    </form>
+<!-- tri de tableau-->
+<div class="container">
+    <div class='mt-5'>
+        <h2 class='text-center m-3 text-uppercase'>Liste de pièces</h2>
+        <form method="POST" action="">
+            <div class="col-2 my-5 mx-2 d-flex flex-row">
+                <select class="form-select p-1" aria-label="Default select example" name="trier">
+                    <option selected class="text-center">#</option>
+                    <option value="quantite" <?php if ($tri === 'quantite') {
+                        echo 'selected';
+                    } ?>>
+                        Quantité en stock
+                    </option>
+                    <option value="nom" <?php if ($tri === 'nom') {
+                        echo 'selected';
+                    } ?>>
+                        Nom
+                    </option>
+                    <option value="marque" <?php if ($tri === 'marque') {
+                        echo 'selected';
+                    } ?>>
+                        Marque
+                    </option>
+                    <option value="prix" <?php if ($tri === 'prix') {
+                        echo 'selected';
+                    } ?>>
+                        Prix
+                    </option>
+                    <option value="datAjout" <?php if ($tri === 'datAjout') {
+                        echo 'selected';
+                    } ?>>
+                        Date d'ajout
+                    </option>
+                    <option value="modele" <?php if ($tri === 'modele') {
+                        echo 'selected';
+                    } ?>>
+                        Modèles créés avec cette pièce
+                    </option>
+                </select>
+                <input type="submit" name="submit" value="Trier" />
+            </div>
+        </form>
 
     <!-- Liste de pièces -->
     <table class="table table-striped table-hover">
@@ -139,7 +141,16 @@ $piecesfilter = new PiecesFilter($_POST, $results);
                         <td> </td>
                         <td>' . $categorie . '</td>
                     </tr>';
-            } ?>
-        </tbody>
-    </table>
+                } ?>
+            </tbody>
+        </table>
+    </div>
+    <!-- bouton ajouter pièce -->
+    <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur'){
+        echo '
+    <div class="m5 d-flex justify-content-end">
+        <a type="button" class="btn btn-outline-dark" href="?page=concepteur/createComposant">Ajouter une nouvelle
+            pièce</a>
+    </div>'; 
+}?>
 </div>

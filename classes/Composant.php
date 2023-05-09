@@ -24,11 +24,11 @@ class Composant
 		'processeur' => 1,
 	];
 	protected int $Id_Composant;
-	protected string $nom;
+	protected string $nom = '';
 	protected string $marque;
 	protected string $categorie;
-	protected float $prix;
-	protected int $quantite;
+	protected float $prix = 0.0;
+	protected int $quantite = 0;
 	protected int $quantiteModele = 0;
 	protected string $datAjout;
 	protected bool $isLaptop = false;
