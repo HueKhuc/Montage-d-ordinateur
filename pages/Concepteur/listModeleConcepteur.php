@@ -5,7 +5,6 @@ $sth->setFetchMode(PDO::FETCH_CLASS, Modele::class);
 $sth->execute();
 $results = $sth->fetchAll();
 
-$modele = [];
 
 
 
@@ -27,17 +26,19 @@ $modele = [];
         <tbody class="table-group-divider">
             <?php
             foreach ($results as $key=>$modele ) {
+                $id = $modele->getId();
                 $nom = $modele->getNom();
                 $quantite = $modele->getQuantite();
                 $portable = $modele->getPortable();
                 $dateAjout = $modele->getDateAjout();
                 echo
                     '<tr>
-                        <th scope="row">' . $key . '</th>
+                        <th scope="row">' . $id . '</th>
                         <td>' . $nom . '</td>
                         <td class="text-center">' . $quantite . '</td>
-                        <td class="text-end">' . $portable . '</td>
+                        <td class="text-center">' . $portable . '</td>
                         <td>' . $dateAjout . '</td>
+                        <td><a class="navbar-brand" href="?page=commun/detailModele&id='.$id.'">Detail</a></td>
                     </tr>';
             } ?>
         </tbody>
