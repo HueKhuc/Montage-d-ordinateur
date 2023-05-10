@@ -1,8 +1,22 @@
 <?php
 class MemoireVive extends Composant {
-  protected string $capacite;
-  protected int $nbBarrettes;
-  protected string $type;
+	protected string $capacite;
+	protected int $nbBarrettes;
+	protected string $type;
+
+	public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+        if (!empty($data['capacite'])) {
+            $this->setCapacite($data['capacite']);
+        }
+		if (!empty($data['nbBarrettes'])) {
+            $this->setNbBarrettes($data['nbBarrettes']);
+        }
+		if (!empty($data['type'])) {
+            $this->setType($data['type']);
+        }
+    }
 
 	public function getCapacite(): string {
 		return $this->capacite;
@@ -27,5 +41,12 @@ class MemoireVive extends Composant {
 		$this->type = $type;
 		return $this;
 	}
+
+	public function getMore(): string
+	{
+		return 'Capacite : '.$this->getCapacite().', NbBarrette : '.$this->getNbBarrettes().', Type : '.$this->getType();
+		
+	}
+
 }
 ?>

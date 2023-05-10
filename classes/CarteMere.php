@@ -4,6 +4,17 @@ class CarteMere extends Composant {
     protected string $socket;
     protected string $format;
 
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+        if (!empty($data['socket'])) {
+            $this->setSocket($data['socket']);
+        }
+        if (!empty($data['format'])) {
+            $this->setFormat($data['format']);
+        }
+    }
+
     public function getSocket(): string
     {
         return $this->socket;
@@ -24,5 +35,10 @@ class CarteMere extends Composant {
         $this->format = $format;
         return $this;
     }
+
+    public function getMore(): string
+	{
+		return 'Socket : '.$this->getSocket(). ', Format : '.$this->getFormat();
+	}
 }
 ?>
