@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="./Styles/bootstrap.css">
   <link rel="stylesheet" href="./Styles/style.css">
 </head>
-
 <body>
   <div>
     <br>
@@ -16,7 +15,7 @@
     <br>
   </div>
     <footer class="d-flex flex-wrap justify-content-start align-items-center py-3 my-4 border-top bg-dark text-white">
-      <p class="col-md-4 mb-0">PMO © 2023</p>
+      <p class="col-md-4 mb-0">CLDL © 2023</p>
       <a href="/"
         class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
         <svg class="bi me-2" width="40" height="32">
@@ -26,9 +25,8 @@
       <ul class="nav col-md-4 justify-content-end">
         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Accueil</a></li>
         <li class="nav-item"><a href="?page=concepteur/listComposant" class="nav-link px-2 text-white">Liste de pièces</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Liste de modèles</a></li>
+        <li class="nav-item"><a href="?page=commun/login" class="nav-link px-2 text-white">Connexion</a></li>
       </ul>
     </footer>
 </body>
-
 </html>
