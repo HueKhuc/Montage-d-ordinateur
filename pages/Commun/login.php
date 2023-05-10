@@ -48,8 +48,6 @@ if (isset($_POST["nom"]) && isset($_POST["password"])) {
         </div>
         <?php
     }
-?>
-<?php
 }
 ?>
 <div class="container-fluid">
@@ -58,7 +56,6 @@ if (isset($_POST["nom"]) && isset($_POST["password"])) {
             <div class="form-group m-5">
                 <label for="nom">Nom</label>
                 <input type="text" class="textCenter form-control" id="nom" name="nom" placeholder="gerard545">
-
             </div>
             <div class="resize form-group m-5">
                 <label for="exampleInputPassword1">Mot de passe</label>

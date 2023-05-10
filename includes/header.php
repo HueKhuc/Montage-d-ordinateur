@@ -5,16 +5,14 @@ require_once 'config.inc.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><?= $pageTitle ?></title>
     <link rel="stylesheet" href="./Styles/bootstrap.css">
     <link rel="stylesheet" href="./Styles/style.css">
 </head>
-
 <body>
     <header>
         <nav class="navbar navbar-dark navbar-expand-lg bg-dark" data-bs-theme="dark">
@@ -25,7 +23,7 @@ require_once 'config.inc.php';
                     } elseif (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
                         echo "Conception d'ordinateur";
                     } else { 
-                        echo "PMO"; 
+                        echo "CLDL"; 
                     } ?>
                     </a>
                     <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
@@ -41,7 +39,7 @@ require_once 'config.inc.php';
                             <li class="nav-item">
                                 <a class="nav-link active" href="?page=concepteur/listComposant">
                                     <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'monteur') {
-                        echo "Liste des pièces"; 
+                        echo "Liste des composants"; 
                     } elseif (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
                         echo "Ajout pièces";
                     }?>
@@ -93,7 +91,6 @@ require_once 'config.inc.php';
                                     href="?page=commun/inscription">S'inscrire</a>
                             </li>
                                 <?php
-
                             } ?>
                         </ul>
 
@@ -106,18 +103,14 @@ require_once 'config.inc.php';
             <div class="alert alert-success" role="alert">
                 Vous êtes connecté !
             </div>
-            <?php
+        <?php
         }
-
-
         if (isset($_GET['logout']) && $_GET['logout'] == "success") {
             ?>
             <div class="alert alert-success" role="alert">
-                Vous êtes deconnecté !
+            Vous êtes deconnecté !
             </div>
-
-            <?php
-
+        <?php
         }
         ?>
     </header>

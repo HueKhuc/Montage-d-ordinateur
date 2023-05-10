@@ -1,4 +1,5 @@
 <?php
+$pageTitle = "Liste des composants";
 $sql_order = 'SELECT nom, marque, quantite, prix, categorie, datAjout, isLaptop FROM composant';
 $tri = '';
 if (isset($_POST['trier'])) {
@@ -46,7 +47,7 @@ $piecesfilter = new PiecesFilter($_POST, $results);
         } ?>">
 
         <label for="quantite">En stock</label>
-        <input type="checkbox" name="quantite" id="quantite" value="1" <?php if ($piecesfilter->getQuantite()) {
+        <input type="checkbox" name="quantite" id="quantite" value="1" checked <?php if ($piecesfilter->getQuantite()) {
             echo "checked";
         } ?>>
 
@@ -69,7 +70,7 @@ $piecesfilter = new PiecesFilter($_POST, $results);
 <!-- tri de tableau-->
 <div class="container">
     <div class='mt-5'>
-        <h2 class='text-center m-3 text-uppercase'>Liste de pièces</h2>
+        <h2 class='text-center m-3 text-uppercase'>Liste des composants</h2>
         <form method="POST" action="">
             <div class="col-2 my-5 mx-2 d-flex flex-row">
                 <select class="form-select p-1" aria-label="Default select example" name="trier">
