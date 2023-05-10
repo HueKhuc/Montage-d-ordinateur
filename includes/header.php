@@ -32,9 +32,7 @@ require_once 'config.inc.php';
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">
-                                <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'monteur') {
-                                    echo "Liste des modèles"; 
-                                    } elseif (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
+                                <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
                                     echo "Statistiques";
                                     }
                                 ?>       
@@ -70,11 +68,18 @@ require_once 'config.inc.php';
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link active" href="?page=monteur/listModeleMonteur">
+                                <?php
+                                if (isset($_SESSION['type']) && $_SESSION['type'] == 'monteur') { 
+                                    echo "Liste modèles";
+                                }
+                                ?>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active" href="#">
                                 <?php 
-                                if (isset($_SESSION['type']) && $_SESSION['type'] == 'monteur') {
-                                    echo "Commentaires "; 
-                                } elseif (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
+                                if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
                                     echo "Stock";
                                 }      
                                 ?>
