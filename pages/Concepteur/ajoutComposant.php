@@ -129,7 +129,7 @@ $id = $db->lastInsertId();
 if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
     echo
 '<div class="container">
-    <h4 class="text-center m-5">Ajouter une nouvelle pièce</h4>
+    <h4 class="text-center m-5">Ajouter un nouveau composant</h4>
         <form class="d-flex flex-row gap-3 align-items-end mb-3" method="POST">
             <div class="form-group">
                 <label for="categorie">Catégorie</label>
