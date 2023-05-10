@@ -1,10 +1,27 @@
 <?php
 class Processeur extends Composant {
 
-  protected float $frequence;
-  protected int $nbCoeurs;
-  protected string $chipsetCompatible;
-  
+	protected float $frequence;
+	protected int $nbCoeurs;
+	protected string $chipsetCompatible;
+
+	public function __construct(array $data = [])
+	{
+		parent::__construct($data);
+		
+		if (!empty($data['frequence'])) {
+			$this->setFrequence($data['frequence']);
+		}
+		if (!empty($data['nbCoeurs'])) {
+			$this->setNbCoeurs($data['nbCoeurs']);
+		}
+		if (!empty($data['chipsetCompatible'])) {
+			$this->setChipsetCompatible($data['chipsetCompatible']);
+		}
+		
+
+	}
+
 	public function getFrequence(): float {
 		return $this->frequence;
 	}
@@ -27,6 +44,11 @@ class Processeur extends Composant {
 	public function setChipsetCompatible(string $chipsetCompatible): self {
 		$this->chipsetCompatible = $chipsetCompatible;
 		return $this;
+	}
+
+	public function getMore(): string
+	{
+		return 'Frequence : '.$this->getFrequence().'Htz, Nombre de coeurs :'.$this->getNbCoeurs(). ', Chipset :'.$this->getChipsetCompatible();
 	}
 }
 ?>

@@ -34,6 +34,40 @@ class Composant
 	protected bool $isLaptop = false;
 	protected bool $archivage = false;
 
+	public function __construct(array $data = [])
+	{
+		if (!empty($data['Id_Composant'])) {
+			$this->setId($data['Id_Composant']);
+		}
+		if (!empty($data['nom'])) {
+			$this->setNom($data['nom']);
+		}
+		if (!empty($data['marque'])) {
+			$this->setMarque($data['marque']);
+		}
+		if (!empty($data['categorie'])) {
+			$this->setCategorie($data['categorie']);
+		}
+		if (!empty($data['prix'])) {
+			$this->setPrix($data['prix']);
+		}
+		if (!empty($data['quantite'])) {
+			$this->setQuantite($data['quantite']);
+		}
+		if (!empty($data['quantiteModele'])) {
+			$this->setQuantiteModele($data['quantiteModele']);
+		}
+		if (!empty($data['datAjout'])) {
+			$this->setDatAjout($data['datAjout']);
+		}
+		if (!empty($data['isLaptop'])) {
+			$this->setIsLaptop($data['isLaptop']);
+		}
+		if (!empty($data['archivage'])) {
+			$this->setArchivage($data['archivage']);
+		}
+	}
+
 	public function getId(): int
 	{
 		return $this->Id_Composant;
@@ -138,6 +172,11 @@ class Composant
 	public function setQuantiteModele(int $quantiteModele): self {
 		$this->quantiteModele = $quantiteModele;
 		return $this;
+	}
+
+	public function getMore(): string
+	{
+		return '';
 	}
 }
 ?>

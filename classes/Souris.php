@@ -1,15 +1,28 @@
 <?php
 class Souris extends Composant {
-    protected bool $sansFil;
+    protected bool $sansFilSouris = false;
     protected int $nbTouche;
+
+    public function __construct(array $data = [])
+	{
+		parent::__construct($data);
+		
+		if (!empty($data['nbTouche'])) {
+			$this->setNbTouche($data['nbTouche']);
+		}
+		if (!empty($data['sansFilSouris'])) {
+			$this->setSansFil($data['sansFilSouris']);
+		}
+
+	}
 
     public function getSansFil(): bool
     {
-        return $this->sansFil;
+        return $this->sansFilSouris;
     }
     public function setSansFil(bool $sansFil): self
     {
-        $this->sansFil = $sansFil;
+        $this->sansFilSouris = $sansFil;
         return $this;
     }
 
@@ -22,5 +35,10 @@ class Souris extends Composant {
         $this->nbTouche = $nbTouche;
         return $this;
     }
+
+    public function getMore(): string
+	{
+		return 'Nb de touche : '.$this->getNbTouche().', Sans Fil : '.($this->getSansFil() ? 'oui':'non');
+	}
 }
 ?>
