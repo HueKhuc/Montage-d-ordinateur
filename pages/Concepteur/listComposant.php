@@ -66,7 +66,6 @@ $piecesfilter = new PiecesFilter($_POST, $results);
         <button type="submit" class="btn btn-primary">Filtrer</button>
     </div>
 </form>
-
 <!-- tri de tableau-->
 <div class="container">
     <div class='mt-5'>
@@ -109,7 +108,6 @@ $piecesfilter = new PiecesFilter($_POST, $results);
                 <input type="submit" name="submit" value="Trier" />
             </div>
         </form>
-
     <!-- Liste de pièces -->
     <table class="table table-striped table-hover">
         <thead>
@@ -121,6 +119,7 @@ $piecesfilter = new PiecesFilter($_POST, $results);
                 <th scope="col" class="text-center">Prix</th>
                 <th scope="col" class="text-center">Nombre de modèles créés avec cette pièce</th>
                 <th scope="col">Catégories</th>
+                <th scope="col">Archiver</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -139,8 +138,12 @@ $piecesfilter = new PiecesFilter($_POST, $results);
                         <td class="text-center">' . $quantite . '</td>
                         <td class="text-end">' . $prix . '</td>
                         <td> </td>
-                        <td>' . $categorie . '</td>
-                    </tr>';
+                        <td>' . $categorie . '</td>;';
+                        if ($quantite == 0) {
+                            echo '<td> <button type="submit" class="btn btn-primary">Archiver</button> </td>';
+                        }
+                        
+                echo    '</tr>';
                 } ?>
             </tbody>
         </table>

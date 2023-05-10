@@ -1,6 +1,5 @@
 <?php
 $pageTitle = "Connexion";
-var_dump($_POST);
 $loginErrors = [];
 if (isset($_POST["nom"]) && isset($_POST["password"])) {
     $password = $_POST["password"];

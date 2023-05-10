@@ -48,17 +48,9 @@ class Modele {
 		return $this;
 	}
 
-	/**
-	 * @return 
-	 */
 	public function getIdUtilisateur(): int {
 		return $this->Id_Utilisateur;
 	}
-	
-	/**
-	 * @param  $Id_Utilisateur 
-	 * @return self
-	 */
 	public function setIdUtilisateur(int $Id_Utilisateur): self {
 		$this->Id_Utilisateur = $Id_Utilisateur;
 		return $this;
