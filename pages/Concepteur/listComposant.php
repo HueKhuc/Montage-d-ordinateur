@@ -24,6 +24,8 @@ $sth->execute();
 $results = $sth->fetchAll();
 $piecesfilter = new PiecesFilter($_POST, $results);
 ?>
+
+<!-- Filtre de la liste composant -->
 <form action="" method="post" class="container">
     <div class="d-flex flex-column gap-2 mt-5">
     <label for="categorie">Catégorie :</label>
@@ -67,7 +69,8 @@ $piecesfilter = new PiecesFilter($_POST, $results);
         <button type="submit" class="btn btn-primary">Filtrer</button>
     </div>
 </form>
-<!-- tri de tableau-->
+
+<!-- Tri de la liste composant -->
 <div class="container">
     <div class='mt-5'>
         <h2 class='text-center m-3 text-uppercase'>Liste des composants</h2>
@@ -109,7 +112,7 @@ $piecesfilter = new PiecesFilter($_POST, $results);
                 <input type="submit" name="submit" value="Trier" />
             </div>
         </form>
-    <!-- Liste de pièces -->
+    <!-- Liste de composants -->
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -149,12 +152,13 @@ $piecesfilter = new PiecesFilter($_POST, $results);
             </tbody>
         </table>
     </div>
-    <!-- bouton ajouter pièce -->
+
+    <!-- Bouton ajouter composant -->
     <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur'){
         echo '
     <div class="m5 d-flex justify-content-end">
-        <a type="button" class="btn btn-outline-dark" href="?page=concepteur/createComposant">Ajouter une nouvelle
-            pièce</a>
+        <a type="button" class="btn btn-outline-dark" href="?page=concepteur/ajoutComposant">Ajouter un nouveau
+            composant</a>
     </div>'; 
 }?>
 </div>

@@ -52,7 +52,7 @@ require_once 'config.inc.php';
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="?page=concepteur/createModele">
+                            <a class="nav-link active" href="?page=concepteur/ajoutModele">
                                 <?php 
                                 if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
                                     echo "Créa/Modif modèle";
