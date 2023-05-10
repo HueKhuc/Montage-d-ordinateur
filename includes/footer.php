@@ -1,32 +1,21 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="./Styles/bootstrap.css">
-  <link rel="stylesheet" href="./Styles/style.css">
-</head>
-<body>
-  <div>
-    <br>
-    <br>
-    <br>
-  </div>
-    <footer class="d-flex flex-wrap justify-content-start align-items-center py-3 my-4 border-top bg-dark text-white">
-      <p class="col-md-4 mb-0">CLDL © 2023</p>
-      <a href="/"
-        class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <svg class="bi me-2" width="40" height="32">
-          <use xlink:href="#bootstrap"></use>
-        </svg>
-      </a>
-      <ul class="nav col-md-4 justify-content-end">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Accueil</a></li>
-        <li class="nav-item"><a href="?page=concepteur/listComposant" class="nav-link px-2 text-white">Liste de pièces</a></li>
-        <li class="nav-item"><a href="?page=commun/login" class="nav-link px-2 text-white">Connexion</a></li>
-      </ul>
-    </footer>
-</body>
-</html>
+<footer class="d-flex flex-wrap justify-content-start align-items-center py-3 my-4 border-top bg-dark text-white">
+  <ul class="nav col-md-4 justify-content-between">
+    <li class="nav-item"><p class="nav-link px-2 text-white">CLDL © 2023</p></li>
+    <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Accueil</a></li>
+    <?php
+    if (isset($_SESSION['nom'])) {
+    ?>
+      <li class="nav-item text-white">
+        <a class="nav-link" href="?page=commun/logout">Deconnexion</a>
+      </li>
+      <?php
+      } else {
+      ?>
+    <li class="nav-item">
+      <a class="nav-link text-white" href="?page=commun/login" >Connexion</a>
+    </li>
+    <?php
+    }
+    ?>
+  </ul>
+</footer>
