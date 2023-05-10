@@ -36,7 +36,7 @@ $sql->bindValue(':idModele', $id, PDO::PARAM_INT);
 $sql->execute();
 $res = $sql->fetchAll();
 
-var_dump($res);
+// var_dump($res);
 
 $results = [];
 foreach ($res as $composantTab) {
@@ -68,7 +68,7 @@ foreach ($res as $composantTab) {
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($results as $composant){ var_dump($composant);?>
+            <?php foreach ($results as $composant){ ?>
             <tr>
                 <td><?php echo $composant->getNom(); ?></td>
                 <td><?php echo $composant->getQuantiteModele(); ?></td>
