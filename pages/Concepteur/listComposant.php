@@ -1,5 +1,4 @@
 <?php
-$pageTitle = "Liste des composants";
 $sql_order = 'SELECT nom, marque, quantite, prix, categorie, datAjout, isLaptop, Id_Composant FROM composant';
 $tri = '';
 if (isset($_POST['trier'])) {
@@ -64,7 +63,7 @@ $piecesfilter = new PiecesFilter($_POST, $results);
         <input type="number" name="prixmax" id="prixmax" value="<?php if ($piecesfilter->getPrixmax()) {
             echo $piecesfilter->getPrixmax();
         } ?>">
-        <input  type="number" name="id" value="<?php if ($piecesfilter->getId()) {
+        <input hidden type="number" name="id" value="<?php if ($piecesfilter->getId()) {
             echo $piecesfilter->getId();
         } ?>">
         <button type="submit" class="btn btn-primary">Filtrer</button>
@@ -146,7 +145,7 @@ $piecesfilter = new PiecesFilter($_POST, $results);
                         <td class="text-end align-middle">' . $prix . '</td>
                         <td class="align-middle"> </td>
                         <td class="align-middle">' . $categorie . '</td>
-                        <td> <a type="button" class="btn btn-outline-dark align-middle" href="?page=concepteur/modifierComposant&id='.$id.'">Modifier</a> </td>
+                        <td> <a type="button" class="btn btn-outline-dark align-middle" href="?page=concepteur/modifComposant&id='.$id.'">Modifier</a> </td>
 ';
                         if ($quantite == 0) {
                             echo '<td> <button type="submit" class="btn btn-primary">Archiver</button> </td>';

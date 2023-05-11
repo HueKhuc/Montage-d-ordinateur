@@ -1,5 +1,4 @@
 <?php
-
 // Récupération de données de la table Composant
 if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
     $id = $_GET['id'];

@@ -6,7 +6,7 @@ $sth->execute();
 $results = $sth->fetchAll();
 ?>
 <h1>Liste des Modèles</h1>
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover"> 
     <thead>
         <tr>
             <th scope="col">ID</th>
@@ -36,3 +36,12 @@ $results = $sth->fetchAll();
             }?>
     </tbody>
 </table>
+<!-- Bouton ajouter composant -->
+<?php 
+if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur'){
+    echo 
+        '<div class="m5 d-flex justify-content-end">
+            <a type="button" class="btn btn-outline-dark" href="?page=concepteur/ajoutModele">Ajouter un nouveau modèle</a>
+        </div>'; 
+}
+?>
