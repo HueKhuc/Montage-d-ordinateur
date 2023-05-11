@@ -7,6 +7,15 @@ $pdoStat->setFetchMode(PDO::FETCH_CLASS, Modele::class);
 $pdoStat->execute();
 $modele = $pdoStat->fetch();
 
+$pdo = $db->prepare('SELECT utilisateur.nom,
+modele.Id_Utilisateur FROM utilisateur
+LEFT JOIN modele ON utilisateur.Id_Utilisateur = modele.Id_Utilisateur
+WHERE modele.Id_Modele = :id');
+$pdo->bindValue(':id', $id, PDO::PARAM_INT);
+$pdo->setFetchMode(PDO::FETCH_CLASS, Utilisateur::class);
+$pdo->execute();
+$util = $pdo->fetch();
+
 $sql = $db->prepare("SELECT 
 composant.*,
 assembler.quantite as quantiteModele,
@@ -48,7 +57,8 @@ foreach ($res as $composantTab) {
 <div class="m-3">
     <p><strong>Nom :</strong> <?php echo $modele->getNom(); ?> </p>
     <p><strong>Portable :</strong> <?php echo $modele->getPortable() ? 'Oui' : 'Non'; ?> </p>
-    <p><strong>Quantité :</strong> <?php echo $modele->getQuantite(); ?> </p>
+    <p><strong>Quantité :</strong> <?php echo $modele->getQuantite(); ?></p>
+    <p><strong>Concepteur :</strong> <?php echo $util->getNom(); ?></p>
 </div>
 
 <!-- Composants du modèle -->
@@ -74,4 +84,5 @@ foreach ($res as $composantTab) {
             <?php } ?>
         </tbody>
     </table>
+    
 </div>
