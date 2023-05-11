@@ -177,6 +177,7 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
                         <input type="radio" class="form-check-input" id="tour" name="portable" value="off" required>
                     </div>
                 </div>';
+                
 // Ajout des caractéristiques spécifiques des composants
         if ($_POST['categorie'] == "Alimentation") {
             echo 

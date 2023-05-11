@@ -7,7 +7,6 @@ $pdoStat->setFetchMode(PDO::FETCH_CLASS, Modele::class);
 $pdoStat->execute();
 $modele = $pdoStat->fetch();
 
-
 $sql = $db->prepare("SELECT 
 composant.*,
 assembler.quantite as quantiteModele,
@@ -36,26 +35,23 @@ $sql->bindValue(':idModele', $id, PDO::PARAM_INT);
 $sql->execute();
 $res = $sql->fetchAll();
 
-// var_dump($res);
-
 $results = [];
 foreach ($res as $composantTab) {
     $categorie = str_replace(' ', '', $composantTab['categorie']);
     $composantObj = new $categorie($composantTab);
     $results[] = $composantObj;
 }
-
-
 ?>
 
+<!-- Infos du modèle -->
 <h1 class="text-center mt-5">Détails du modèle</h1>
-
 <div class="m-3">
-    <p><strong>Nom :</strong> <?php echo $modele->getNom(); ?></p>
-    <p><strong>Portable :</strong> <?php echo $modele->getPortable() ? 'Oui' : 'Non'; ?></p>
-    <p><strong>Quantité :</strong> <?php echo $modele->getQuantite(); ?></p>
+    <p><strong>Nom :</strong> <?php echo $modele->getNom(); ?> </p>
+    <p><strong>Portable :</strong> <?php echo $modele->getPortable() ? 'Oui' : 'Non'; ?> </p>
+    <p><strong>Quantité :</strong> <?php echo $modele->getQuantite(); ?> </p>
 </div>
 
+<!-- Composants du modèle -->
 <div class="m-3">
     <h2>Composants</h2>
     <table class="table">
@@ -73,11 +69,9 @@ foreach ($res as $composantTab) {
                 <td><?php echo $composant->getNom(); ?></td>
                 <td><?php echo $composant->getQuantiteModele(); ?></td>
                 <td><?php echo $composant->getCategorie(); ?></td>
-                <td><?php echo $composant->getMore(); ?></td>
-                
+                <td><?php echo $composant->getMore(); ?></td>                
             </tr>
             <?php } ?>
         </tbody>
     </table>
 </div>
-

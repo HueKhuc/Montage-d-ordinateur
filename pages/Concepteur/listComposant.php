@@ -30,34 +30,32 @@ $piecesfilter = new PiecesFilter($_POST, $results);
     <div class="d-flex flex-column gap-2 mt-5">
     <label for="categorie">Catégorie :</label>
     <select name="categorie" id="categorie">
-      <option value=""></option>
-      <?php
-      foreach (Composant::CATEGORIES as $id => $categorie) {
+        <option value=""></option>
+        <?php
+        foreach (Composant::CATEGORIES as $id => $categorie) {
         ?>
-        <option value="<?= $categorie ?>" <?php if ($piecesfilter->getCategorie() == $categorie) {
+        <option value="<?= $categorie ?>" 
+        <?php if ($piecesfilter->getCategorie() == $categorie) {
             echo 'selected';
-          } ?>>
-          <?= $categorie ?>
+        }?>>
+            <?= $categorie ?>
         </option>
         <?php
-      }
-      ?>
+        }
+        ?>
     </select>
         <label for="marque">Marque :</label>
         <input type="text" name="marque" id="marque" value="<?php if ($piecesfilter->getMarque()) {
             echo $piecesfilter->getMarque();
         } ?>">
-
         <label for="quantite">En stock</label>
         <input type="checkbox" name="quantite" id="quantite" value="1" checked <?php if ($piecesfilter->getQuantite()) {
             echo "checked";
         } ?>>
-
         <label for="islaptop">Compatible PC portable</label>
         <input type="checkbox" name="islaptop" id="islaptop" value="1" <?php if ($piecesfilter->getIsLaptop()) {
             echo "checked";
         } ?>>
-
         <label for="prixmin">Prix min :</label>
         <input type="number" name="prixmin" id="prixmin" value="<?php if ($piecesfilter->getPrixmin()) {
             echo $piecesfilter->getPrixmin();
@@ -112,53 +110,56 @@ $piecesfilter = new PiecesFilter($_POST, $results);
                 <input type="submit" name="submit" value="Trier" />
             </div>
         </form>
-    <!-- Liste de composants -->
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nom de la pièce </th>
-                <th scope="col">Marque</th>
-                <th scope="col" class="text-center">Quantité en stock</th>
-                <th scope="col" class="text-center">Prix</th>
-                <th scope="col" class="text-center">Nombre de modèles créés avec cette pièce</th>
-                <th scope="col">Catégories</th>
-                <th scope="col">Archiver</th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            <?php
-            foreach ($piecesfilter->getComposants() as $key => $composant) {
-                $nom = $composant->getNom();
-                $marque = $composant->getMarque();
-                $quantite = $composant->getQuantite();
-                $prix = number_format($composant->getPrix(), 2);
-                $categorie = $composant->getCategorie();
-                echo
-                    '<tr>
-                        <th scope="row">' . $key + 1 . '</th>
-                        <td>' . $nom . '</td>
-                        <td>' . $marque . '</td>
-                        <td class="text-center">' . $quantite . '</td>
-                        <td class="text-end">' . $prix . '</td>
-                        <td> </td>
-                        <td>' . $categorie . '</td>;';
-                        if ($quantite == 0) {
-                            echo '<td> <button type="submit" class="btn btn-primary">Archiver</button> </td>';
-                        }
-                        
-                echo    '</tr>';
-                } ?>
-            </tbody>
-        </table>
-    </div>
 
-    <!-- Bouton ajouter composant -->
-    <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur'){
-        echo '
-    <div class="m5 d-flex justify-content-end">
-        <a type="button" class="btn btn-outline-dark" href="?page=concepteur/ajoutComposant">Ajouter un nouveau
-            composant</a>
-    </div>'; 
-}?>
+<!-- Liste des composants -->
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom de la pièce </th>
+            <th scope="col">Marque</th>
+            <th scope="col" class="text-center">Quantité en stock</th>
+            <th scope="col" class="text-center">Prix</th>
+            <th scope="col" class="text-center">Nombre de modèles créés avec cette pièce</th>
+            <th scope="col">Catégories</th>
+            <th scope="col">Archiver</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    <?php
+        foreach ($piecesfilter->getComposants() as $key => $composant) {
+            $nom = $composant->getNom();
+            $marque = $composant->getMarque();
+            $quantite = $composant->getQuantite();
+            $prix = number_format($composant->getPrix(), 2);
+            $categorie = $composant->getCategorie();
+            echo
+                '<tr>
+                    <th scope="row">' . $key + 1 . '</th>
+                    <td>' . $nom . '</td>
+                    <td>' . $marque . '</td>
+                    <td class="text-center">' . $quantite . '</td>
+                    <td class="text-end">' . $prix . '</td>
+                    <td> </td>
+                    <td>' . $categorie . '</td>;';
+                    if ($quantite == 0) {
+                        echo '<td> <button type="submit" class="btn btn-primary">Archiver</button> </td>';
+                    }                        
+            echo 
+                '</tr>';
+        }
+    ?>
+    </tbody>
+</table>
+</div>
+
+<!-- Bouton ajouter composant -->
+<?php 
+if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur'){
+    echo 
+        '<div class="m5 d-flex justify-content-end">
+            <a type="button" class="btn btn-outline-dark" href="?page=concepteur/ajoutComposant">Ajouter un nouveau composant</a>
+        </div>'; 
+}
+?>
 </div>

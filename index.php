@@ -6,10 +6,8 @@ if (isset($_GET['page'])) {
 }
 require_once 'pages/' . $page .'.php';
 require_once 'includes/footer.php';
-?>
 
-<?php
- /*
+/*
 $pages = [
   'home'                => 'Accueil',
   'inscription'         => 'Inscription',
@@ -34,5 +32,5 @@ $pageTitle = $pages[$page];
 require_once 'includes/header.php';
 include 'pages/' . $page . '.php';
 require_once 'includes/footer.php';
-*/
-?> 
+*/ 
+?>
