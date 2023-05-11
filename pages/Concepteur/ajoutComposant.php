@@ -1,6 +1,6 @@
 <?php
 // Récupération de données de la table Composant
-$sqlClass = 'SELECT * FROM composant';
+$sqlClass = 'SELECT * FROM composant'; 
 $sth = $db->prepare($sqlClass);
 $sth->setFetchMode(PDO::FETCH_CLASS, Composant::class);
 $sth->execute();
@@ -9,7 +9,7 @@ $results = $sth->fetchAll();
 if (isset($_POST['piece'])) {
     echo '<div class="alert alert-success my-5" role="alert">Done</div>';
 
-    //L'insertion de données dans la table Composant
+// Insertion de données dans la table Composant
     $sqlInsertComposant = 'INSERT INTO composant(nom, marque, categorie, prix, quantite, isLaptop, archivage)
         VALUES (:nom, :marque, :categorie, :prix, :quantite, :isLaptop, :archivage)';
 
@@ -32,7 +32,7 @@ if (isset($_POST['piece'])) {
     $pdoStatement->execute();
     $id = $db->lastInsertId();
 
-    //L'insertion de données dans les tables enfants
+// Insertion de données dans les tables enfants
     if ($categorie == 'Alimentation') {
         $sql = 'INSERT INTO alimentation(Id_Composant, puissance)
         VALUES (:id, :puissance)';
@@ -127,7 +127,7 @@ if (isset($_POST['piece'])) {
     $stmt->execute($params);
 }
 
-// formulaire d'ajouter pièce
+// Formulaire d'ajout composant
 if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
     echo '
 <div class="container">
@@ -182,7 +182,7 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
                 </div>
                 
         ';
-        // Chaque type de pièces a des caractéristiques spécifiques
+// Chaque type de composant a des caractéristiques spécifiques
         if ($_POST['categorie'] == "Alimentation") {
             echo '
                     <div class="form-group">

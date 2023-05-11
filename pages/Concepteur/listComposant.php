@@ -1,5 +1,21 @@
 <?php
-$sql_order = 'SELECT nom, marque, quantite, prix, categorie, datAjout, isLaptop, Id_Composant FROM composant';
+$sql_order = 'SELECT nom, marque, composant.quantite, prix, categorie, datAjout, isLaptop, composant.Id_Composant, COUNT(DISTINCT assembler.Id_Modele) AS quantiteModele 
+FROM composant 
+    LEFT JOIN assembler ON assembler.Id_Composant = composant.Id_Composant
+GROUP BY composant.Id_Composant';
+
+if (isset($_GET['id'])) {
+    echo '<div class="alert alert-success my-5" role="alert">Done</div>';
+    
+$sqlUpdateArchivage = 'UPDATE composant 
+                       SET archivage = :archivage
+                       WHERE Id_Composant = :id';
+$pdoStatement = $db->prepare($sqlUpdateArchivage);
+$pdoStatement->bindValue(':archivage', 1, PDO::PARAM_BOOL);
+$pdoStatement->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+$pdoStatement->execute();
+}
+
 $tri = '';
 if (isset($_POST['trier'])) {
     $tri = $_POST['trier'];
@@ -27,28 +43,27 @@ $piecesfilter = new PiecesFilter($_POST, $results);
 <!-- Filtre de la liste composant -->
 <form action="" method="post" class="container">
     <div class="d-flex flex-column gap-2 mt-5">
-    <label for="categorie">Catégorie :</label>
-    <select name="categorie" id="categorie">
-        <option value=""></option>
-        <?php
-        foreach (Composant::CATEGORIES as $id => $categorie) {
-        ?>
-        <option value="<?= $categorie ?>" 
-        <?php if ($piecesfilter->getCategorie() == $categorie) {
-            echo 'selected';
-        }?>>
-            <?= $categorie ?>
-        </option>
-        <?php
-        }
-        ?>
-    </select>
+        <label for="categorie">Catégorie :</label>
+        <select name="categorie" id="categorie">
+            <option value=""></option>
+            <?php
+            foreach (Composant::CATEGORIES as $id => $categorie) {
+            ?>
+                <option value="<?= $categorie ?>" <?php if ($piecesfilter->getCategorie() == $categorie) {
+                      echo 'selected';
+                  } ?>>
+                    <?= $categorie ?>
+                </option>
+            <?php
+            }
+            ?>
+        </select>
         <label for="marque">Marque :</label>
         <input type="text" name="marque" id="marque" value="<?php if ($piecesfilter->getMarque()) {
             echo $piecesfilter->getMarque();
         } ?>">
         <label for="quantite">En stock</label>
-        <input type="checkbox" name="quantite" id="quantite" value="1" checked <?php if ($piecesfilter->getQuantite()) {
+        <input type="checkbox" name="quantite" id="quantite" value="1" <?php if ($piecesfilter->getQuantite()) {
             echo "checked";
         } ?>>
         <label for="islaptop">Compatible PC portable</label>
@@ -112,59 +127,62 @@ $piecesfilter = new PiecesFilter($_POST, $results);
                 <input type="submit" name="submit" value="Trier" />
             </div>
         </form>
-    <!-- Liste de composants -->
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nom de la pièce </th>
-                <th scope="col">Marque</th>
-                <th scope="col" class="text-center">Quantité en stock</th>
-                <th scope="col" class="text-center">Prix</th>
-                <th scope="col" class="text-center">Nombre de modèles créés avec cette pièce</th>
-                <th scope="col">Catégories</th>
-                <th scope="col" class="text-center">Action</th>
-                <th scope="col">Archiver</th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            <?php
-            foreach ($piecesfilter->getComposants() as $key => $composant) {
-                $nom = $composant->getNom();
-                $marque = $composant->getMarque();
-                $quantite = $composant->getQuantite();
-                $prix = number_format($composant->getPrix(), 2);
-                $categorie = $composant->getCategorie();
-                $id = $composant->getId();
-                echo
-                    '<tr>
-                        <th scope="row" class="align-middle">' . $key + 1 . '</th>
-                        <td class="align-middle">' . $nom . '</td>
-                        <td class="align-middle">' . $marque . '</td>
-                        <td class="text-center align-middle">' . $quantite . '</td>
-                        <td class="text-end align-middle">' . $prix . '</td>
-                        <td class="align-middle"> </td>
-                        <td class="align-middle">' . $categorie . '</td>
-                        <td> <a type="button" class="btn btn-outline-dark align-middle" href="?page=concepteur/modifComposant&id='.$id.'">Modifier</a> </td>
-';
-                        if ($quantite == 0) {
-                            echo '<td> <button type="submit" class="btn btn-primary">Archiver</button> </td>';
-                        }
-                        
-                echo    '</tr>';
-                } ?>
+        <!-- Liste de composants -->
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">#</th>
+                    <th scope="col" class="text-center">Nom du composant</th>
+                    <th scope="col" class="text-center">Marque</th>
+                    <th scope="col" class="text-center">Quantité en stock</th>
+                    <th scope="col" class="text-center">Prix</th>
+                    <th scope="col" class="text-center">Nombre de modèles créés avec cette pièce</th>
+                    <th scope="col" class="text-center">Catégorie</th>
+                    <th scope="col" class="text-center">Action</th>
+                    <th scope="col" class="text-center">Archiver</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <?php
+                foreach ($piecesfilter->getComposants() as $key => $composant) {
+                    $nom = $composant->getNom();
+                    $marque = $composant->getMarque();
+                    $quantite = $composant->getQuantite();
+                    $prix = number_format($composant->getPrix(), 2);
+                    $categorie = $composant->getCategorie();
+                    $quantitemodele = $composant->getQuantiteModele();
+                    $id = $composant->getId();
+                    echo
+                        '<tr>
+                            <th scope="row" class="align-middle">' . $key + 1 . '</th>
+                            <td class="text-center align-middle">' . $nom . '</td>
+                            <td class="text-center align-middle">' . $marque . '</td>
+                            <td class="text-center align-middle">' . $quantite . '</td>
+                            <td class="text-center align-middle">' . $prix . '</td>
+                            <td class="text-center align-middle">' . $quantitemodele . '</td>
+                            <td class="text-center align-middle">' . $categorie . '</td>
+                            <td>'; if ($quantitemodele == 0) {
+                                echo '<a type="button" class="btn btn-outline-dark align-middle" href="?page=concepteur/modifComposant&id=' . $id . '">Modifier</a> 
+                            </td>';
+                                 }
+                            echo '<td> 
+                                <a type="button" class="btn btn-danger align-middle" href="?page=concepteur/listComposant&id=' .$id. '">Archiver</a>
+                            </td>
+                        </tr>';                    
+                } 
+            ?>
             </tbody>
         </table>
     </div>
 
 
-<!-- Bouton ajouter composant -->
-<?php 
-if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur'){
-    echo 
-        '<div class="m5 d-flex justify-content-end">
+    <!-- Bouton ajouter composant -->
+    <?php
+    if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
+        echo
+            '<div class="m5 d-flex justify-content-end">
             <a type="button" class="btn btn-outline-dark" href="?page=concepteur/ajoutComposant">Ajouter un nouveau composant</a>
-        </div>'; 
-}
-?>
+        </div>';
+    }
+    ?>
 </div>

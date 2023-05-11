@@ -1,7 +1,7 @@
 <?php
 class PiecesFilter
 {
-	protected int $quantite = 0;
+	protected int $quantite = 1;
 	protected string $marque = '';
 	protected float $prixmin = 0;
 	protected float $prixmax = 0;
@@ -13,8 +13,10 @@ class PiecesFilter
 	public function __construct(array $postdata, array $composants)
 	{
 		$this->composants = $composants;
-		if (!empty($postdata['quantite'])) {
-			$this->setQuantite(trim($postdata['quantite']));
+		if (!empty($postdata) && !isset($postdata['quantite'])) {
+			$this->setQuantite(0);
+		} else {
+			$this->setQuantite(1);
 		}
 		if (!empty($postdata['marque'])) {
 			$this->setMarque(trim($postdata['marque']));
@@ -42,9 +44,11 @@ class PiecesFilter
 	}
 	public function setQuantite(int $quantite): self
 	{
-		$this->composants = array_filter($this->composants, function (Composant $composant): bool {
-			return $composant->getQuantite() > 0;
-		});
+		if ($quantite > 0) {
+			$this->composants = array_filter($this->composants, function (Composant $composant): bool {
+				return $composant->getQuantite() > 0;
+			});
+		}
 		$this->quantite = $quantite;
 		return $this;
 	}
@@ -119,16 +123,17 @@ class PiecesFilter
 		return $this->composants;
 	}
 
-	public function getId(): int {
+	public function getId(): int
+	{
 		return $this->Id_Composant;
 	}
 
-	public function setId(int $Id_Composant): self 
+	public function setId(int $Id_Composant): self
 	{
-		$this->composants = array_filter($this->composants, function (Composant $composant) use ($Id_Composant) : bool {
+		$this->composants = array_filter($this->composants, function (Composant $composant) use ($Id_Composant): bool {
 			return $Id_Composant == $composant->getId();
 		});
-		$this->Id_Composant = $Id_Composant;	
+		$this->Id_Composant = $Id_Composant;
 		return $this;
 	}
 
