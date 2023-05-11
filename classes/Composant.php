@@ -23,7 +23,7 @@ class Composant
 		'souris' => 1,
 		'processeur' => 1,
 	];
-	protected int $Id_Composant = 0 ;
+	protected int $Id_Composant = 0;
 	protected string $nom = '';
 	protected string $marque;
 	protected string $categorie;
@@ -161,15 +161,17 @@ class Composant
 	/**
 	 * @return 
 	 */
-	public function getQuantiteModele(): int {
+	public function getQuantiteModele(): int
+	{
 		return $this->quantiteModele;
 	}
-	
+
 	/**
 	 * @param  $quantiteModele 
 	 * @return self
 	 */
-	public function setQuantiteModele(int $quantiteModele): self {
+	public function setQuantiteModele(int $quantiteModele): self
+	{
 		$this->quantiteModele = $quantiteModele;
 		return $this;
 	}
