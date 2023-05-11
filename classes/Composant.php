@@ -23,7 +23,7 @@ class Composant
 		'souris' => 1,
 		'processeur' => 1,
 	];
-	protected int $Id_Composant;
+	protected int $Id_Composant = 0 ;
 	protected string $nom = '';
 	protected string $marque;
 	protected string $categorie;

@@ -1,5 +1,6 @@
 <?php
-$sql_order = 'SELECT nom, marque, quantite, prix, categorie, datAjout, isLaptop FROM composant';
+$pageTitle = "Liste des composants";
+$sql_order = 'SELECT nom, marque, quantite, prix, categorie, datAjout, isLaptop, Id_Composant FROM composant';
 $tri = '';
 if (isset($_POST['trier'])) {
     $tri = $_POST['trier'];
@@ -63,6 +64,9 @@ $piecesfilter = new PiecesFilter($_POST, $results);
         <input type="number" name="prixmax" id="prixmax" value="<?php if ($piecesfilter->getPrixmax()) {
             echo $piecesfilter->getPrixmax();
         } ?>">
+        <input  type="number" name="id" value="<?php if ($piecesfilter->getId()) {
+            echo $piecesfilter->getId();
+        } ?>">
         <button type="submit" class="btn btn-primary">Filtrer</button>
     </div>
 </form>
@@ -109,48 +113,51 @@ $piecesfilter = new PiecesFilter($_POST, $results);
                 <input type="submit" name="submit" value="Trier" />
             </div>
         </form>
+    <!-- Liste de composants -->
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom de la pièce </th>
+                <th scope="col">Marque</th>
+                <th scope="col" class="text-center">Quantité en stock</th>
+                <th scope="col" class="text-center">Prix</th>
+                <th scope="col" class="text-center">Nombre de modèles créés avec cette pièce</th>
+                <th scope="col">Catégories</th>
+                <th scope="col" class="text-center">Action</th>
+                <th scope="col">Archiver</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <?php
+            foreach ($piecesfilter->getComposants() as $key => $composant) {
+                $nom = $composant->getNom();
+                $marque = $composant->getMarque();
+                $quantite = $composant->getQuantite();
+                $prix = number_format($composant->getPrix(), 2);
+                $categorie = $composant->getCategorie();
+                $id = $composant->getId();
+                echo
+                    '<tr>
+                        <th scope="row" class="align-middle">' . $key + 1 . '</th>
+                        <td class="align-middle">' . $nom . '</td>
+                        <td class="align-middle">' . $marque . '</td>
+                        <td class="text-center align-middle">' . $quantite . '</td>
+                        <td class="text-end align-middle">' . $prix . '</td>
+                        <td class="align-middle"> </td>
+                        <td class="align-middle">' . $categorie . '</td>
+                        <td> <a type="button" class="btn btn-outline-dark align-middle" href="?page=concepteur/modifierComposant&id='.$id.'">Modifier</a> </td>
+';
+                        if ($quantite == 0) {
+                            echo '<td> <button type="submit" class="btn btn-primary">Archiver</button> </td>';
+                        }
+                        
+                echo    '</tr>';
+                } ?>
+            </tbody>
+        </table>
+    </div>
 
-<!-- Liste des composants -->
-<table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nom de la pièce </th>
-            <th scope="col">Marque</th>
-            <th scope="col" class="text-center">Quantité en stock</th>
-            <th scope="col" class="text-center">Prix</th>
-            <th scope="col" class="text-center">Nombre de modèles créés avec cette pièce</th>
-            <th scope="col">Catégories</th>
-            <th scope="col">Archiver</th>
-        </tr>
-    </thead>
-    <tbody class="table-group-divider">
-    <?php
-        foreach ($piecesfilter->getComposants() as $key => $composant) {
-            $nom = $composant->getNom();
-            $marque = $composant->getMarque();
-            $quantite = $composant->getQuantite();
-            $prix = number_format($composant->getPrix(), 2);
-            $categorie = $composant->getCategorie();
-            echo
-                '<tr>
-                    <th scope="row">' . $key + 1 . '</th>
-                    <td>' . $nom . '</td>
-                    <td>' . $marque . '</td>
-                    <td class="text-center">' . $quantite . '</td>
-                    <td class="text-end">' . $prix . '</td>
-                    <td> </td>
-                    <td>' . $categorie . '</td>;';
-                    if ($quantite == 0) {
-                        echo '<td> <button type="submit" class="btn btn-primary">Archiver</button> </td>';
-                    }                        
-            echo 
-                '</tr>';
-        }
-    ?>
-    </tbody>
-</table>
-</div>
 
 <!-- Bouton ajouter composant -->
 <?php 

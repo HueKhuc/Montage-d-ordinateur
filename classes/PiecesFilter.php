@@ -8,6 +8,7 @@ class PiecesFilter
 	protected string $categorie = '';
 	protected bool $isLaptop = false;
 	protected array $composants = [];
+	protected int $Id_Composant = 0;
 
 	public function __construct(array $postdata, array $composants)
 	{
@@ -29,6 +30,9 @@ class PiecesFilter
 		}
 		if (!empty($postdata['islaptop'])) {
 			$this->setIsLaptop($postdata['islaptop']);
+		}
+		if (!empty($postdata['id'])) {
+			$this->setId($postdata['id']);
 		}
 	}
 
@@ -114,5 +118,19 @@ class PiecesFilter
 	{
 		return $this->composants;
 	}
+
+	public function getId(): int {
+		return $this->Id_Composant;
+	}
+
+	public function setId(int $Id_Composant): self 
+	{
+		$this->composants = array_filter($this->composants, function (Composant $composant) use ($Id_Composant) : bool {
+			return $Id_Composant == $composant->getId();
+		});
+		$this->Id_Composant = $Id_Composant;	
+		return $this;
+	}
+
 }
 ?>
