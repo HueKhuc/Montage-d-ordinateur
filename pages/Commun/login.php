@@ -1,5 +1,4 @@
 <?php
-$pageTitle = "Connexion"; 
 $loginErrors = [];
 
 // Récupération et comparaison des données POST avec la BDD

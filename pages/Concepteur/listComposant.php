@@ -1,5 +1,4 @@
 <?php
-$pageTitle = "Liste des composants";
 $sql_order = 'SELECT nom, marque, quantite, prix, categorie, datAjout, isLaptop FROM composant';
 $tri = '';
 if (isset($_POST['trier'])) {

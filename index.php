@@ -1,28 +1,20 @@
-<?php 
-require_once 'includes/header.php';
-$page = 'commun/home';
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-}
-require_once 'pages/' . $page .'.php';
-require_once 'includes/footer.php';
+<?php
 
-/*
 $pages = [
-  'home'                => 'Accueil',
-  'inscription'         => 'Inscription',
-  'login'               => 'Connexion',
-  'logout'              => 'Déconnexion',
-  'listComposant'       => 'Liste des composants',
-  'ajoutComposant'      => 'Ajouter un composant',
-  'modifComposant'      => 'Modifier un composant',
-  'stockComposant'      => 'Gestion du stock',
-  'statistics'          => 'Statistiques',
-  'formReponse'         => 'Formulaire de réponse',
-  'listModele'          => 'Liste des modèles',
-  'detailModele'        => 'Détails du modèle',
-  'ajoutModele'         => 'Ajouter un modèle',
-  'modifModele'         => 'Modifier un modèle',
+  'commun/home'                              => 'Accueil',
+  'commun/inscription'                       => 'Inscription',
+  'commun/login'                             => 'Connexion',
+  'commun/logout'                            => 'Déconnexion',
+  'concepteur/listComposant'                 => 'Liste des composants',
+  'concepteur/ajoutComposant'                => 'Ajouter un composant',
+  'concepteur/modifComposant'                => 'Modifier un composant',
+  'concepteur/stockComposant'                => 'Gestion du stock',
+  'concepteur/statistics'                    => 'Statistiques',
+  'concepteur/formReponse'                   => 'Formulaire de réponse',
+  'concepteur/listModeleConcepteur'          => 'Liste des modèles',
+  'commun/detailModele'                      => 'Détails du modèle',
+  'commun/ajoutModele'                       => 'Ajouter un modèle',
+  'concepteur/modifModele'                   => 'Modifier un modèle',
 ];
 $page = $_GET['page'];
 if (isset($_GET['page']) && in_array($_GET['page'], $pages)) {
@@ -32,5 +24,5 @@ $pageTitle = $pages[$page];
 require_once 'includes/header.php';
 include 'pages/' . $page . '.php';
 require_once 'includes/footer.php';
-*/ 
+
 ?>

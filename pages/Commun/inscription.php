@@ -1,5 +1,4 @@
 <?php
-$pageTitle = "Inscription";
 
 // Récupération des données POST
 if (isset($_POST["nom"]) && isset($_POST["password"])) {
