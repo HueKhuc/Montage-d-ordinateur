@@ -2,36 +2,31 @@
 // Récupération de données de la table Composant
 if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
     $id = $_GET['id'];
+
     if (isset($_POST['modifier'])) {
         echo '<div class="alert alert-success my-5" role="alert">Done</div>';
-        //L'insertion de données dans la table Composant
+        // L'insertion de données dans la table Composant
         $sqlUpdateComposant = '
-            UPDATE  composant
+            UPDATE composant
             SET nom = :nom,
                 marque = :marque,
                 prix = :prix,
                 quantite = :quantite,
-                isLaptop = :isLaptop,
-                archivage = :archivage
+                isLaptop = :isLaptop
             WHERE Id_Composant = :idComposant';
         $pdoStatement = $db->prepare($sqlUpdateComposant);
-        $portable = 0;
-        if ($_POST['portable'] == 'on') {
-            $portable = 1;
-        }
-        $archivage = 0;
-        $categorie = $_POST['categorie'];
+
         $pdoStatement->bindValue(':nom', $_POST['nom'], PDO::PARAM_STR);
         $pdoStatement->bindValue(':marque', $_POST['marque'], PDO::PARAM_STR);
         $pdoStatement->bindValue(':prix', $_POST['prix'], PDO::PARAM_INT);
         $pdoStatement->bindValue(':quantite', $_POST['quantite'], PDO::PARAM_INT);
-        $pdoStatement->bindValue(':isLaptop', $portable, PDO::PARAM_INT);
-        $pdoStatement->bindValue(':archivage', $archivage, PDO::PARAM_INT);
+        $pdoStatement->bindValue(':isLaptop', $_POST['portable'], PDO::PARAM_INT);
         $pdoStatement->bindValue(':idComposant', $id, PDO::PARAM_INT);
 
         $pdoStatement->execute();
 
         //L'insertion de données dans les tables enfants
+        $categorie = $_POST['categorie'];
         if ($categorie == 'Alimentation') {
             $sql = 'UPDATE alimentation
                     SET puissance = :puissance
@@ -87,14 +82,6 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
 
             ];
         } elseif ($categorie == 'Clavier') {
-            $fil = 0;
-            if ($_POST['avecFil'] == 'on') {
-                $fil = 1;
-            }
-            $pave = 0;
-            if ($_POST['avecPave'] == 'on') {
-                $pave = 1;
-            }
             $sql = 'UPDATE clavier
                     SET sansFilClavier = :sansfil,
                         paveNumerique = :pavenumerique,
@@ -102,8 +89,8 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                     WHERE Id_Composant = :id ';
             $params = [
                 ':id' => $id,
-                ':sansfil' => $fil,
-                ':pavenumerique' => $pave,
+                ':sansfil' => $_POST['sansFil'],
+                ':pavenumerique' => $_POST['avecPave'],
                 ':typetouche' => $_POST['typeTouche'],
             ];
         } elseif ($categorie == 'Ecran') {
@@ -115,17 +102,13 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                 ':taille' => $_POST['taille'],
             ];
         } elseif ($categorie == 'Souris') {
-            $filSouris = 0;
-            if ($_POST['avecFilSouris'] == 'on') {
-                $filSouris = 1;
-            }
             $sql = 'UPDATE souris
-                    SET sansFilSouris = :sansfil,
+                    SET sansFilSouris = :sansfilSouris,
                         nbTouche = :nbTouche,
                     WHERE Id_Composant = :id ';
             $params = [
                 ':id' => $id,
-                ':sansfil' => $filSouris,
+                ':sansfilSouris' => $_POST['sansFilSouris'],
                 ':nbtouche' => $_POST['nbTouche'],
             ];
         } elseif ($categorie == 'Processeur') {
@@ -178,7 +161,7 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
         $categorie = $caracTab['categorie'];
         // $caracObj = new $categorie($caracTab);
         // $results[] = $caracObj;
-
+        // var_dump($caracTab['sansFilClavier']);
         echo '
         <div class="container">
             <h4 class="text-center m-5">Formulaire de modification de la pièce</h4>
@@ -205,20 +188,18 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                 <div class="form-group">
                     <label for="isLaptop">Compatible</label>
                     <div class="form-check">
-                        <label class="form-check-label" for="portable">Compatible avec ordinateur portable</label>
-                        <input type="radio" class="form-check-input" id="portable" name="portable" value="on" ';
+                        <input type="radio" class="form-check-input" id="portable" name="portable" value="1" ';
         if ($caracTab['isLaptop'] == 1) {
             echo 'checked';
         }
-        echo '>
+        echo '>Compatible avec ordinateur portable
                     </div>
                     <div class="form-check">
-                        <label class="form-check-label" for="tour">Compatible avec ordinateur fixe</label>
-                        <input type="radio" class="form-check-input" id="tour" name="portable" value="off"  ';
+                        <input type="radio" class="form-check-input" id="tour" name="portable" value="0"  ';
         if ($caracTab['isLaptop'] == 0) {
             echo 'checked';
         }
-        echo '>
+        echo '>Compatible avec ordinateur fixe
                     </div>
                 </div>';
         // Chaque type de pièces a des caractéristiques spécifiques
@@ -303,39 +284,35 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                             <div class="form-group">
                                 <label for="filClavier">Avec ou sans fil</label>
                                 <div class="form-check">
-                                    <label class="form-check-label" for="avecFil">Avec fil</label>
-                                    <input type="radio" class="form-check-input" id="portable" name="avecFil" ';
+                                    <input type="radio" class="form-check-input" id="avecFil" name="sansFil" value = "0" ';
             if ($caracTab['sansFilClavier'] == 0) {
                 echo 'checked';
             }
-            echo '>
+            echo '> Avec fil
                                 </div>
                                 <div class="form-check">
-                                    <label class="form-check-label" for="sansFil">Sans fil</label>
-                                    <input type="radio" class="form-check-input" id="tour" name="sansFil" ';
+                                    <input type="radio" class="form-check-input" id="sansFil" name="sansFil" value = "1"';
             if ($caracTab['sansFilClavier'] == 1) {
                 echo 'checked';
             }
-            echo '>
+            echo '> Sans fil
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="barrette">Avec ou sans pavé numérique</label>
                                 <div class="form-check">
-                                    <label class="form-check-label" for="avecPave">Avec pavé</label>
-                                    <input type="radio" class="form-check-input" id="portable" name="avecPave" ';
+                                    <input type="radio" class="form-check-input" id="avecPave" name="avecPave" ';
             if ($caracTab['paveNumerique'] == 1) {
                 echo 'checked';
             }
-            echo ' >
+            echo ' >Avec pavé
                                 </div>
                                 <div class="form-check">
-                                    <label class="form-check-label" for="sansPave">Sans pavé</label>
-                                    <input type="radio" class="form-check-input" id="tour" name="sansPave" ';
+                                    <input type="radio" class="form-check-input" id="sansPave" name="avecPave" ';
             if ($caracTab['paveNumerique'] == 0) {
                 echo 'checked';
             }
-            echo ' >
+            echo ' >Sans pavé
                                 </div>
                             </div>
                             <div class="form-group">
@@ -350,20 +327,18 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                         <div class="form-group">
                             <label for="filSouris">Avec ou sans fil</label>
                             <div class="form-check">
-                                <label class="form-check-label" for="avecFilSouris">Avec fil</label>
-                                <input type="radio" class="form-check-input" id="portable" name="avecFilSouris" ';
+                                <input type="radio" class="form-check-input" id="avecFilSouris" name="sansFilSouris" value = "0" ';
             if ($caracTab['sansFilSouris'] == 0) {
                 echo 'checked';
             }
-            echo ' >
+            echo ' >Avec fil
                             </div>
                             <div class="form-check">
-                                <label class="form-check-label" for="sansFilSouris">Sans fil</label>
-                                <input type="radio" class="form-check-input" id="tour" name="sansFilSouris" ';
+                                <input type="radio" class="form-check-input" id="sansFilSouris" name="sansFilSouris" value = "1" ';
             if ($caracTab['sansFilSouris'] == 1) {
                 echo 'checked';
             }
-            echo '>
+            echo '>Sans fil
                             </div>
                         </div>
                         <div class="form-group">
@@ -388,7 +363,7 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                             <label for="typeDisque">Type</label>
                             <div class="form-check">
                                 <label class="form-check-label" for="ssd">SSD</label>
-                                <input type="radio" class="form-check-input" id="portable" name="ssd"  ';
+                                <input type="radio" class="form-check-input" id="ssd" name="ssd" value = "1" ';
             if ($caracTab['ssd'] == 1) {
                 echo 'checked';
             }
@@ -396,7 +371,7 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label" for="disqueDur">Disque dur</label>
-                                <input type="radio" class="form-check-input" id="tour" name="disqueDur" ';
+                                <input type="radio" class="form-check-input" id="disqueDur" name="ssd" value = "0" ';
             if ($caracTab['ssd'] == 0) {
                 echo 'checked';
             }
