@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 $pages = [
   'commun/home'                              => 'Accueil',
   'commun/inscription'                       => 'Inscription',
@@ -16,13 +16,13 @@ $pages = [
   'commun/ajoutModele'                       => 'Ajouter un modèle',
   'concepteur/modifModele'                   => 'Modifier un modèle',
 ];
-$page = $_GET['page'];
-if (isset($_GET['page']) && in_array($_GET['page'], $pages)) {
+$page = 'commun/home';
+if (isset($_GET['page']) && array_key_exists($_GET['page'], $pages)) {
   $page = $_GET['page'];
 }
 $pageTitle = $pages[$page];
 require_once 'includes/header.php';
 include 'pages/' . $page . '.php';
 require_once 'includes/footer.php';
-
+ob_end_flush();
 ?>
