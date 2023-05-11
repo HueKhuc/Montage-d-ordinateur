@@ -413,7 +413,7 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                         ';
         }
         echo '
-                <button type="submit" class="btn btn-primary my-3" name = "modifier" href="?page=concepteur/modifierComposant">Envoyer</button>
+                <button type="submit" class="btn btn-primary my-3" name = "modifier" href="?page=concepteur/modifComposant">Envoyer</button>
             </form>
 </div>
         ';

@@ -31,7 +31,7 @@ require_once 'config.inc.php';
                 <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
+                            <a class="nav-link active" aria-current="page" href="?page=concepteur/statistics">
                                 <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
                                     echo "Statistiques";
                                     }
@@ -53,7 +53,7 @@ require_once 'config.inc.php';
                             <a class="nav-link active" href="?page=concepteur/ajoutModele">
                                 <?php 
                                 if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
-                                    echo "Créa/Modif modèle";
+                                    echo "Ajout modèle";
                                 }
                                 ?>
                             </a>
@@ -62,7 +62,7 @@ require_once 'config.inc.php';
                             <a class="nav-link active" href="?page=concepteur/listModeleConcepteur">
                                 <?php
                                 if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
-                                    echo "Liste modèle";
+                                    echo "Liste modèles";
                                 }
                                 ?>
                             </a>
@@ -77,7 +77,7 @@ require_once 'config.inc.php';
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link active" href="?page=concepteur/stockComposant">
                                 <?php 
                                 if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
                                     echo "Stock";
