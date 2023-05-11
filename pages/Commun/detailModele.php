@@ -84,5 +84,7 @@ foreach ($res as $composantTab) {
             <?php } ?>
         </tbody>
     </table>
-    
+</div>
+<div>
+    <a class="btn-danger m-3" href="?page=concepteur/formReponse">Commentaires</a>
 </div>
