@@ -12,6 +12,8 @@ if (isset ($_POST['modele'])) {
             $errors[$slug] = "Trop grande quantité";
         }
     }
+
+// Insertion des données dans la table Modele
 $sqlModele = 'INSERT INTO modele(nom, portable, quantite, Id_Utilisateur)
             VALUES (:nom, :portable, :quantite, :Id_Utilisateur)';
 $pdoStat = $db->prepare($sqlModele);
@@ -31,6 +33,8 @@ $id = $db->lastInsertId();
     }
 }
 ?>
+
+<!-- Formulaire d'ajout modele -->
 <h1 class="text-center mt-5">Création ou modification modèle</h1>
 <form action="" method="post">
 <?php

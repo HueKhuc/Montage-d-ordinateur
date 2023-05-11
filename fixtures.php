@@ -24,9 +24,9 @@ TRUNCATE TABLE modele;
 SET FOREIGN_KEY_CHECKS = 1;';
 $db->exec($sqlTruncate);
 
+// Insertion des composants en BDD
 $sqlComposant = 'INSERT INTO composant(nom, marque, categorie, prix, quantite, isLaptop, archivage)
         VALUES (:nom, :marque, :categorie, :prix, :quantite, :isLaptop, :archivage)';
-
 $pdoStatement = $db->prepare($sqlComposant);
 
 $alimentation1 = new Alimentation();
@@ -467,7 +467,6 @@ $composants = [
     $processeur3,
     $processeur4,
 ];
-
 foreach ($composants as $composant) {
     $pdoStatement->bindValue(':nom', $composant->getNom(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':marque', $composant->getMarque(), PDO::PARAM_STR);
@@ -477,16 +476,15 @@ foreach ($composants as $composant) {
     $pdoStatement->bindValue(':isLaptop', $composant->getIsLaptop(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':archivage', $composant->getArchivage(), PDO::PARAM_STR);
     $count = $pdoStatement->execute();
-
     $id = $db->lastInsertId();
 
+// Insertion des caractéristiques spécifiques des composants en BDD
     if ($composant instanceof Alimentation) {
         $sql = 'INSERT INTO alimentation(Id_Composant, puissance)
         VALUES (:id, :puissance)';
         $params = [
             ':id' => $id,
-            ':puissance' => $composant->getPuissance(),
-            
+            ':puissance' => $composant->getPuissance(),            
         ];
     } elseif ($composant instanceof CarteMere) {
         $sql = 'INSERT INTO carte_mere
@@ -494,8 +492,7 @@ foreach ($composants as $composant) {
         $params = [
             ':id' => $id,
             ':socket' => $composant->getSocket(),
-            ':format' => $composant->getFormat(),
-            
+            ':format' => $composant->getFormat(),            
         ];
     } elseif ($composant instanceof DisqueDur) {
         $sql = 'INSERT INTO disque_dur
@@ -503,8 +500,7 @@ foreach ($composants as $composant) {
         $params = [
             ':id' => $id,
             ':ssd' => $composant->getSsd(),
-            ':capacite' => $composant->getCapacite(),
-            
+            ':capacite' => $composant->getCapacite(),            
         ];
     } elseif ($composant instanceof MemoireVive) {
         $sql = 'INSERT INTO memoire_vive
@@ -521,8 +517,7 @@ foreach ($composants as $composant) {
         $params = [
             ':id' => $id,
             ':chipset' => $composant->getChipset(),
-            ':memoire' => $composant->getMemoire(),
-            
+            ':memoire' => $composant->getMemoire(),            
         ];
     } elseif ($composant instanceof Clavier) {
         $sql = 'INSERT INTO clavier
@@ -531,16 +526,14 @@ foreach ($composants as $composant) {
             ':id' => $id,
             ':sansfil' => $composant->getSansFil(),
             ':pavenumerique' => $composant->getPaveNumerique(),
-            ':typetouche' => $composant->getTypeTouche(),
-            
+            ':typetouche' => $composant->getTypeTouche(),            
         ];
     } elseif ($composant instanceof Ecran) {
         $sql = 'INSERT INTO ecran
         VALUES (:id, :taille)';
         $params = [
             ':id' => $id,
-            ':taille' => $composant->getTaille(),
-            
+            ':taille' => $composant->getTaille(),            
         ];
     } elseif ($composant instanceof Souris) {
         $sql = 'INSERT INTO souris
@@ -548,8 +541,7 @@ foreach ($composants as $composant) {
         $params = [
             ':id' => $id,
             ':sansfil' => $composant->getSansFil(),
-            ':nbtouche' => $composant->getNbTouche(),
-            
+            ':nbtouche' => $composant->getNbTouche(),            
         ];
     } elseif ($composant instanceof Processeur) {
         $sql = 'INSERT INTO processeur
@@ -558,14 +550,11 @@ foreach ($composants as $composant) {
             ':id' => $id,
             ':frequence' => $composant->getFrequence(),
             ':nbcoeurs' => $composant->getNbCoeurs(),
-            ':chipsetcompatible' => $composant->getChipsetCompatible(),
-            
+            ':chipsetcompatible' => $composant->getChipsetCompatible(),            
         ];
     }
-
     $stmt = $db->prepare($sql);
     $stmt->execute($params);
-
 }
 
 
@@ -610,7 +599,4 @@ foreach ($composants as $composant) {
 
 // $stat->execute();
 // }
-
-
-
 ?>

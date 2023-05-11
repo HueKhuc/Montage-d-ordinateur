@@ -1,18 +1,11 @@
-a<?php
+<?php
 $sql_order = ('SELECT * FROM modele ');
 $sth = $db->prepare($sql_order);
 $sth->setFetchMode(PDO::FETCH_CLASS, Modele::class);
 $sth->execute();
 $results = $sth->fetchAll();
-
-
-
-
 ?>
-
 <h1>Liste Modèle</h1>
-
-
 <table class="table table-striped table-hover">
         <thead>
             <tr>
