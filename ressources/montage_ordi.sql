@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 10 mai 2023 à 14:13
+-- Généré le : ven. 12 mai 2023 à 14:52
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `montage_ordi`
 --
+CREATE DATABASE IF NOT EXISTS `montage_ordi` DEFAULT CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci;
+USE `montage_ordi`;
 
 -- --------------------------------------------------------
 
@@ -154,31 +156,18 @@ CREATE TABLE IF NOT EXISTS `ecran` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gerer`
---
-
-DROP TABLE IF EXISTS `gerer`;
-CREATE TABLE IF NOT EXISTS `gerer` (
-  `Id_Composant` int NOT NULL,
-  `Id_Gestion_stock` int NOT NULL,
-  PRIMARY KEY (`Id_Composant`,`Id_Gestion_stock`),
-  KEY `Id_Gestion_stock` (`Id_Gestion_stock`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `gestion_stock`
 --
 
 DROP TABLE IF EXISTS `gestion_stock`;
 CREATE TABLE IF NOT EXISTS `gestion_stock` (
   `Id_Gestion_stock` int NOT NULL AUTO_INCREMENT,
-  `dte` date DEFAULT NULL,
-  `nom` varchar(50) DEFAULT NULL,
-  `quantite` smallint DEFAULT NULL,
-  `entree` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`Id_Gestion_stock`)
+  `dte` datetime DEFAULT CURRENT_TIMESTAMP,
+  `quantite` smallint NOT NULL,
+  `entree` tinyint(1) NOT NULL DEFAULT '1',
+  `Id_Composant` int NOT NULL,
+  PRIMARY KEY (`Id_Gestion_stock`),
+  KEY `Id_Composant` (`Id_Composant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -205,10 +194,11 @@ CREATE TABLE IF NOT EXISTS `memoire_vive` (
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE IF NOT EXISTS `message` (
   `Id_Message` int NOT NULL AUTO_INCREMENT,
-  `dateMess` date DEFAULT NULL,
+  `dateMess` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `texte` varchar(500) DEFAULT NULL,
   `Id_Modele` int NOT NULL,
   `Id_Utilisateur` int NOT NULL,
+  `lu` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id_Message`),
   KEY `Id_Modele` (`Id_Modele`),
   KEY `Id_Utilisateur` (`Id_Utilisateur`)
@@ -341,11 +331,10 @@ ALTER TABLE `ecran`
   ADD CONSTRAINT `ecran_ibfk_1` FOREIGN KEY (`Id_Composant`) REFERENCES `composant` (`Id_Composant`);
 
 --
--- Contraintes pour la table `gerer`
+-- Contraintes pour la table `gestion_stock`
 --
-ALTER TABLE `gerer`
-  ADD CONSTRAINT `gerer_ibfk_1` FOREIGN KEY (`Id_Composant`) REFERENCES `composant` (`Id_Composant`),
-  ADD CONSTRAINT `gerer_ibfk_2` FOREIGN KEY (`Id_Gestion_stock`) REFERENCES `gestion_stock` (`Id_Gestion_stock`);
+ALTER TABLE `gestion_stock`
+  ADD CONSTRAINT `gestion_stock_ibfk_1` FOREIGN KEY (`Id_Composant`) REFERENCES `composant` (`Id_Composant`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Contraintes pour la table `memoire_vive`
