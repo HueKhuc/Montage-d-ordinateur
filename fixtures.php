@@ -29,6 +29,11 @@ $sqlComposant = 'INSERT INTO composant(nom, marque, categorie, prix, quantite, i
         VALUES (:nom, :marque, :categorie, :prix, :quantite, :isLaptop, :archivage)';
 $pdoStatement = $db->prepare($sqlComposant);
 
+$sqlStock = 'INSERT INTO gestion_stock(nom, quantite) VALUES
+(:nom, :quantite)';  
+$pdoStatementStock = $db->prepare($sqlStock);
+
+
 $alimentation1 = new Alimentation();
 $alimentation1->setNom("LUX 750");
 $alimentation1->setMarque('Aerocool');
@@ -467,6 +472,7 @@ $composants = [
     $processeur3,
     $processeur4,
 ];
+
 foreach ($composants as $composant) {
     $pdoStatement->bindValue(':nom', $composant->getNom(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':marque', $composant->getMarque(), PDO::PARAM_STR);
@@ -475,8 +481,12 @@ foreach ($composants as $composant) {
     $pdoStatement->bindValue(':quantite', $composant->getQuantite(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':isLaptop', $composant->getIsLaptop(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':archivage', $composant->getArchivage(), PDO::PARAM_STR);
+    $pdoStatementStock->bindValue(':nom', $composant->getNom(), PDO::PARAM_STR);
+$pdoStatementStock->bindValue(':quantite', $composant->getQuantite(), PDO::PARAM_INT);
+
     $count = $pdoStatement->execute();
     $id = $db->lastInsertId();
+    $pdoStatementStock->execute();
 
 // Insertion des caractéristiques spécifiques des composants en BDD
     if ($composant instanceof Alimentation) {
@@ -552,8 +562,10 @@ foreach ($composants as $composant) {
             ':nbcoeurs' => $composant->getNbCoeurs(),
             ':chipsetcompatible' => $composant->getChipsetCompatible(),            
         ];
-    }
+    } 
     $stmt = $db->prepare($sql);
     $stmt->execute($params);
+
+
 }
 ?>
