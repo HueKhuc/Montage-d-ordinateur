@@ -18,7 +18,6 @@ TRUNCATE TABLE souris;
 TRUNCATE TABLE processeur;
 TRUNCATE TABLE gestion_stock;
 TRUNCATE TABLE assembler;
-TRUNCATE TABLE gerer;
 TRUNCATE TABLE message;
 TRUNCATE TABLE modele;
 SET FOREIGN_KEY_CHECKS = 1;';
@@ -29,8 +28,8 @@ $sqlComposant = 'INSERT INTO composant(nom, marque, categorie, prix, quantite, i
         VALUES (:nom, :marque, :categorie, :prix, :quantite, :isLaptop, :archivage)';
 $pdoStatement = $db->prepare($sqlComposant);
 
-$sqlStock = 'INSERT INTO gestion_stock(nom, quantite) VALUES
-(:nom, :quantite)';  
+$sqlStock = 'INSERT INTO gestion_stock(Id_Composant, quantite) VALUES
+(:idComposant, :quantite)';  
 $pdoStatementStock = $db->prepare($sqlStock);
 
 
@@ -481,11 +480,13 @@ foreach ($composants as $composant) {
     $pdoStatement->bindValue(':quantite', $composant->getQuantite(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':isLaptop', $composant->getIsLaptop(), PDO::PARAM_STR);
     $pdoStatement->bindValue(':archivage', $composant->getArchivage(), PDO::PARAM_STR);
-    $pdoStatementStock->bindValue(':nom', $composant->getNom(), PDO::PARAM_STR);
-$pdoStatementStock->bindValue(':quantite', $composant->getQuantite(), PDO::PARAM_INT);
+    
 
     $count = $pdoStatement->execute();
     $id = $db->lastInsertId();
+
+    $pdoStatementStock->bindValue(':idComposant', $id, PDO::PARAM_INT);
+    $pdoStatementStock->bindValue(':quantite', $composant->getQuantite(), PDO::PARAM_INT);
     $pdoStatementStock->execute();
 
 // Insertion des caractéristiques spécifiques des composants en BDD
