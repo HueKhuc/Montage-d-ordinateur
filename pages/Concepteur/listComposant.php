@@ -1,21 +1,10 @@
 <?php
+
+// Tri de la liste composant
 $sql_order = 'SELECT nom, marque, composant.quantite, prix, categorie, datAjout, isLaptop, composant.Id_Composant, COUNT(DISTINCT assembler.Id_Modele) AS quantiteModele 
 FROM composant 
     LEFT JOIN assembler ON assembler.Id_Composant = composant.Id_Composant
 GROUP BY composant.Id_Composant';
-
-if (isset($_GET['id'])) {
-    echo '<div class="alert alert-success my-5" role="alert">Done</div>';
-    
-$sqlUpdateArchivage = 'UPDATE composant 
-                       SET archivage = :archivage
-                       WHERE Id_Composant = :id';
-$pdoStatement = $db->prepare($sqlUpdateArchivage);
-$pdoStatement->bindValue(':archivage', 1, PDO::PARAM_BOOL);
-$pdoStatement->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
-$pdoStatement->execute();
-}
-
 $tri = '';
 if (isset($_POST['trier'])) {
     $tri = $_POST['trier'];
@@ -38,6 +27,32 @@ $sth->setFetchMode(PDO::FETCH_CLASS, Composant::class);
 $sth->execute();
 $results = $sth->fetchAll();
 $piecesfilter = new PiecesFilter($_POST, $results);
+
+// Fonction archivage/suppression de composant
+if (isset($_GET['id'])) {
+    if (isset($_GET['delete'])) {
+        foreach (Composant::CATEGORIES as $categorie => $label) {
+            $sqlSupp = 'DELETE FROM ' . $categorie . ' WHERE Id_Composant = :id';
+            $pdoStatement = $db->prepare($sqlSupp);
+            $pdoStatement->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+            $pdoStatement->execute();
+        }
+        $sqlSupp = 'DELETE FROM composant WHERE Id_Composant = :id';
+        $pdoStatement = $db->prepare($sqlSupp);
+        $pdoStatement->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+        $pdoStatement->execute();
+        echo '<div class="alert alert-danger my-5" role="alert">Composant supprimé</div>';
+    } else {
+        $sqlUpdateArchivage = 'UPDATE composant 
+                           SET archivage = :archivage
+                           WHERE Id_Composant = :id';
+        $pdoStatement = $db->prepare($sqlUpdateArchivage);
+        $pdoStatement->bindValue(':archivage', 1, PDO::PARAM_BOOL);
+        $pdoStatement->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+        $pdoStatement->execute();
+        echo '<div class="alert alert-success my-5" role="alert">Composant archivé</div>';
+    }
+}
 ?>
 
 <!-- Filtre de la liste composant -->
@@ -48,13 +63,13 @@ $piecesfilter = new PiecesFilter($_POST, $results);
             <option value=""></option>
             <?php
             foreach (Composant::CATEGORIES as $id => $categorie) {
-            ?>
+                ?>
                 <option value="<?= $categorie ?>" <?php if ($piecesfilter->getCategorie() == $categorie) {
                       echo 'selected';
                   } ?>>
                     <?= $categorie ?>
                 </option>
-            <?php
+                <?php
             }
             ?>
         </select>
@@ -85,7 +100,7 @@ $piecesfilter = new PiecesFilter($_POST, $results);
     </div>
 </form>
 
-<!-- Tri de la liste composant -->
+<!-- Affichage du tri de la liste composant -->
 <div class="container">
     <div class='mt-5'>
         <h2 class='text-center m-3 text-uppercase'>Liste des composants</h2>
@@ -127,7 +142,8 @@ $piecesfilter = new PiecesFilter($_POST, $results);
                 <input type="submit" name="submit" value="Trier" />
             </div>
         </form>
-        <!-- Liste de composants -->
+
+<!-- Affichage de la liste de composants -->
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -138,8 +154,8 @@ $piecesfilter = new PiecesFilter($_POST, $results);
                     <th scope="col" class="text-center">Prix</th>
                     <th scope="col" class="text-center">Nombre de modèles créés avec cette pièce</th>
                     <th scope="col" class="text-center">Catégorie</th>
+                    <th scope="col" class="text-center">Modifier</th>
                     <th scope="col" class="text-center">Action</th>
-                    <th scope="col" class="text-center">Archiver</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -160,29 +176,34 @@ $piecesfilter = new PiecesFilter($_POST, $results);
                             <td class="text-center align-middle">' . $quantite . '</td>
                             <td class="text-center align-middle">' . $prix . '</td>
                             <td class="text-center align-middle">' . $quantitemodele . '</td>
-                            <td class="text-center align-middle">' . $categorie . '</td>
-                            <td>'; if ($quantitemodele == 0) {
-                                echo '<a type="button" class="btn btn-outline-dark align-middle" href="?page=concepteur/modifComposant&id=' . $id . '">Modifier</a> 
-                            </td>';
-                                 }
-                            echo '<td> 
-                                <a type="button" class="btn btn-danger align-middle" href="?page=concepteur/listComposant&id=' .$id. '">Archiver</a>
-                            </td>
-                        </tr>';                    
-                } 
-            ?>
+                            <td class="text-center align-middle">' . $categorie . '</td> 
+                            <td>';
+                    if ($quantitemodele == 0) {
+                        echo
+                            '<a type="button" class="btn btn-outline-dark align-middle" href="?page=concepteur/modifComposant&id=' . $id . '">Modifier</a>';
+                    }
+                    '</td>';
+                    if ($quantitemodele == 0 && $quantite == 0) {
+                        echo
+                            '<td><a type="button" class="btn btn-danger align-middle" name="supprimer" href="?page=concepteur/listComposant&id=' . $id . '&delete=1">Supprimer</a></td>';
+                    } else {
+                        echo '<td> 
+                                <a type="button" class="btn btn-primary align-middle" name="archiver" href="?page=concepteur/listComposant&id=' . $id . '">Archiver</a></td>';
+                    }
+                    '</tr>';
+                }
+                ?>
             </tbody>
         </table>
     </div>
 
-
-    <!-- Bouton ajouter composant -->
+    <!-- Bouton ajouter un nouveau composant -->
     <?php
     if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
         echo
             '<div class="m5 d-flex justify-content-end">
             <a type="button" class="btn btn-outline-dark" href="?page=concepteur/ajoutComposant">Ajouter un nouveau composant</a>
-        </div>';
+            </div>';
     }
     ?>
 </div>
