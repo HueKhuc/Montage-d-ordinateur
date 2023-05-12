@@ -128,7 +128,7 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
         $stmt->execute($params);
     }
 
-    // Récupération de données
+// Récupération de données
     $sqlSelect = $db->prepare("SELECT 
     composant.*,
     alimentation.*,
