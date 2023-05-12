@@ -5,8 +5,8 @@ class Modele {
   protected int $quantite;
   protected bool $portable;
   protected string $dateAjout;
-
   protected int $Id_Utilisateur;
+	protected float $prixModele = 0.0;
   
 	public function getId(): int {
 		return $this->Id_Modele;
@@ -53,6 +53,14 @@ class Modele {
 	}
 	public function setIdUtilisateur(int $Id_Utilisateur): self {
 		$this->Id_Utilisateur = $Id_Utilisateur;
+		return $this;
+	}
+
+	public function getPrixModele(): float {
+		return $this->prixModele;
+	}
+	public function setPrixModele(float $prixModele): self {
+		$this->prixModele = $prixModele;
 		return $this;
 	}
 }
