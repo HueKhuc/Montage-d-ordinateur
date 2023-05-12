@@ -50,6 +50,8 @@ foreach ($res as $composantTab) {
     $composantObj = new $categorie($composantTab);
     $results[] = $composantObj;
 }
+
+
 ?>
 
 <!-- Infos du modèle -->
@@ -85,6 +87,62 @@ foreach ($res as $composantTab) {
         </tbody>
     </table>
 </div>
-<div>
-    <a class="btn-danger m-3" href="?page=concepteur/formReponse">Commentaires</a>
+
+<?php
+// Requête pour formulaire commentaire
+
+if (isset($_POST['submit'])) {
+    echo '<div class="alert alert-success my-5" role="alert">Message envoyé</div>';
+    $statement = $db->prepare('INSERT INTO message (texte, Id_Modele, Id_Utilisateur) VALUES (:texte, :Id_Modele, :Id_Utilisateur)');
+$statement->bindValue(':texte', $_POST['commentaire'], PDO::PARAM_STR);
+$statement->bindValue(':Id_Modele', $_GET['id'], PDO::PARAM_INT);
+$statement->bindValue(':Id_Utilisateur', $_SESSION["id"], PDO::PARAM_INT);
+$statement-> execute();
+}
+
+$staCo = $db->prepare('SELECT message.*, utilisateur.nom AS userName FROM message 
+INNER JOIN utilisateur ON message.Id_Utilisateur = utilisateur.Id_Utilisateur
+WHERE Id_Modele = :idModele ORDER BY dateMess ');
+$staCo->bindValue(":idModele", $id, PDO::PARAM_INT);
+$staCo->setFetchMode(PDO::FETCH_CLASS, Message::class);
+$staCo->execute();
+$resCo = $staCo->fetchAll();
+
+$sqlUpdateCo = 'UPDATE message 
+                        SET lu = :lu
+                        WHERE Id_Modele = :id AND Id_Utilisateur != :id_utilisateur';
+        $updateCo = $db->prepare($sqlUpdateCo);
+        $updateCo->bindValue(':lu', 1, PDO::PARAM_BOOL);
+        $updateCo->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+        $updateCo->bindValue(':id_utilisateur', $_SESSION["id"], PDO::PARAM_INT);
+        $updateCo->execute();
+
+
+
+
+?>
+<div class=" container">
+    <form class="row g-3 mt-5" method="post" action="">
+        <div class="mb-3">
+            <h5>Commentaire : </h5>
+                <?php foreach ($resCo as $commentaire) { 
+                    echo '<div> le ';
+                    echo $commentaire->getDateMess().' de ';
+                    echo $commentaire->getUserName();
+                    if (!$commentaire->getLu()) {
+                        echo ' (Non-lu)';
+                    } 
+                    echo '<p>'.$commentaire->getTexte().'</p>';
+                    echo '</div>';
+                    } ?>
+        </div>
+
+        <div class="mb-3">
+            <label for="commentaire" class="form-label">Commentaire</label>
+            <textarea class="form-control" name="commentaire" id="commentaire" rows="5"></textarea>
+        </div>
+        <div class="col-12 justify-content-center">
+            <button type="submit" name="submit" class="btn btn-dark">Envoyer</button>
+        </div>
+    </form>
 </div>

@@ -32,7 +32,6 @@ $results = $sth->fetchAll();
                         <td class="text-center">' . $portable . '</td>
                         <td>' . $dateAjout . '</td>
                         <td><a class="navbar-brand" href="?page=commun/detailModele&id='.$id.'">Detail</a></td>
-                        <td><a class="navbar-brand" href="?page=monteur/formulaireValidation&id='.$id.'">Commentaire</a></td>
                         <td><a class="navbar-brand" href="?page=monteur/selectTypeComposant&id='.$id.'">Monter</a></td>
                     </tr>';
             } ?>
