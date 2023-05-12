@@ -1,6 +1,7 @@
 <?php
+
+// Tri de la liste modele
 $sql_order = ('SELECT * FROM modele ');
-// Tri de la liste composant
 $tri = '';
 if (isset($_POST['trier'])) {
     $tri = $_POST['trier'];
@@ -16,9 +17,9 @@ $sth->setFetchMode(PDO::FETCH_CLASS, Modele::class);
 $sth->execute();
 $results = $sth->fetchAll();
 ?>
+
 <div class="container">
     <h1>Liste des Modèles</h1>
-    <!-- Tri de la liste composant -->
     <form method="POST" action="">
         <div class="col-2 my-5 mx-2 d-flex flex-row">
             <select class="form-select p-1" aria-label="Default select example" name="trier">
@@ -46,11 +47,12 @@ $results = $sth->fetchAll();
                     echo '>' . $colonne['label'] . '</option>';
                 }
                 ?>
-
             </select>
             <input type="submit" name="submit" value="Trier" />
         </div>
     </form>
+
+<!-- Liste de modeles -->
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -82,13 +84,13 @@ $results = $sth->fetchAll();
         </tbody>
     </table>
 
-    <!-- Bouton ajouter composant -->
-    <?php
+<!-- Bouton ajouter composant -->
+<?php
     if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
         echo
             '<div class="m5 d-flex justify-content-end">
             <a type="button" class="btn btn-outline-dark" href="?page=concepteur/ajoutModele">Ajouter un nouveau modèle</a>
         </div>';
     }
-    ?>
+?>
 </div>
