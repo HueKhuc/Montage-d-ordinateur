@@ -1,5 +1,4 @@
 <?php
-
 // Tri de la liste composant
 $sql_order = 'SELECT nom, marque, composant.quantite, prix, categorie, datAjout, isLaptop, composant.Id_Composant, COUNT(DISTINCT assembler.Id_Modele) AS quantiteModele 
 FROM composant 

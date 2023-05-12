@@ -1,5 +1,4 @@
 <?php
-
 // Tri de la liste modele + Fonction Prix Modèle
 $sql_order = ('SELECT modele.*, sum(assembler.quantite*composant.prix) AS prixModele 
 FROM modele 
@@ -20,8 +19,33 @@ $sth = $db->prepare($sql_order);
 $sth->setFetchMode(PDO::FETCH_CLASS, Modele::class);
 $sth->execute();
 $results = $sth->fetchAll();
+$modelesfilter = new ModelesFilter($_POST, $results);
 ?>
 
+<!-- Filtre de la liste modeles -->
+<form action="" method="post" class="container">
+    <div class="d-flex flex-column gap-2 mt-5">
+        <label for="nonLus">Commentaires non-lus</label>
+        <input type="checkbox" name="nonLus" id="nonLus" value="1" <?php if ($modelesfilter->getNonLus()) {
+            echo "checked";
+        } ?>>
+        <label for="islaptop">Portable</label>
+        <input type="checkbox" name="islaptop" id="islaptop" value="1" <?php if ($modelesfilter->getIsLaptop()) {
+            echo "checked";
+        } ?>>
+        <label for="prixmin">Prix min :</label>
+        <input type="number" name="prixmin" id="prixmin" value="<?php if ($modelesfilter->getPrixmin()) {
+            echo $modelesfilter->getPrixmin();
+        } ?>">
+        <label for="prixmax">Prix max :</label>
+        <input type="number" name="prixmax" id="prixmax" value="<?php if ($modelesfilter->getPrixmax()) {
+            echo $modelesfilter->getPrixmax();
+        } ?>">
+        <button type="submit" class="btn btn-primary">Filtrer</button>
+    </div>
+</form>
+
+<!-- Affichage du tri de la liste des modèles -->
 <div class="container">
     <h1>Liste des Modèles</h1>
     <form method="POST" action="">
@@ -71,7 +95,7 @@ $results = $sth->fetchAll();
         </thead>
         <tbody class="table-group-divider">
             <?php
-            foreach ($results as $key => $modele) {
+            foreach ($modelesfilter->getModeles() as $key => $modele) {
                 $id = $modele->getId();
                 $nom = $modele->getNom();
                 $quantite = $modele->getQuantite();
