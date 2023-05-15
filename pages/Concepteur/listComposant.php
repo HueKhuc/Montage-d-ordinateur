@@ -92,8 +92,8 @@ if (isset($_GET['idComposant'])) {
         <input type="number" name="prixmax" id="prixmax" value="<?php if ($composantsfilter->getPrixmax()) {
             echo $composantsfilter->getPrixmax();
         } ?>">
-        <input hidden type="number" name="idComposant" value="<?php if ($composantsfilter->getidComposant()) {
-            echo $composantsfilter->getidComposant();
+        <input hidden type="number" name="idComposant" value="<?php if ($composantsfilter->getIdComposant()) {
+            echo $composantsfilter->getIdComposant();
         } ?>">
         <button type="submit" class="btn btn-primary">Filtrer</button>
     </div>
@@ -142,7 +142,7 @@ if (isset($_GET['idComposant'])) {
             </div>
         </form>
 
-<!-- Affichage de la liste de composants -->
+        <!-- Affichage de la liste de composants -->
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -166,7 +166,7 @@ if (isset($_GET['idComposant'])) {
                     $prix = number_format($composant->getPrix(), 2);
                     $categorie = $composant->getCategorie();
                     $quantiteModele = $composant->getQuantiteModele();
-                    $idComposant = $composant->getidComposant();
+                    $idComposant = $composant->getIdComposant();
                     echo
                         '<tr>
                             <th scope="row" class="align-middle">' . $key + 1 . '</th>

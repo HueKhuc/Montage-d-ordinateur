@@ -96,7 +96,7 @@ $modelesfilter = new ModelesFilter($_POST, $results);
         <tbody class="table-group-divider">
             <?php
             foreach ($modelesfilter->getModeles() as $key => $modele) {
-                $idModele = $modele->getidModele();
+                $idModele = $modele->getIdModele();
                 $nom = $modele->getNom();
                 $quantite = $modele->getQuantite();
                 $estPortable = $modele->getEstPortable();

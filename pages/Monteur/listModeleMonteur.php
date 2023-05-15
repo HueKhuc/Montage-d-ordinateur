@@ -7,33 +7,33 @@ $results = $sth->fetchAll();
 ?>
 <h1>Liste Modèle</h1>
 <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nom Modele</th>
-                <th scope="col" class="text-center">Quantité</th>
-                <th scope="col" class="text-center">Portable</th>
-                <th scope="col">Date Ajout</th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            <?php
-            foreach ($results as $key=>$modele ) {
-                $idModele = $modele->getidModele();
-                $nom = $modele->getNom();
-                $quantite = $modele->getQuantite();
-                $estPortable = $modele->getEstPortable();
-                $dateAjoutModele = $modele->getDateAjoutModele();
-                echo
-                    '<tr>
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom Modele</th>
+            <th scope="col" class="text-center">Quantité</th>
+            <th scope="col" class="text-center">Portable</th>
+            <th scope="col">Date Ajout</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <?php
+        foreach ($results as $key => $modele) {
+            $idModele = $modele->getIdModele();
+            $nom = $modele->getNom();
+            $quantite = $modele->getQuantite();
+            $estPortable = $modele->getEstPortable();
+            $dateAjoutModele = $modele->getDateAjoutModele();
+            echo
+                '<tr>
                         <th scope="row">' . $idModele . '</th>
                         <td>' . $nom . '</td>
                         <td class="text-center">' . $quantite . '</td>
                         <td class="text-center">' . $estPortable . '</td>
                         <td>' . $dateAjoutModele . '</td>
-                        <td><a class="navbar-brand" href="?page=commun/detailModele&idModele='.$idModele.'">Detail</a></td>
-                        <td><a class="navbar-brand" href="?page=monteur/selectTypeComposant&id='.$idModele.'">Monter</a></td>
+                        <td><a class="navbar-brand" href="?page=commun/detailModele&idModele=' . $idModele . '">Detail</a></td>
+                        <td><a class="navbar-brand" href="?page=monteur/selectTypeComposant&id=' . $idModele . '">Monter</a></td>
                     </tr>';
-            } ?>
-        </tbody>
-    </table>
+        } ?>
+    </tbody>
+</table>
