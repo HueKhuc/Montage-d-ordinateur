@@ -19,18 +19,18 @@ $results = $sth->fetchAll();
         <tbody class="table-group-divider">
             <?php
             foreach ($results as $key=>$modele ) {
-                $id = $modele->getId();
+                $idModele = $modele->getId();
                 $nom = $modele->getNom();
                 $quantite = $modele->getQuantite();
-                $portable = $modele->getPortable();
-                $dateAjout = $modele->getDateAjout();
+                $estPortable = $modele->getEstPortable();
+                $dateAjoutModele = $modele->getDateAjoutModele();
                 echo
                     '<tr>
-                        <th scope="row">' . $id . '</th>
+                        <th scope="row">' . $idModele . '</th>
                         <td>' . $nom . '</td>
                         <td class="text-center">' . $quantite . '</td>
-                        <td class="text-center">' . $portable . '</td>
-                        <td>' . $dateAjout . '</td>
+                        <td class="text-center">' . $estPortable . '</td>
+                        <td>' . $dateAjoutModele . '</td>
                         <td><a class="navbar-brand" href="?page=commun/detailModele&id='.$id.'">Detail</a></td>
                         <td><a class="navbar-brand" href="?page=monteur/selectTypeComposant&id='.$id.'">Monter</a></td>
                     </tr>';

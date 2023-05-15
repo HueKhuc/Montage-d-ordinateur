@@ -1,44 +1,45 @@
 <?php
-class Souris extends Composant {
-    protected bool $sansFilSouris = false;
-    protected int $nbTouche;
+class Souris extends Composant
+{
+    protected bool $sourisSansFil = false;
+    protected int $nbTouches;
 
     public function __construct(array $data = [])
-	{
-		parent::__construct($data);
-		
-		if (!empty($data['nbTouche'])) {
-			$this->setNbTouche($data['nbTouche']);
-		}
-		if (!empty($data['sansFilSouris'])) {
-			$this->setSansFil($data['sansFilSouris']);
-		}
+    {
+        parent::__construct($data);
 
-	}
+        if (!empty($data['nbTouches'])) {
+            $this->setnbTouches($data['nbTouches']);
+        }
+        if (!empty($data['sourisSansFil'])) {
+            $this->setSansFil($data['sourisSansFil']);
+        }
+
+    }
 
     public function getSansFil(): bool
     {
-        return $this->sansFilSouris;
+        return $this->sourisSansFil;
     }
-    public function setSansFil(bool $sansFil): self
+    public function setSansFil(bool $sourisSansFil): self
     {
-        $this->sansFilSouris = $sansFil;
+        $this->sourisSansFil = $sourisSansFil;
         return $this;
     }
 
-    public function getNbTouche(): int
+    public function getnbTouches(): int
     {
-        return $this->nbTouche;
+        return $this->nbTouches;
     }
-    public function setNbTouche(int $nbTouche): self
+    public function setnbTouches(int $nbTouches): self
     {
-        $this->nbTouche = $nbTouche;
+        $this->nbTouches = $nbTouches;
         return $this;
     }
 
     public function getMore(): string
-	{
-		return 'Nb de touche : '.$this->getNbTouche().', Sans Fil : '.($this->getSansFil() ? 'oui':'non');
-	}
+    {
+        return 'Nb de touche : ' . $this->getnbTouches() . ', Sans Fil : ' . ($this->getSansFil() ? 'oui' : 'non');
+    }
 }
 ?>

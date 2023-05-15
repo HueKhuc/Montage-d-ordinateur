@@ -1,65 +1,80 @@
 <?php
-class Modele {
-  protected int $Id_Modele;
-  protected string $nom;
-  protected int $quantite;
-  protected bool $portable;
-  protected string $dateAjout;
-  protected int $Id_Utilisateur;
+class Modele
+{
+	protected int $idModele;
+	protected string $nom;
+	protected int $quantite;
+	protected bool $estPortable;
+	protected string $dateAjoutModele;
+	protected int $idUtilisateur;
 	protected float $prixModele = 0.0;
-  
-	public function getId(): int {
-		return $this->Id_Modele;
+
+	public function getidModele(): int
+	{
+		return $this->idModele;
 	}
-	public function setId(int $id): self {
-		$this->Id_Modele = $id;
+	public function setidModele(int $idModele): self
+	{
+		$this->idModele = $idModele;
 		return $this;
 	}
 
-	public function getNom(): string {
+	public function getNom(): string
+	{
 		return $this->nom;
 	}
-	public function setNom(string $nom): self {
+	public function setNom(string $nom): self
+	{
 		$this->nom = $nom;
 		return $this;
 	}
 
-	public function getQuantite(): int {
+	public function getQuantite(): int
+	{
 		return $this->quantite;
 	}
-	public function setQuantite(int $quantite): self {
+	public function setQuantite(int $quantite): self
+	{
 		$this->quantite = $quantite;
 		return $this;
 	}
 
-	public function getPortable(): bool {
-		return $this->portable;
+	public function getEstPortable(): bool
+	{
+		return $this->estPortable;
 	}
-	public function setPortable(bool $portable): self {
-		$this->portable = $portable;
+	public function setPortable(bool $estPortable): self
+	{
+		$this->estPortable = $estPortable;
 		return $this;
 	}
 
-	public function getDateAjout(): string {
-		return $this->dateAjout;
+	public function getDateAjoutModele(): string
+	{
+		return $this->dateAjoutModele;
 	}
-	public function setDateAjout(string $dateAjout): self {
-		$this->dateAjout = $dateAjout;
+	public function setDateAjout(string $dateAjoutModele): self
+	{
+		$this->dateAjoutModele = $dateAjoutModele;
 		return $this;
 	}
 
-	public function getIdUtilisateur(): int {
-		return $this->Id_Utilisateur;
+	public function getidUtilisateur(): int
+	{
+		return $this->idUtilisateur;
 	}
-	public function setIdUtilisateur(int $Id_Utilisateur): self {
-		$this->Id_Utilisateur = $Id_Utilisateur;
+	public function setidUtilisateur(int $idUtilisateur): self
+	{
+		$this->idUtilisateur = $idUtilisateur;
 		return $this;
 	}
 
-	public function getPrixModele(): float {
+	public function getPrixModele(): float
+	{
 		return $this->prixModele;
 	}
-	public function setPrixModele(float $prixModele): self {
+	public function setPrixModele(float $prixModele): self
+	{
 		$this->prixModele = $prixModele;
 		return $this;
 	}

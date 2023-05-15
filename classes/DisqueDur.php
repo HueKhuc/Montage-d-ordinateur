@@ -1,7 +1,7 @@
 <?php
 class DisqueDur extends Composant
 {
-	protected bool $ssd = false;
+	protected bool $estSsd = false;
 	protected int $capaciteDisque;
 
 	public function __construct(array $data = [])
@@ -11,19 +11,19 @@ class DisqueDur extends Composant
 		if (!empty($data['capaciteDisque'])) {
 			$this->setCapacite($data['capaciteDisque']);
 		}
-		if (!empty($data['ssd'])) {
-			$this->setSsd($data['ssd']);
+		if (!empty($data['estSsd'])) {
+			$this->setestSsd($data['estSsd']);
 		}
 
 	}
 
-	public function getSsd(): bool
+	public function getEstSsd(): bool
 	{
-		return $this->ssd;
+		return $this->estSsd;
 	}
-	public function setSsd(bool $ssd): self
+	public function setEstSsd(bool $estSsd): self
 	{
-		$this->ssd = $ssd;
+		$this->estSsd = $estSsd;
 		return $this;
 	}
 
@@ -39,7 +39,7 @@ class DisqueDur extends Composant
 
 	public function getMore(): string
 	{
-		return 'Capacite : '.$this->getCapacite().'GO, SSD : '.($this->getSsd() ? 'oui':'non');;
+		return 'Capacite : '.$this->getCapacite().'GO, SSD : '.($this->getEstSsd() ? 'oui':'non');
 	}
 }
 ?>

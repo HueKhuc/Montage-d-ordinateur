@@ -1,23 +1,23 @@
 <?php
 // Récupération de données de la table Composant
-$sqlClass = 'SELECT * FROM composant'; 
+$sqlClass = 'SELECT * FROM composant';
 $sth = $db->prepare($sqlClass);
 $sth->setFetchMode(PDO::FETCH_CLASS, Composant::class);
 $sth->execute();
 $results = $sth->fetchAll();
 
-if (isset($_POST['piece'])) {
+if (isset($_POST['composant'])) {
     echo '<div class="alert alert-success my-5" role="alert">Done</div>';
 
-// Insertion de données dans la table Composant
-    $sqlInsertComposant = 'INSERT INTO composant(nom, marque, categorie, prix, quantite, isLaptop, archivage)
-        VALUES (:nom, :marque, :categorie, :prix, :quantite, :isLaptop, :archivage)';
+    // Insertion de données dans la table Composant
+    $sqlInsertComposant = 'INSERT INTO composant(nom, marque, categorie, prix, quantite, estPortable, archivage)
+        VALUES (:nom, :marque, :categorie, :prix, :quantite, :estPortable, :archivage)';
 
     $pdoStatement = $db->prepare($sqlInsertComposant);
 
     $categorie = $_POST['categorie'];
     $portable = 0;
-    if ($_POST['portable'] == 'on') {
+    if ($_POST['estPortable'] == 'on') {
         $portable = 1;
     }
     $archivage = 0;
@@ -27,52 +27,52 @@ if (isset($_POST['piece'])) {
     $pdoStatement->bindValue(':categorie', $_POST['categorie'], PDO::PARAM_STR);
     $pdoStatement->bindValue(':prix', $_POST['prix'], PDO::PARAM_INT);
     $pdoStatement->bindValue(':quantite', $_POST['quantite'], PDO::PARAM_INT);
-    $pdoStatement->bindValue(':isLaptop', $portable, PDO::PARAM_INT);
+    $pdoStatement->bindValue(':estPortable', $portable, PDO::PARAM_INT);
     $pdoStatement->bindValue(':archivage', $archivage, PDO::PARAM_INT);
     $pdoStatement->execute();
     $id = $db->lastInsertId();
 
-// Insertion de données dans les tables enfants
+    // Insertion de données dans les tables enfants
     if ($categorie == 'Alimentation') {
-        $sql = 'INSERT INTO alimentation(Id_Composant, puissance)
-        VALUES (:id, :puissance)';
+        $sql = 'INSERT INTO alimentation(idComposant, puissance)
+        VALUES (:idComposant, :puissance)';
         $params = [
-            ':id' => $id,
+            ':idComposant' => $idComposant,
             ':puissance' => $_POST['puissance'],
 
         ];
     } elseif ($categorie == 'Carte Mere') {
         $sql = 'INSERT INTO carte_mere
-        VALUES (:id, :socket, :format)';
+        VALUES (:idComposant, :socket, :format)';
         $params = [
-            ':id' => $id,
+            ':idComposant' => $idComposant,
             ':socket' => $_POST['socket'],
             ':format' => $_POST['format'],
 
         ];
     } elseif ($categorie == 'Disque dur') {
         $sql = 'INSERT INTO disque_dur
-        VALUES (:id, :ssd, :capacite)';
+        VALUES (:idComposant, :estSsd, :capaciteDisqueDur)';
         $params = [
-            ':id' => $id,
-            ':ssd' => $_POST['ssd'],
-            ':capacite' => $_POST['capaciteDisqueDur'],
+            ':idComposant' => $idComposant,
+            ':estSsd' => $_POST['estSsd'],
+            ':capaciteDisqueDur' => $_POST['capaciteDisqueDur'],
 
         ];
     } elseif ($categorie == 'Memoire vive') {
         $sql = 'INSERT INTO memoire_vive
-        VALUES (:id, :capacite, :nbBarrettes, :type)';
+        VALUES (:idComposant, :capaciteMemoireVive, :nbBarrettes, :type)';
         $params = [
-            ':id' => $id,
-            ':capacite' => $_POST['capacite'],
+            ':idComposant' => $idComposant,
+            ':capaciteMemoireVive' => $_POST['capaciteMemoireVive'],
             ':nbBarrettes' => $_POST['nbBarrettes'],
             ':type' => $_POST['type'],
         ];
     } elseif ($categorie == 'Carte Graphique') {
         $sql = 'INSERT INTO carte_graphique
-        VALUES (:id, :chipset, :memoire)';
+        VALUES (:idComposant, :chipset, :memoire)';
         $params = [
-            ':id' => $id,
+            ':idComposant' => $idComposant,
             ':chipset' => $_POST['chipset'],
             ':memoire' => $_POST['memoire'],
 
@@ -87,18 +87,18 @@ if (isset($_POST['piece'])) {
             $pave = 1;
         }
         $sql = 'INSERT INTO clavier
-        VALUES (:id, :sansfil, :pavenumerique, :typetouche)';
+        VALUES (:idComposant, :clavierSansFil, :paveNumerique, :typeTouche)';
         $params = [
-            ':id' => $id,
-            ':sansfil' => $fil,
-            ':pavenumerique' => $pave,
-            ':typetouche' => $_POST['typeTouche'],
+            ':idComposant' => $idComposant,
+            ':clavierSansFil' => $clavierSansFil,
+            ':paveNumerique' => $paveNumerique,
+            ':typeTouche' => $_POST['typeTouche'],
         ];
     } elseif ($categorie == 'Ecran') {
         $sql = 'INSERT INTO ecran
-        VALUES (:id, :taille)';
+        VALUES (:idComposant, :taille)';
         $params = [
-            ':id' => $id,
+            ':idComposant' => $idComposant,
             ':taille' => $_POST['taille'],
         ];
     } elseif ($categorie == 'Souris') {
@@ -107,20 +107,20 @@ if (isset($_POST['piece'])) {
             $filSouris = 1;
         }
         $sql = 'INSERT INTO souris
-        VALUES (:id, :sansfil, :nbtouche)';
+        VALUES (:idComposant, :sourisSansFil, :nbTouches)';
         $params = [
-            ':id' => $id,
-            ':sansfil' => $filSouris,
-            ':nbtouche' => $_POST['nbTouche'],
+            ':idComposant' => $idComposant,
+            ':sourisSansFil' => $sourisSansFil,
+            ':nbTouches' => $_POST['nbTouches'],
         ];
     } elseif ($categorie == 'Processeur') {
         $sql = 'INSERT INTO processeur
-        VALUES (:id, :frequence, :nbcoeurs, :chipsetcompatible)';
+        VALUES (:id, :frequence, :nbCoeurs, :chipsetcompatible)';
         $params = [
-            ':id' => $id,
+            ':idComposant' => $idComposant,
             ':frequence' => $_POST['frequence'],
-            ':nbcoeurs' => $_POST['nbcoeurs'],
-            ':chipsetcompatible' => $_POST['chipsetCompatible'],
+            ':nbCoeurs' => $_POST['nbCoeurs'],
+            ':chipsetCompatible' => $_POST['chipsetCompatible'],
         ];
     }
     $stmt = $db->prepare($sql);
@@ -131,7 +131,7 @@ if (isset($_POST['piece'])) {
 if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
     echo '
 <div class="container">
-    <h4 class="text-center m-5">Ajouter une nouvelle pièce</h4>
+    <h4 class="text-center m-5">Ajouter un nouveau composant</h4>
         <form class="d-flex flex-row gap-3 align-items-end mb-3" method="POST">
             <div class="form-group">
                 <label for="categorie">Catégorie</label>
@@ -170,19 +170,19 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
                     <input type="number" min = 0 class="form-control" id="quantite" name="quantite" required>
                 </div>
                 <div class="form-group">
-                    <label for="isLaptop">Compatible</label>
+                    <label for="estPortable">Compatible</label>
                     <div class="form-check">
-                        <label class="form-check-label" for="portable">Compatible avec ordinateur portable</label>
-                        <input type="radio" class="form-check-input" id="portable" name="portable" value="on" required>
+                        <label class="form-check-label" for="estPortable">Compatible avec ordinateur portable</label>
+                        <input type="radio" class="form-check-input" id="estPortable" name="estPortable" value="on" required>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="tour">Compatible avec ordinateur fixe</label>
-                        <input type="radio" class="form-check-input" id="tour" name="portable" value="off" required>
+                        <input type="radio" class="form-check-input" id="tour" name="estPortable" value="off" required>
                     </div>
                 </div>
                 
         ';
-// Chaque type de composant a des caractéristiques spécifiques
+        // Chaque type de composant a des caractéristiques spécifiques
         if ($_POST['categorie'] == "Alimentation") {
             echo '
                     <div class="form-group">
@@ -217,7 +217,7 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
                     </div>
                     <div class="form-group">
                         <label for="nbcoeurs">Nombre de cœurs</label>
-                        <input type="number" class="form-control" name="nbcoeurs" required>
+                        <input type="number" class="form-control" name="nbCoeurs" required>
                     </div>
                     <div class="form-group">
                         <label for="chipsetCompatible">Chipsets compatibles</label>
@@ -227,7 +227,7 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
             echo '
                 <div class="form-group">
                     <label for="capacite">Capacité (en Go)</label>
-                    <input type="number" class="form-control" name="capacite" required>
+                    <input type="number" class="form-control" name="capaciteMemoireVive" required>
                 </div>
                 <div class="form-group">
                     <label for="nbBarrettes">Nombre de barrettes</label>
@@ -275,13 +275,13 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
                         <input type="radio" class="form-check-input" id="portable" name="avecFilSouris" required>
                     </div>
                     <div class="form-check">
-                        <label class="form-check-label" for="sansFilSouris">Sans fil</label>
-                        <input type="radio" class="form-check-input" id="tour" name="sansFilSouris" required>
+                        <label class="form-check-label" for="sourisSansFil">Sans fil</label>
+                        <input type="radio" class="form-check-input" id="tour" name="sourisSansFil" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="nbTouche">Nombre de touches</label>
-                    <input type="number" class="form-control" name="nbTouche" required>
+                    <label for="nbTouches">Nombre de touches</label>
+                    <input type="number" class="form-control" name="nbTouches" required>
                 </div>
                 ';
         } elseif ($_POST['categorie'] == "Ecran") {
@@ -297,7 +297,7 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
                     <label for="typeDisque">Type</label>
                     <div class="form-check">
                         <label class="form-check-label" for="SSD">SSD</label>
-                        <input type="radio" class="form-check-input" id="portable" name="SSD" required>
+                        <input type="radio" class="form-check-input" id="estPortable" name="SSD" required>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="disqueDur">Disque dur</label>
@@ -311,7 +311,7 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
                 ';
         }
         echo '<input type="hidden" value="' . $_POST['categorie'] . '" name="categorie">
-            <button type="submit" class="btn btn-primary my-3" name = "piece">Créer</button>
+            <button type="submit" class="btn btn-primary my-3" name = "composant">Créer</button>
         </form>
 </div>
 ';

@@ -1,37 +1,36 @@
 <?php
-
 // Récupération des données POST
-if (isset($_POST["nom"]) && isset($_POST["password"])) {
-    $password = $_POST['password'];
+if (isset($_POST["nom"]) && isset($_POST["motDePasse"])) {
+    $motDePasse = $_POST['motDePasse'];
     $nom = $_POST['nom'];
     $utilisateur = $_POST['utilisateur'];
-    $password = password_hash($password, PASSWORD_DEFAULT);
+    $motDePasse = password_hash($motDePasse, PASSWORD_DEFAULT);
 
-// Insertion dans la table utilisateur
-    $subStatement = $db->prepare('INSERT INTO utilisateur (nom, password) VALUES (:nom, :password)');
+    // Insertion dans la table utilisateur
+    $subStatement = $db->prepare('INSERT INTO utilisateur (nom, motDePasse) VALUES (:nom, :motDePasse)');
     $subStatement->execute([
         ':nom' => $nom,
-        ':password' => $password
+        ':motDePasse' => $motDePasse
     ]);
 
-// Insertion dans la table concepteur ou dans la table monteur
-    $id = $db->lastInsertId();
+    // Insertion dans la table concepteur ou dans la table monteur
+    $idUtilisateur = $db->lastInsertId();
     if (isset($_POST['utilisateur']) && $_POST['utilisateur'] == 'concepteur') {
-        $stmt = $db->prepare('INSERT INTO concepteur (Id_Utilisateur) VALUES (:id)');
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt = $db->prepare('INSERT INTO concepteur (idUtilisateur) VALUES (:idUtilisateur)');
+        $stmt->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
         $stmt->execute();
     } elseif (isset($_POST['utilisateur']) && $_POST['utilisateur'] == 'monteur') {
-        $stmt = $db->prepare('INSERT INTO monteur (Id_Utilisateur) VALUES (:id)');
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt = $db->prepare('INSERT INTO monteur (idUtilisateur) VALUES (:idUtilisateur)');
+        $stmt->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
         $stmt->execute();
     }
-?>
+    ?>
 
 <!-- Message d'inscription validée -->
-<div class="alert alert-success" role="alert">
-    Inscription réussie !
-</div>
-<?php
+    <div class="alert alert-success" role="alert">
+        Inscription réussie !
+    </div>
+    <?php
 }
 ?>
 
@@ -41,11 +40,12 @@ if (isset($_POST["nom"]) && isset($_POST["password"])) {
         <form class="" action="" method="post">
             <div class="form-group m-5">
                 <label for="nom">Identifiant</label>
-                <input type="text" class="textCenter form-control" id="nom" name="nom" placeholder="Choisissez un identifiant">
+                <input type="text" class="textCenter form-control" id="nom" name="nom"
+                    placeholder="Choisissez un identifiant">
             </div>
             <div class="resize form-group m-5">
-                <label for="exampleInputPassword1">Mot de passe</label>
-                <input type="password" class="textCenter form-control" id="password" name="password"
+                <label for="exampleInputmotDePasse1">Mot de passe</label>
+                <input type="password" class="textCenter form-control" id="motDePasse" name="motDePasse"
                     placeholder="Choisissez un mot de passe">
             </div>
 

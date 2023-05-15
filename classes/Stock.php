@@ -1,24 +1,24 @@
 <?php
-class GestionStock {
-    protected int $id;
-    protected string $dte;
+class Stock {
+    protected int $idStock;
+    protected string $dateEntree;
     protected string $nom;
     protected int $quantite;
     protected bool $entree;
 
-	public function getId(): int {
-		return $this->id;
+	public function getidStock(): int {
+		return $this->idStock;
 	}
-	public function setId(int $id): self {
-		$this->id = $id;
+	public function setidStock(int $idStock): self {
+		$this->idStock = $idStock;
 		return $this;
 	}
 
-	public function getDte(): string {
-		return $this->dte;
+	public function getDateEntree(): string {
+		return $this->dateEntree;
 	}
-	public function setDte(string $dte): self {
-		$this->dte = $dte;
+	public function setDateEntree(string $dateEntree): self {
+		$this->dateEntree = $dateEntree;
 		return $this;
 	}
 

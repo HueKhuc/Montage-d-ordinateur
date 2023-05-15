@@ -18,8 +18,6 @@ class Processeur extends Composant {
 		if (!empty($data['chipsetCompatible'])) {
 			$this->setChipsetCompatible($data['chipsetCompatible']);
 		}
-		
-
 	}
 
 	public function getFrequence(): float {

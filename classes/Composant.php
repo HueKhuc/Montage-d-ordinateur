@@ -23,21 +23,21 @@ class Composant
 		'souris' => 1,
 		'processeur' => 1,
 	];
-	protected int $Id_Composant = 0;
+	protected int $idComposant = 0;
 	protected string $nom = '';
 	protected string $marque;
 	protected string $categorie;
 	protected float $prix = 0.0;
 	protected int $quantite = 0;
 	protected int $quantiteModele = 0;
-	protected string $datAjout;
-	protected bool $isLaptop = false;
+	protected string $dateAjoutComposant;
+	protected bool $estPortable = false;
 	protected bool $archivage = false;
 
 	public function __construct(array $data = [])
 	{
-		if (!empty($data['Id_Composant'])) {
-			$this->setId($data['Id_Composant']);
+		if (!empty($data['idComposant'])) {
+			$this->setidComposant($data['idComposant']);
 		}
 		if (!empty($data['nom'])) {
 			$this->setNom($data['nom']);
@@ -57,24 +57,24 @@ class Composant
 		if (!empty($data['quantiteModele'])) {
 			$this->setQuantiteModele($data['quantiteModele']);
 		}
-		if (!empty($data['datAjout'])) {
-			$this->setDatAjout($data['datAjout']);
+		if (!empty($data['dateAjoutComposant'])) {
+			$this->setDateAjout($data['dateAjoutComposant']);
 		}
-		if (!empty($data['isLaptop'])) {
-			$this->setIsLaptop($data['isLaptop']);
+		if (!empty($data['estPortable'])) {
+			$this->setEstPortable($data['estPortable']);
 		}
 		if (!empty($data['archivage'])) {
 			$this->setArchivage($data['archivage']);
 		}
 	}
 
-	public function getId(): int
+	public function getidComposant(): int
 	{
-		return $this->Id_Composant;
+		return $this->idComposant;
 	}
-	public function setId(int $id): self
+	public function setidComposant(int $idComposant): self
 	{
-		$this->Id_Composant = $id;
+		$this->idComposant = $idComposant;
 		return $this;
 	}
 
@@ -128,23 +128,23 @@ class Composant
 		return $this;
 	}
 
-	public function getDatAjout(): string
+	public function getDateAjout(): string
 	{
-		return $this->datAjout;
+		return $this->dateAjoutComposant;
 	}
-	public function setDatAjout(string $dateAjout): self
+	public function setDateAjout(string $dateAjoutComposant): self
 	{
-		$this->datAjout = $dateAjout;
+		$this->dateAjoutComposant = $dateAjoutComposant;
 		return $this;
 	}
 
-	public function getIsLaptop(): bool
+	public function getEstPortable(): bool
 	{
-		return $this->isLaptop;
+		return $this->estPortable;
 	}
-	public function setIsLaptop(bool $isLaptop): self
+	public function setEstPortable(bool $estPortable): self
 	{
-		$this->isLaptop = $isLaptop;
+		$this->estPortable = $estPortable;
 		return $this;
 	}
 
@@ -158,18 +158,10 @@ class Composant
 		return $this;
 	}
 
-	/**
-	 * @return 
-	 */
 	public function getQuantiteModele(): int
 	{
 		return $this->quantiteModele;
 	}
-
-	/**
-	 * @param  $quantiteModele 
-	 * @return self
-	 */
 	public function setQuantiteModele(int $quantiteModele): self
 	{
 		$this->quantiteModele = $quantiteModele;

@@ -1,38 +1,38 @@
 <?php
 // Récupération de données de la table Composant
-if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
-    $id = $_GET['id'];
+if (isset($_GET['idComposant']) && isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
+    $idComposant = $_GET['idComposant'];
 
     if (isset($_POST['modifier'])) {
         echo '<div class="alert alert-success my-5" role="alert">Done</div>';
-        // L'insertion de données dans la table Composant
+// L'insertion de données dans la table Composant
         $sqlUpdateComposant = '
             UPDATE composant
             SET nom = :nom,
                 marque = :marque,
                 prix = :prix,
                 quantite = :quantite,
-                isLaptop = :isLaptop
-            WHERE Id_Composant = :idComposant';
+                estPortable = :estPortable
+            WHERE idComposant = :idComposant';
         $pdoStatement = $db->prepare($sqlUpdateComposant);
 
         $pdoStatement->bindValue(':nom', $_POST['nom'], PDO::PARAM_STR);
         $pdoStatement->bindValue(':marque', $_POST['marque'], PDO::PARAM_STR);
         $pdoStatement->bindValue(':prix', $_POST['prix'], PDO::PARAM_INT);
         $pdoStatement->bindValue(':quantite', $_POST['quantite'], PDO::PARAM_INT);
-        $pdoStatement->bindValue(':isLaptop', $_POST['portable'], PDO::PARAM_INT);
-        $pdoStatement->bindValue(':idComposant', $id, PDO::PARAM_INT);
+        $pdoStatement->bindValue(':estPortable', $_POST['portable'], PDO::PARAM_INT);
+        $pdoStatement->bindValue(':idComposant', $idComposant, PDO::PARAM_INT);
 
         $pdoStatement->execute();
 
-        //L'insertion de données dans les tables enfants
+//L'insertion de données dans les tables enfants
         $categorie = $_POST['categorie'];
         if ($categorie == 'Alimentation') {
             $sql = 'UPDATE alimentation
                     SET puissance = :puissance
-                    WHERE Id_Composant = :id ';
+                    WHERE idComposant = :idComposant ';
             $params = [
-                ':id' => $id,
+                ':idComposant' => $idComposant,
                 ':puissance' => $_POST['puissance'],
 
             ];
@@ -40,9 +40,9 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
             $sql = 'UPDATE carte_mere
                     SET socket = :socket,
                         format = :format
-                    WHERE Id_Composant = :id ';
+                    WHERE idComposant = :idComposant ';
             $params = [
-                ':id' => $id,
+                ':idComposant' => $idComposant,
                 ':socket' => $_POST['socket'],
                 ':format' => $_POST['format'],
 
@@ -51,22 +51,22 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
             $sql = 'UPDATE disque_dur
                     SET ssd = :ssd,
                         capaciteDisque = :capacite
-                    WHERE Id_Composant = :id ';
+                    WHERE idComposant = :idComposant';
             $params = [
-                ':id' => $id,
-                ':ssd' => $_POST['ssd'],
-                ':capacite' => $_POST['capaciteDisqueDur'],
+                ':idComposant' => $idComposant,
+                ':estSsd' => $_POST['estSsd'],
+                ':capaciteDisqueDur' => $_POST['capaciteDisqueDur'],
 
             ];
         } elseif ($categorie == 'Memoire vive') {
             $sql = 'UPDATE memoire_vive
-                    SET capacite = :capacite,
+                    SET capaciteMemoireVive = :capaciteMemoireVive,
                         nbBarrettes = :nbBarrettes,
                         type = :type
-                    WHERE Id_Composant = :id ';
+                    WHERE idComposant = :idComposant ';
             $params = [
-                ':id' => $id,
-                ':capacite' => $_POST['capacite'],
+                ':idComposant' => $idComposant,
+                ':capaciteMemoireVive' => $_POST['capacite'],
                 ':nbBarrettes' => $_POST['nbBarrettes'],
                 ':type' => $_POST['type'],
             ];
@@ -74,54 +74,54 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
             $sql = 'UPDATE carte_graphique
                     SET chipset = :chipset,
                         memoire = :memoire
-                    WHERE Id_Composant = :id ';
+                    WHERE idComposant = :idComposant ';
             $params = [
-                ':id' => $id,
+                ':idComposant' => $idComposant,
                 ':chipset' => $_POST['chipset'],
                 ':memoire' => $_POST['memoire'],
 
             ];
         } elseif ($categorie == 'Clavier') {
             $sql = 'UPDATE clavier
-                    SET sansFilClavier = :sansfil,
-                        paveNumerique = :pavenumerique,
-                        typetouche = :typetouche
-                    WHERE Id_Composant = :id ';
+                    SET clavierSansFil = :clavierSansFil,
+                        paveNumerique = :paveNumerique,
+                        typeTouche = :typeTouche
+                    WHERE idComposant = :idComposant';
             $params = [
-                ':id' => $id,
-                ':sansfil' => $_POST['sansFil'],
-                ':pavenumerique' => $_POST['avecPave'],
-                ':typetouche' => $_POST['typeTouche'],
+                ':idComposant' => $idComposant,
+                ':clavierSansFil' => $_POST['sansFil'],
+                ':paveNumerique' => $_POST['avecPave'],
+                ':typeTouche' => $_POST['typeTouche'],
             ];
         } elseif ($categorie == 'Ecran') {
             $sql = 'UPDATE ecran
                     SET taille = :taille,
-                    WHERE Id_Composant = :id ';
+                    WHERE idComposant = :idComposant';
             $params = [
-                ':id' => $id,
+                ':idComposant' => $idComposant,
                 ':taille' => $_POST['taille'],
             ];
         } elseif ($categorie == 'Souris') {
             $sql = 'UPDATE souris
-                    SET sansFilSouris = :sansfilSouris,
-                        nbTouche = :nbTouche,
-                    WHERE Id_Composant = :id ';
+                    SET sourisSansFil = :sourisSansFil,
+                        nbTouches = :nbTouches,
+                    WHERE idComposant = :idComposant';
             $params = [
-                ':id' => $id,
-                ':sansfilSouris' => $_POST['sansFilSouris'],
-                ':nbtouche' => $_POST['nbTouche'],
+                ':idComposant' => $idComposant,
+                ':sourisSansFil' => $_POST['sourisSansFil'],
+                ':nbTouches' => $_POST['nbTouches'],
             ];
         } elseif ($categorie == 'Processeur') {
             $sql = 'UPDATE processeur
                     SET frequence = :frequence,
-                        nbCoeurs = :nbcoeurs,
-                        chipsetCompatible = :chipsetcompatible
-                    WHERE Id_Composant = :id ';
+                        nbCoeurs = :nbCoeurs,
+                        chipsetCompatible = :chipsetCompatible
+                    WHERE idComposant = :idComposant';
             $params = [
-                ':id' => $id,
+                ':idComposant' => $idComposant,
                 ':frequence' => $_POST['frequence'],
-                ':nbcoeurs' => $_POST['nbcoeurs'],
-                ':chipsetcompatible' => $_POST['chipsetCompatible'],
+                ':nbCoeurs' => $_POST['nbCoeurs'],
+                ':chipsetCompatible' => $_POST['chipsetCompatible'],
             ];
         }
         $stmt = $db->prepare($sql);
@@ -141,17 +141,17 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
     processeur.*,
     souris.*
     FROM composant
-    LEFT JOIN alimentation ON composant.Id_Composant = alimentation.Id_Composant
-    LEFT JOIN carte_graphique ON composant.Id_Composant = carte_graphique.Id_Composant
-    LEFT JOIN carte_mere ON composant.Id_Composant = carte_mere.Id_Composant
-    LEFT JOIN clavier ON composant.Id_Composant = clavier.Id_Composant
-    LEFT JOIN disque_dur ON composant.Id_Composant = disque_dur.Id_Composant
-    LEFT JOIN ecran ON composant.Id_Composant = ecran.Id_Composant
-    LEFT JOIN memoire_vive ON composant.Id_Composant = memoire_vive.Id_Composant
-    LEFT JOIN processeur ON composant.Id_Composant = processeur.Id_Composant
-    LEFT JOIN souris ON composant.Id_Composant = souris.Id_Composant
-    WHERE composant.Id_Composant = :idComposant");
-    $sqlSelect->bindValue(':idComposant', $id, PDO::PARAM_INT);
+    LEFT JOIN alimentation ON composant.idComposant = alimentation.idComposant
+    LEFT JOIN carte_graphique ON composant.idComposant = carte_graphique.idComposant
+    LEFT JOIN carte_mere ON composant.idComposant = carte_mere.idComposant
+    LEFT JOIN clavier ON composant.idComposant = clavier.idComposant
+    LEFT JOIN disque_dur ON composant.idComposant = disque_dur.idComposant
+    LEFT JOIN ecran ON composant.idComposant = ecran.idComposant
+    LEFT JOIN memoire_vive ON composant.idComposant = memoire_vive.idComposant
+    LEFT JOIN processeur ON composant.idComposant = processeur.idComposant
+    LEFT JOIN souris ON composant.idComposant = souris.idComposant
+    WHERE composant.idComposant = :idComposant");
+    $sqlSelect->bindValue(':idComposant', $idComposant, PDO::PARAM_INT);
     $sqlSelect->execute();
     $res = $sqlSelect->fetchAll();
 
@@ -161,10 +161,10 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
         $categorie = $caracTab['categorie'];
         // $caracObj = new $categorie($caracTab);
         // $results[] = $caracObj;
-        // var_dump($caracTab['sansFilClavier']);
+        // var_dump($caracTab['clavierSansFil']);
         echo '
         <div class="container">
-            <h4 class="text-center m-5">Formulaire de modification de la pièce</h4>
+            <h4 class="text-center m-5">Formulaire de modification du composant</h4>
             <form class="d-flex flex-column gap-3" method="POST" action="">
                 <div class="form-group">
                     <label for="nom">Nom</label>
@@ -186,23 +186,23 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                     <input type="number" min = 0 class="form-control" id="quantite" name="quantite" value = "' . $caracTab['quantite'] . '">
                 </div>
                 <div class="form-group">
-                    <label for="isLaptop">Compatible</label>
+                    <label for="estPortable">Compatible</label>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" id="portable" name="portable" value="1" ';
-        if ($caracTab['isLaptop'] == 1) {
+                        <input type="radio" class="form-check-input" id="portable" name="estPortable" value="1" ';
+        if ($caracTab['estPortable'] == 1) {
             echo 'checked';
         }
         echo '>Compatible avec ordinateur portable
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" id="tour" name="portable" value="0"  ';
-        if ($caracTab['isLaptop'] == 0) {
+                        <input type="radio" class="form-check-input" id="tour" name="estPortable" value="0"  ';
+        if ($caracTab['estPortable'] == 0) {
             echo 'checked';
         }
         echo '>Compatible avec ordinateur fixe
                     </div>
                 </div>';
-        // Chaque type de pièces a des caractéristiques spécifiques
+// Chaque type de pièces a des caractéristiques spécifiques
         if ($categorie == "Alimentation") {
             echo '
                             <div class="form-group">
@@ -263,7 +263,7 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
             echo '
                         <div class="form-group">
                             <label for="capacite">Capacité (en Go)</label>
-                            <input type="number" class="form-control" name="capacite" value = "';
+                            <input type="number" class="form-control" name="capaciteMemoireVive" value = "';
             echo $caracTab['capacite'];
             echo '">
                         </div>
@@ -284,15 +284,15 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                             <div class="form-group">
                                 <label for="filClavier">Avec ou sans fil</label>
                                 <div class="form-check">
-                                    <input type="radio" class="form-check-input" id="avecFil" name="sansFil" value = "0" ';
-            if ($caracTab['sansFilClavier'] == 0) {
+                                    <input type="radio" class="form-check-input" id="avecFil" name="clavierSansFil" value = "0" ';
+            if ($caracTab['clavierSansFil'] == 0) {
                 echo 'checked';
             }
             echo '> Avec fil
                                 </div>
                                 <div class="form-check">
-                                    <input type="radio" class="form-check-input" id="sansFil" name="sansFil" value = "1"';
-            if ($caracTab['sansFilClavier'] == 1) {
+                                    <input type="radio" class="form-check-input" id="clavierSansFil" name="clavierSansFil" value = "1"';
+            if ($caracTab['clavierSansFil'] == 1) {
                 echo 'checked';
             }
             echo '> Sans fil
@@ -327,24 +327,24 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                         <div class="form-group">
                             <label for="filSouris">Avec ou sans fil</label>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="avecFilSouris" name="sansFilSouris" value = "0" ';
-            if ($caracTab['sansFilSouris'] == 0) {
+                                <input type="radio" class="form-check-input" id="avecFilSouris" name="sourisSansFil" value = "0" ';
+            if ($caracTab['sourisSansFil'] == 0) {
                 echo 'checked';
             }
             echo ' >Avec fil
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="sansFilSouris" name="sansFilSouris" value = "1" ';
-            if ($caracTab['sansFilSouris'] == 1) {
+                                <input type="radio" class="form-check-input" id="sourisSansFil" name="sourisSansFil" value = "1" ';
+            if ($caracTab['sourisSansFil'] == 1) {
                 echo 'checked';
             }
             echo '>Sans fil
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="nbTouche">Nombre de touches</label>
-                            <input type="number" class="form-control" name="nbTouche"  value = "';
-            echo $caracTab['nbTouche'];
+                            <label for="nbTouches">Nombre de touches</label>
+                            <input type="number" class="form-control" name="nbTouches"  value = "';
+            echo $caracTab['nbTouches'];
             echo '">
                         </div>
                         ';
@@ -363,7 +363,7 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                             <label for="typeDisque">Type</label>
                             <div class="form-check">
                                 <label class="form-check-label" for="ssd">SSD</label>
-                                <input type="radio" class="form-check-input" id="ssd" name="ssd" value = "1" ';
+                                <input type="radio" class="form-check-input" id="ssd" name="estSsd" value = "1" ';
             if ($caracTab['ssd'] == 1) {
                 echo 'checked';
             }
@@ -371,8 +371,8 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label" for="disqueDur">Disque dur</label>
-                                <input type="radio" class="form-check-input" id="disqueDur" name="ssd" value = "0" ';
-            if ($caracTab['ssd'] == 0) {
+                                <input type="radio" class="form-check-input" id="disqueDur" name="estSsd" value = "0" ';
+            if ($caracTab['estSsd'] == 0) {
                 echo 'checked';
             }
             echo ' >
@@ -380,7 +380,7 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
                         </div>
                         <div class="form-group">
                             <label for="capaciteDisqueDur">Capacité (en Go)</label>
-                            <input type="number" class="form-control" name="capaciteDisqueDur" value = "';
+                            <input type="number" class="form-control" name="capaciteDisque" value = "';
             echo $caracTab['capaciteDisque'];
             echo '" >
                         </div>
