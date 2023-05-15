@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 12 mai 2023 à 14:52
+-- Généré le : lun. 15 mai 2023 à 15:34
 -- Version du serveur : 8.0.31
--- Version de PHP : 8.0.26
+-- Version de PHP : 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `montage_ordi`
 --
-CREATE DATABASE IF NOT EXISTS `montage_ordi` DEFAULT CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci;
+CREATE DATABASE IF NOT EXISTS `montage_ordi` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE `montage_ordi`;
 
 -- --------------------------------------------------------
@@ -34,21 +34,6 @@ CREATE TABLE IF NOT EXISTS `alimentation` (
   `idComposant` int NOT NULL,
   `puissance` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idComposant`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `montage`
---
-
-DROP TABLE IF EXISTS `montage`;
-CREATE TABLE IF NOT EXISTS `montage` (
-  `idModele` int NOT NULL,
-  `idComposant` int NOT NULL,
-  `quantite` smallint NOT NULL,
-  PRIMARY KEY (`idModele`,`idComposant`),
-  KEY `idComposant` (`idComposant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -107,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `composant` (
   `nom` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `prix` decimal(5,2) DEFAULT NULL,
   `quantite` smallint DEFAULT NULL,
-  `datAjout` datetime DEFAULT CURRENT_TIMESTAMP,
+  `dateAjoutComposant` datetime DEFAULT CURRENT_TIMESTAMP,
   `archivage` tinyint(1) DEFAULT NULL,
   `marque` varchar(50) DEFAULT NULL,
   `estPortable` tinyint(1) DEFAULT NULL,
@@ -135,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `concepteur` (
 DROP TABLE IF EXISTS `disque_dur`;
 CREATE TABLE IF NOT EXISTS `disque_dur` (
   `idComposant` int NOT NULL,
-  `ssd` tinyint(1) DEFAULT NULL,
+  `estSsd` tinyint(1) DEFAULT NULL,
   `capaciteDisque` int DEFAULT NULL,
   PRIMARY KEY (`idComposant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -156,30 +141,13 @@ CREATE TABLE IF NOT EXISTS `ecran` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gestion_stock`
---
-
-DROP TABLE IF EXISTS `gestion_stock`;
-CREATE TABLE IF NOT EXISTS `gestion_stock` (
-  `Id_Gestion_stock` int NOT NULL AUTO_INCREMENT,
-  `dte` datetime DEFAULT CURRENT_TIMESTAMP,
-  `quantite` smallint NOT NULL,
-  `entree` tinyint(1) NOT NULL DEFAULT '1',
-  `idComposant` int NOT NULL,
-  PRIMARY KEY (`Id_Gestion_stock`),
-  KEY `idComposant` (`idComposant`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `memoire_vive`
 --
 
 DROP TABLE IF EXISTS `memoire_vive`;
 CREATE TABLE IF NOT EXISTS `memoire_vive` (
   `idComposant` int NOT NULL,
-  `capacite` varchar(50) DEFAULT NULL,
+  `capaciteMemoireVive` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `nbBarrettes` smallint DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idComposant`)
@@ -193,15 +161,15 @@ CREATE TABLE IF NOT EXISTS `memoire_vive` (
 
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE IF NOT EXISTS `message` (
-  `Id_Message` int NOT NULL AUTO_INCREMENT,
-  `dateMess` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `idMessage` int NOT NULL AUTO_INCREMENT,
+  `dateMessage` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `texte` varchar(500) DEFAULT NULL,
   `idModele` int NOT NULL,
   `idUtilisateur` int NOT NULL,
-  `lu` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`Id_Message`),
-  KEY `idModele` (`idModele`),
-  KEY `idUtilisateur` (`idUtilisateur`)
+  `estLu` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idMessage`),
+  KEY `Id_Modele` (`idModele`),
+  KEY `Id_Utilisateur` (`idUtilisateur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -213,13 +181,28 @@ CREATE TABLE IF NOT EXISTS `message` (
 DROP TABLE IF EXISTS `modele`;
 CREATE TABLE IF NOT EXISTS `modele` (
   `idModele` int NOT NULL AUTO_INCREMENT,
-  `portable` tinyint(1) DEFAULT NULL,
+  `estPortable` tinyint(1) DEFAULT NULL,
   `quantite` tinyint DEFAULT NULL,
   `nom` varchar(50) DEFAULT NULL,
-  `dateAjout` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateAjoutModele` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `idUtilisateur` int NOT NULL,
   PRIMARY KEY (`idModele`),
-  KEY `idUtilisateur` (`idUtilisateur`)
+  KEY `Id_Utilisateur` (`idUtilisateur`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `montage`
+--
+
+DROP TABLE IF EXISTS `montage`;
+CREATE TABLE IF NOT EXISTS `montage` (
+  `idModele` int NOT NULL,
+  `idComposant` int NOT NULL,
+  `quantite` smallint NOT NULL,
+  PRIMARY KEY (`idModele`,`idComposant`),
+  KEY `Id_Composant` (`idComposant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -266,13 +249,30 @@ CREATE TABLE IF NOT EXISTS `souris` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `stock`
+--
+
+DROP TABLE IF EXISTS `stock`;
+CREATE TABLE IF NOT EXISTS `stock` (
+  `idStock` int NOT NULL AUTO_INCREMENT,
+  `dateEntree` datetime DEFAULT CURRENT_TIMESTAMP,
+  `quantite` smallint NOT NULL,
+  `entree` tinyint(1) NOT NULL DEFAULT '1',
+  `idComposant` int NOT NULL,
+  PRIMARY KEY (`idStock`),
+  KEY `Id_Composant` (`idComposant`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `utilisateur`
 --
 
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `idUtilisateur` int NOT NULL AUTO_INCREMENT,
-  `motDePasse` varchar(255) DEFAULT NULL,
+  `motDePasse` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `nom` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idUtilisateur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -286,13 +286,6 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 --
 ALTER TABLE `alimentation`
   ADD CONSTRAINT `alimentation_ibfk_1` FOREIGN KEY (`idComposant`) REFERENCES `composant` (`idComposant`);
-
---
--- Contraintes pour la table `montage`
---
-ALTER TABLE `montage`
-  ADD CONSTRAINT `montage_ibfk_1` FOREIGN KEY (`idModele`) REFERENCES `modele` (`idModele`),
-  ADD CONSTRAINT `montage_ibfk_2` FOREIGN KEY (`idComposant`) REFERENCES `composant` (`idComposant`);
 
 --
 -- Contraintes pour la table `carte_graphique`
@@ -316,7 +309,7 @@ ALTER TABLE `clavier`
 -- Contraintes pour la table `concepteur`
 --
 ALTER TABLE `concepteur`
-  ADD CONSTRAINT `concepteur_ibfk_1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`idUtilisateur`);
+  ADD CONSTRAINT `concepteur_ibfk_1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `disque_dur`
@@ -329,12 +322,6 @@ ALTER TABLE `disque_dur`
 --
 ALTER TABLE `ecran`
   ADD CONSTRAINT `ecran_ibfk_1` FOREIGN KEY (`idComposant`) REFERENCES `composant` (`idComposant`);
-
---
--- Contraintes pour la table `gestion_stock`
---
-ALTER TABLE `gestion_stock`
-  ADD CONSTRAINT `gestion_stock_ibfk_1` FOREIGN KEY (`idComposant`) REFERENCES `composant` (`idComposant`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Contraintes pour la table `memoire_vive`
@@ -353,7 +340,14 @@ ALTER TABLE `message`
 -- Contraintes pour la table `modele`
 --
 ALTER TABLE `modele`
-  ADD CONSTRAINT `modele_ibfk_1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`idUtilisateur`);
+  ADD CONSTRAINT `modele_ibfk_1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `montage`
+--
+ALTER TABLE `montage`
+  ADD CONSTRAINT `montage_ibfk_1` FOREIGN KEY (`idModele`) REFERENCES `modele` (`idModele`),
+  ADD CONSTRAINT `montage_ibfk_2` FOREIGN KEY (`idComposant`) REFERENCES `composant` (`idComposant`);
 
 --
 -- Contraintes pour la table `monteur`
@@ -372,6 +366,12 @@ ALTER TABLE `processeur`
 --
 ALTER TABLE `souris`
   ADD CONSTRAINT `souris_ibfk_1` FOREIGN KEY (`idComposant`) REFERENCES `composant` (`idComposant`);
+
+--
+-- Contraintes pour la table `stock`
+--
+ALTER TABLE `stock`
+  ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`idComposant`) REFERENCES `composant` (`idComposant`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
