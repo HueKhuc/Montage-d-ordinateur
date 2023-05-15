@@ -1,14 +1,14 @@
 <?php
 class MemoireVive extends Composant {
-	protected string $capacite;
+	protected string $capaciteMemoireVive;
 	protected int $nbBarrettes;
 	protected string $type;
 
 	public function __construct(array $data = [])
     {
         parent::__construct($data);
-        if (!empty($data['capacite'])) {
-            $this->setCapacite($data['capacite']);
+        if (!empty($data['capaciteMemoireVive'])) {
+            $this->setCapaciteMemoireVive($data['capaciteMemoireVive']);
         }
 		if (!empty($data['nbBarrettes'])) {
             $this->setNbBarrettes($data['nbBarrettes']);
@@ -18,11 +18,11 @@ class MemoireVive extends Composant {
         }
     }
 
-	public function getCapacite(): string {
-		return $this->capacite;
+	public function getCapaciteMemoireVive(): string {
+		return $this->capaciteMemoireVive;
 	}
-	public function setCapacite(string $capacite): self {
-		$this->capacite = $capacite;
+	public function setCapaciteMemoireVive(string $capaciteMemoireVive): self {
+		$this->capaciteMemoireVive = $capaciteMemoireVive;
 		return $this;
 	}
 
@@ -44,9 +44,8 @@ class MemoireVive extends Composant {
 
 	public function getMore(): string
 	{
-		return 'Capacite : '.$this->getCapacite().', NbBarrette : '.$this->getNbBarrettes().', Type : '.$this->getType();
+		return 'Capacite : '.$this->getCapaciteMemoireVive().', NbBarrette : '.$this->getNbBarrettes().', Type : '.$this->getType();
 		
 	}
-
 }
 ?>

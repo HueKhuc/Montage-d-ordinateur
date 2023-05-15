@@ -1,14 +1,14 @@
 <?php
-class PiecesFilter
+class composantsFilter
 {
 	protected int $quantite = 1;
 	protected string $marque = '';
 	protected float $prixmin = 0;
 	protected float $prixmax = 0;
 	protected string $categorie = '';
-	protected bool $isLaptop = false;
+	protected bool $estPortable = false;
 	protected array $composants = [];
-	protected int $Id_Composant = 0;
+	protected int $idComposant = 0;
 
 	public function __construct(array $postdata, array $composants)
 	{
@@ -30,11 +30,11 @@ class PiecesFilter
 		if (!empty($postdata['categorie'])) {
 			$this->setCategorie(trim($postdata['categorie']));
 		}
-		if (!empty($postdata['islaptop'])) {
-			$this->setIsLaptop($postdata['islaptop']);
+		if (!empty($postdata['estPortable'])) {
+			$this->setEstPortable($postdata['estPortable']);
 		}
-		if (!empty($postdata['id'])) {
-			$this->setId($postdata['id']);
+		if (!empty($postdata['idComposant'])) {
+			$this->setidComposant($postdata['idComposant']);
 		}
 	}
 
@@ -105,16 +105,16 @@ class PiecesFilter
 		return $this;
 	}
 
-	public function getIsLaptop(): bool
+	public function getEstPortable(): bool
 	{
-		return $this->isLaptop;
+		return $this->estPortable;
 	}
-	public function setIsLaptop(bool $isLaptop): self
+	public function setEstPortable(bool $estPortable): self
 	{
-		$this->composants = array_filter($this->composants, function (Composant $composant) use ($isLaptop): bool {
-			return $isLaptop == $composant->getIsLaptop();
+		$this->composants = array_filter($this->composants, function (Composant $composant) use ($estPortable): bool {
+			return $estPortable == $composant->getEstPortable();
 		});
-		$this->isLaptop = $isLaptop;
+		$this->estPortable = $estPortable;
 		return $this;
 	}
 
@@ -123,17 +123,17 @@ class PiecesFilter
 		return $this->composants;
 	}
 
-	public function getId(): int
+	public function getidComposant(): int
 	{
-		return $this->Id_Composant;
+		return $this->idComposant;
 	}
 
-	public function setId(int $Id_Composant): self
+	public function setidComposant(int $idComposant): self
 	{
-		$this->composants = array_filter($this->composants, function (Composant $composant) use ($Id_Composant): bool {
-			return $Id_Composant == $composant->getId();
+		$this->composants = array_filter($this->composants, function (Composant $composant) use ($idComposant): bool {
+			return $idComposant == $composant->getidComposant();
 		});
-		$this->Id_Composant = $Id_Composant;
+		$this->idComposant = $idComposant;
 		return $this;
 	}
 

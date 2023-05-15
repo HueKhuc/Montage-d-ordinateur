@@ -1,18 +1,18 @@
 <?php
 // Tri de la liste modele + Fonction Prix Modèle
-$sql_order = ('SELECT modele.*, sum(assembler.quantite*composant.prix) AS prixModele 
+$sql_order = ('SELECT modele.*, sum(montage.quantite*composant.prix) AS prixModele 
 FROM modele 
-    LEFT JOIN assembler ON modele.Id_Modele = assembler.Id_Modele
-    LEFT JOIN composant ON composant.Id_Composant = assembler.Id_Composant
-    GROUP BY modele.Id_Modele');
+    LEFT JOIN montage ON modele.idModele = montage.idModele
+    LEFT JOIN composant ON composant.idComposant = montage.idComposant
+    GROUP BY modele.idModele');
 $tri = '';
 if (isset($_POST['trier'])) {
     $tri = $_POST['trier'];
-    $choixTri = ['Id_Modele', 'quantite', 'nom', 'dateAjout'];
+    $choixTri = ['idModele', 'quantite', 'nom', 'dateAjoutModele'];
     if (in_array($tri, $choixTri, true)) {
         $sql_order .= ' ORDER BY ' . $tri;
     } else {
-        $sql_order .= ' ORDER BY Id_Modele';
+        $sql_order .= ' ORDER BY idModele';
     }
 }
 $sth = $db->prepare($sql_order);
@@ -29,8 +29,8 @@ $modelesfilter = new ModelesFilter($_POST, $results);
         <input type="checkbox" name="nonLus" id="nonLus" value="1" <?php if ($modelesfilter->getNonLus()) {
             echo "checked";
         } ?>>
-        <label for="islaptop">Portable</label>
-        <input type="checkbox" name="islaptop" id="islaptop" value="1" <?php if ($modelesfilter->getIsLaptop()) {
+        <label for="estPortable">Portable</label>
+        <input type="checkbox" name="estPortable" id="estPortable" value="1" <?php if ($modelesfilter->getEstPortable()) {
             echo "checked";
         } ?>>
         <label for="prixmin">Prix min :</label>
@@ -63,7 +63,7 @@ $modelesfilter = new ModelesFilter($_POST, $results);
                         'label' => 'Nom'
                     ],
                     [
-                        'value' => 'dateAjout',
+                        'value' => 'dateAjoutModele',
                         'label' => 'Date Ajout'
                     ],
                 ];
@@ -96,21 +96,21 @@ $modelesfilter = new ModelesFilter($_POST, $results);
         <tbody class="table-group-divider">
             <?php
             foreach ($modelesfilter->getModeles() as $key => $modele) {
-                $id = $modele->getId();
+                $idModele = $modele->getidModele();
                 $nom = $modele->getNom();
                 $quantite = $modele->getQuantite();
-                $portable = $modele->getPortable();
-                $dateAjout = $modele->getDateAjout();
+                $estPortable = $modele->getEstPortable();
+                $dateAjoutModele = $modele->getDateAjoutModele();
                 $prixModele = $modele->getPrixModele();
                 echo
                     '<tr>
-                    <th scope="row">' . $id . '</th>
+                    <th scope="row">' . $idModele . '</th>
                     <td class="text-center">' . $nom . '</td>
                     <td class="text-center">' . $quantite . '</td>
-                    <td class="text-center">' . $portable . '</td>
-                    <td class="text-center">' . $dateAjout . '</td>
+                    <td class="text-center">' . $estPortable . '</td>
+                    <td class="text-center">' . $dateAjoutModele . '</td>
                     <td class="text-center">' . $prixModele . '€</td>
-                    <td class="text-center"><a class="navbar-brand" href="?page=commun/detailModele&id=' . $id . '">Detail</a></td>
+                    <td class="text-center"><a class="navbar-brand" href="?page=commun/detailModele&id=' . $idModele . '">Detail</a></td>
                 </tr>';
             } ?>
         </tbody>

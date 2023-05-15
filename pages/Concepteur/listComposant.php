@@ -1,9 +1,9 @@
 <?php
 // Tri de la liste composant
-$sql_order = 'SELECT nom, marque, composant.quantite, prix, categorie, datAjout, isLaptop, composant.Id_Composant, COUNT(DISTINCT assembler.Id_Modele) AS quantiteModele 
+$sql_order = 'SELECT nom, marque, composant.quantite, prix, categorie, dateAjoutComposant, estPortable, composant.idComposant, COUNT(DISTINCT montage.idModele) AS quantiteModele 
 FROM composant 
-    LEFT JOIN assembler ON assembler.Id_Composant = composant.Id_Composant
-GROUP BY composant.Id_Composant';
+    LEFT JOIN montage ON montage.idComposant = composant.idComposant
+GROUP BY composant.idComposant';
 $tri = '';
 if (isset($_POST['trier'])) {
     $tri = $_POST['trier'];
@@ -15,39 +15,39 @@ if (isset($_POST['trier'])) {
         $sql_order .= ' ORDER BY ' . $tri;
     } elseif ($tri === 'prix') {
         $sql_order .= ' ORDER BY ' . $tri;
-    } elseif ($tri === 'datAjout') {
+    } elseif ($tri === 'dateAjoutComposant') {
         $sql_order .= ' ORDER BY ' . $tri;
     } else {
-        $sql_order .= ' ORDER BY Id_Composant';
+        $sql_order .= ' ORDER BY idComposant';
     }
 }
 $sth = $db->prepare($sql_order);
 $sth->setFetchMode(PDO::FETCH_CLASS, Composant::class);
 $sth->execute();
 $results = $sth->fetchAll();
-$piecesfilter = new PiecesFilter($_POST, $results);
+$composantsfilter = new composantsFilter($_POST, $results);
 
 // Fonction archivage/suppression de composant
-if (isset($_GET['id'])) {
+if (isset($_GET['idComposant'])) {
     if (isset($_GET['delete'])) {
         foreach (Composant::CATEGORIES as $categorie => $label) {
-            $sqlSupp = 'DELETE FROM ' . $categorie . ' WHERE Id_Composant = :id';
+            $sqlSupp = 'DELETE FROM ' . $categorie . ' WHERE idComposant = :idComposant';
             $pdoStatement = $db->prepare($sqlSupp);
-            $pdoStatement->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+            $pdoStatement->bindValue(':idComposant', $_GET['idComposant'], PDO::PARAM_INT);
             $pdoStatement->execute();
         }
-        $sqlSupp = 'DELETE FROM composant WHERE Id_Composant = :id';
+        $sqlSupp = 'DELETE FROM composant WHERE idComposant = :idComposant';
         $pdoStatement = $db->prepare($sqlSupp);
-        $pdoStatement->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+        $pdoStatement->bindValue(':idComposant', $_GET['idComposant'], PDO::PARAM_INT);
         $pdoStatement->execute();
         echo '<div class="alert alert-danger my-5" role="alert">Composant supprimé</div>';
     } else {
         $sqlUpdateArchivage = 'UPDATE composant 
                            SET archivage = :archivage
-                           WHERE Id_Composant = :id';
+                           WHERE idComposant = :idComposant';
         $pdoStatement = $db->prepare($sqlUpdateArchivage);
         $pdoStatement->bindValue(':archivage', 1, PDO::PARAM_BOOL);
-        $pdoStatement->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+        $pdoStatement->bindValue(':idComposant', $_GET['idComposant'], PDO::PARAM_INT);
         $pdoStatement->execute();
         echo '<div class="alert alert-success my-5" role="alert">Composant archivé</div>';
     }
@@ -61,9 +61,9 @@ if (isset($_GET['id'])) {
         <select name="categorie" id="categorie">
             <option value=""></option>
             <?php
-            foreach (Composant::CATEGORIES as $id => $categorie) {
+            foreach (Composant::CATEGORIES as $idComposant => $categorie) {
                 ?>
-                <option value="<?= $categorie ?>" <?php if ($piecesfilter->getCategorie() == $categorie) {
+                <option value="<?= $categorie ?>" <?php if ($composantsfilter->getCategorie() == $categorie) {
                       echo 'selected';
                   } ?>>
                     <?= $categorie ?>
@@ -73,27 +73,27 @@ if (isset($_GET['id'])) {
             ?>
         </select>
         <label for="marque">Marque :</label>
-        <input type="text" name="marque" id="marque" value="<?php if ($piecesfilter->getMarque()) {
-            echo $piecesfilter->getMarque();
+        <input type="text" name="marque" id="marque" value="<?php if ($composantsfilter->getMarque()) {
+            echo $composantsfilter->getMarque();
         } ?>">
         <label for="quantite">En stock</label>
-        <input type="checkbox" name="quantite" id="quantite" value="1" <?php if ($piecesfilter->getQuantite()) {
+        <input type="checkbox" name="quantite" id="quantite" value="1" <?php if ($composantsfilter->getQuantite()) {
             echo "checked";
         } ?>>
-        <label for="islaptop">Compatible PC portable</label>
-        <input type="checkbox" name="islaptop" id="islaptop" value="1" <?php if ($piecesfilter->getIsLaptop()) {
+        <label for="estPortable">Compatible PC portable</label>
+        <input type="checkbox" name="estPortable" id="estPortable" value="1" <?php if ($composantsfilter->getEstPortable()) {
             echo "checked";
         } ?>>
         <label for="prixmin">Prix min :</label>
-        <input type="number" name="prixmin" id="prixmin" value="<?php if ($piecesfilter->getPrixmin()) {
-            echo $piecesfilter->getPrixmin();
+        <input type="number" name="prixmin" id="prixmin" value="<?php if ($composantsfilter->getPrixmin()) {
+            echo $composantsfilter->getPrixmin();
         } ?>">
         <label for="prixmax">Prix max :</label>
-        <input type="number" name="prixmax" id="prixmax" value="<?php if ($piecesfilter->getPrixmax()) {
-            echo $piecesfilter->getPrixmax();
+        <input type="number" name="prixmax" id="prixmax" value="<?php if ($composantsfilter->getPrixmax()) {
+            echo $composantsfilter->getPrixmax();
         } ?>">
-        <input hidden type="number" name="id" value="<?php if ($piecesfilter->getId()) {
-            echo $piecesfilter->getId();
+        <input hidden type="number" name="idComposant" value="<?php if ($composantsfilter->getidComposant()) {
+            echo $composantsfilter->getidComposant();
         } ?>">
         <button type="submit" class="btn btn-primary">Filtrer</button>
     </div>
@@ -127,7 +127,7 @@ if (isset($_GET['id'])) {
                     } ?>>
                         Prix
                     </option>
-                    <option value="datAjout" <?php if ($tri === 'datAjout') {
+                    <option value="dateAjoutComposant" <?php if ($tri === 'dateAjoutComposant') {
                         echo 'selected';
                     } ?>>
                         Date d'ajout
@@ -159,14 +159,14 @@ if (isset($_GET['id'])) {
             </thead>
             <tbody class="table-group-divider">
                 <?php
-                foreach ($piecesfilter->getComposants() as $key => $composant) {
+                foreach ($composantsfilter->getComposants() as $key => $composant) {
                     $nom = $composant->getNom();
                     $marque = $composant->getMarque();
                     $quantite = $composant->getQuantite();
                     $prix = number_format($composant->getPrix(), 2);
                     $categorie = $composant->getCategorie();
-                    $quantitemodele = $composant->getQuantiteModele();
-                    $id = $composant->getId();
+                    $quantiteModele = $composant->getQuantiteModele();
+                    $idComposant = $composant->getidComposant();
                     echo
                         '<tr>
                             <th scope="row" class="align-middle">' . $key + 1 . '</th>
@@ -174,20 +174,20 @@ if (isset($_GET['id'])) {
                             <td class="text-center align-middle">' . $marque . '</td>
                             <td class="text-center align-middle">' . $quantite . '</td>
                             <td class="text-center align-middle">' . $prix . '</td>
-                            <td class="text-center align-middle">' . $quantitemodele . '</td>
+                            <td class="text-center align-middle">' . $quantiteModele . '</td>
                             <td class="text-center align-middle">' . $categorie . '</td> 
                             <td>';
-                    if ($quantitemodele == 0) {
+                    if ($quantiteModele == 0) {
                         echo
-                            '<a type="button" class="btn btn-outline-dark align-middle" href="?page=concepteur/modifComposant&id=' . $id . '">Modifier</a>';
+                            '<a type="button" class="btn btn-outline-dark align-middle" href="?page=concepteur/modifComposant&idComposant=' . $idComposant . '">Modifier</a>';
                     }
                     '</td>';
-                    if ($quantitemodele == 0 && $quantite == 0) {
+                    if ($quantiteModele == 0 && $quantite == 0) {
                         echo
-                            '<td><a type="button" class="btn btn-danger align-middle" name="supprimer" href="?page=concepteur/listComposant&id=' . $id . '&delete=1">Supprimer</a></td>';
+                            '<td><a type="button" class="btn btn-danger align-middle" name="supprimer" href="?page=concepteur/listComposant&idComposant=' . $idComposant . '&delete=1">Supprimer</a></td>';
                     } else {
                         echo '<td> 
-                                <a type="button" class="btn btn-primary align-middle" name="archiver" href="?page=concepteur/listComposant&id=' . $id . '">Archiver</a></td>';
+                                <a type="button" class="btn btn-primary align-middle" name="archiver" href="?page=concepteur/listComposant&idComposant=' . $idComposant . '">Archiver</a></td>';
                     }
                     '</tr>';
                 }

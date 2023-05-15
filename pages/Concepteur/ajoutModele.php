@@ -14,21 +14,21 @@ if (isset($_POST['modele'])) {
     }
     if (empty($errors)) {
         // Insertion des données dans la table Modele
-        $sqlModele = 'INSERT INTO modele(nom, portable, quantite, Id_Utilisateur)
-            VALUES (:nom, :portable, :quantite, :Id_Utilisateur)';
+        $sqlModele = 'INSERT INTO modele(nom, estPortable, quantite, idUtilisateur)
+            VALUES (:nom, :estPortable, :quantite, :idUtilisateur)';
         $pdoStat = $db->prepare($sqlModele);
         $pdoStat->bindValue(':nom', $_POST['modele'], PDO::PARAM_STR);
-        $pdoStat->bindValue(':portable', $_POST['portable'], PDO::PARAM_BOOL);
+        $pdoStat->bindValue(':estPortable', $_POST['estPortable'], PDO::PARAM_BOOL);
         $pdoStat->bindValue(':quantite', 0, PDO::PARAM_INT);
-        $pdoStat->bindValue(':Id_Utilisateur', $_SESSION["id"], PDO::PARAM_STR);
+        $pdoStat->bindValue(':idUtilisateur', $_SESSION["id"], PDO::PARAM_STR);
         $pdoStat->execute();
         $id = $db->lastInsertId();
         foreach (Composant::CATEGORIES as $slug => $categorie) {
-            $sqlComponent = 'INSERT INTO assembler VALUES (:id_modele, :id_composant, :quantite)';
+            $sqlComponent = 'INSERT INTO montage VALUES (:idModele, :idComposant, :quantite)';
             $pdoStat = $db->prepare($sqlComponent);
             $pdoStat->bindValue(':quantite', $_POST[$slug . '_quantite'], PDO::PARAM_INT);
-            $pdoStat->bindValue(':id_modele', $id, PDO::PARAM_INT);
-            $pdoStat->bindValue(':id_composant', $_POST[$slug], PDO::PARAM_INT);
+            $pdoStat->bindValue(':idModele', $id, PDO::PARAM_INT);
+            $pdoStat->bindValue(':idComposant', $_POST[$slug], PDO::PARAM_INT);
             $pdoStat->execute();
         }
     }
@@ -71,8 +71,8 @@ if (isset($_POST['modele'])) {
     }
     ?>
     <div class="m-3">
-        <label for="portable">Portable :</label>
-        <select name="portable" id="portable">
+        <label for="estPortable">Portable :</label>
+        <select name="estPortable" id="estPortable">
             <option value="0">Non</option>
             <option value="1">Oui</option>
         </select>

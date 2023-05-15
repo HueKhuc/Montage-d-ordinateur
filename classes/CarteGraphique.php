@@ -41,7 +41,5 @@ class CarteGraphique extends Composant {
 		return 'Chipset : '.$this->getChipset().', Memoire : '.$this->getMemoire();
 		
 	}
-
-	
 }
 ?>

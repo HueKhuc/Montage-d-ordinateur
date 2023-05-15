@@ -1,63 +1,38 @@
-<?php 
-
-class Utilisateur 
-
+<?php
+class Utilisateur
 {
-    protected int $Id_Utilisateur;
+	protected int $idUtilisateur;
 
-    protected string $password;
+	protected string $motDePasse;
 
-    protected string $nom;
+	protected string $nom;
 
-	/**
-	 * @return 
-	 */
-	public function getId_Utilisateur(): int {
-		return $this->Id_Utilisateur;
+	public function getidUtilisateur(): int
+	{
+		return $this->idUtilisateur;
 	}
-	
-	/**
-	 * @param  $Id_Utilisateur 
-	 * @return self
-	 */
-	public function setId_Utilisateur(int $Id_Utilisateur): self {
-		$this->Id_Utilisateur = $Id_Utilisateur;
+	public function setidUtilisateur(int $idUtilisateur): self
+	{
+		$this->idUtilisateur = $idUtilisateur;
 		return $this;
 	}
 
-
-    
-
-	/**
-	 * @return 
-	 */
-	public function getPassword(): string {
-		return $this->password;
+	public function getmotDePasse(): string
+	{
+		return $this->motDePasse;
 	}
-	
-	/**
-	 * @param  $password 
-	 * @return self
-	 */
-	public function setPassword(string $password): self {
-		$this->password = $password;
+	public function setmotDePasse(string $motDePasse): self
+	{
+		$this->motDePasse = $motDePasse;
 		return $this;
 	}
 
-    
-
-	/**
-	 * @return 
-	 */
-	public function getNom(): string {
+	public function getNom(): string
+	{
 		return $this->nom;
 	}
-	
-	/**
-	 * @param  $nom 
-	 * @return self
-	 */
-	public function setNom(string $nom): self {
+	public function setNom(string $nom): self
+	{
 		$this->nom = $nom;
 		return $this;
 	}

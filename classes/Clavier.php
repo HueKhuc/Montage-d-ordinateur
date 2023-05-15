@@ -1,22 +1,23 @@
 <?php
-class Clavier extends Composant {
-	protected bool $sansFilClavier = false;
+class Clavier extends Composant
+{
+	protected bool $clavierSansFil = false;
 	protected bool $paveNumerique = false;
 	protected string $typeTouche;
 
 	public function __construct(array $data = [])
-    {
-        parent::__construct($data);
-        if (!empty($data['sansFilClavier'])) {
-            $this->setSansFil($data['sansFilClavier']) ;
-        }
+	{
+		parent::__construct($data);
+		if (!empty($data['clavierSansFil'])) {
+			$this->setSansFil($data['clavierSansFil']);
+		}
 		if (!empty($data['paveNumerique'])) {
-            $this->setPaveNumerique($data['paveNumerique']) ;
-        }
+			$this->setPaveNumerique($data['paveNumerique']);
+		}
 		if (!empty($data['typeTouche'])) {
-            $this->setTypeTouche($data['typeTouche']);
-        }
-    }
+			$this->setTypeTouche($data['typeTouche']);
+		}
+	}
 	public function getTypeTouche(): string
 	{
 		return $this->typeTouche;
@@ -39,18 +40,18 @@ class Clavier extends Composant {
 
 	public function getSansFil(): bool
 	{
-		return $this->sansFilClavier;
+		return $this->clavierSansFil;
 	}
 
 	public function setSansFil(bool $sansFil): self
 	{
-		$this->sansFilClavier = $sansFil;
+		$this->clavierSansFil = $sansFil;
 		return $this;
 	}
 
 	public function getMore(): string
 	{
-		return 'Type touche : '.$this->getTypeTouche().', Sans Fil : '.($this->getSansFil() ? 'oui':'non').', Pave Num : '.($this->getPaveNumerique() ? 'oui':'non');
+		return 'Type touche : ' . $this->getTypeTouche() . ', Sans Fil : ' . ($this->getSansFil() ? 'oui' : 'non') . ', Pave Num : ' . ($this->getPaveNumerique() ? 'oui' : 'non');
 	}
 }
 ?>

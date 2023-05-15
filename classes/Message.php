@@ -1,11 +1,9 @@
 <?php
 class Message {
-	protected int $id;
-    protected string $texte;
-    protected string $dateMess;
-
-	protected bool $lu;
-
+	protected int $idMessage;
+  protected string $texte;
+  protected string $dateMessage;
+	protected bool $estLu;
 	protected ?string $userName = null;
 
 	public function getTexte(): string {
@@ -16,49 +14,33 @@ class Message {
 		return $this;
 	}
 
-	public function getDateMess(): string {
-		return $this->dateMess;
+	public function getDateMessage(): string {
+		return $this->dateMessage;
 	}
-	public function setDateMess(string $dateMess): self {
-		$this->dateMess = $dateMess;
+	public function setDateMess(string $dateMessage): self {
+		$this->dateMessage = $dateMessage;
 		return $this;
 	}
 
-	public function getId(): int {
-		return $this->id;
+	public function getidMessage(): int {
+		return $this->idMessage;
 	}
-	public function setId(int $id): self {
-		$this->id = $id;
+	public function setidMessage(int $idMessage): self {
+		$this->idMessage = $idMessage;
 		return $this;
 	}
 
-	/**
-	 * @return 
-	 */
-	public function getLu(): bool {
-		return $this->lu;
+	public function getEstLu(): bool {
+		return $this->estLu;
 	}
-	
-	/**
-	 * @param  $lu 
-	 * @return self
-	 */
-	public function setLu(bool $lu): self {
-		$this->lu = $lu;
+	public function setEstLu(bool $estLu): self {
+		$this->estLu = $estLu;
 		return $this;
 	}
 
-	/**
-	 * @return 
-	 */
 	public function getUserName(): ?string {
 		return $this->userName;
 	}
-	
-	/**
-	 * @param  $userName 
-	 * @return self
-	 */
 	public function setUserName(?string $userName): self {
 		$this->userName = $userName;
 		return $this;
