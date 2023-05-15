@@ -34,7 +34,7 @@ class composantsFilter
 			$this->setEstPortable($postdata['estPortable']);
 		}
 		if (!empty($postdata['idComposant'])) {
-			$this->setidComposant($postdata['idComposant']);
+			$this->setIdComposant($postdata['idComposant']);
 		}
 	}
 
@@ -123,15 +123,15 @@ class composantsFilter
 		return $this->composants;
 	}
 
-	public function getidComposant(): int
+	public function getIdComposant(): int
 	{
 		return $this->idComposant;
 	}
 
-	public function setidComposant(int $idComposant): self
+	public function setIdComposant(int $idComposant): self
 	{
 		$this->composants = array_filter($this->composants, function (Composant $composant) use ($idComposant): bool {
-			return $idComposant == $composant->getidComposant();
+			return $idComposant == $composant->getIdComposant();
 		});
 		$this->idComposant = $idComposant;
 		return $this;

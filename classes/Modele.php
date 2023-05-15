@@ -9,11 +9,11 @@ class Modele
 	protected int $idUtilisateur;
 	protected float $prixModele = 0.0;
 
-	public function getidModele(): int
+	public function getIdModele(): int
 	{
 		return $this->idModele;
 	}
-	public function setidModele(int $idModele): self
+	public function setIdModele(int $idModele): self
 	{
 		$this->idModele = $idModele;
 		return $this;
@@ -59,11 +59,11 @@ class Modele
 		return $this;
 	}
 
-	public function getidUtilisateur(): int
+	public function getIdUtilisateur(): int
 	{
 		return $this->idUtilisateur;
 	}
-	public function setidUtilisateur(int $idUtilisateur): self
+	public function setIdUtilisateur(int $idUtilisateur): self
 	{
 		$this->idUtilisateur = $idUtilisateur;
 		return $this;

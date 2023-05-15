@@ -49,7 +49,7 @@ if (isset($_POST['modele'])) {
                 foreach ($results as $key => $composant) {
                     if ($composant->getCategorie() == $categorie) {
                         ?>
-                        <option value="<?= $composant->getidComposant(); ?>"><?= $composant->getNom(); ?></option>
+                        <option value="<?= $composant->getIdComposant(); ?>"><?= $composant->getNom(); ?></option>
                         <?php
                     }
                 }

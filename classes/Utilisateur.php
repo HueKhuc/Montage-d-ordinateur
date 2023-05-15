@@ -7,11 +7,11 @@ class Utilisateur
 
 	protected string $nom;
 
-	public function getidUtilisateur(): int
+	public function getIdUtilisateur(): int
 	{
 		return $this->idUtilisateur;
 	}
-	public function setidUtilisateur(int $idUtilisateur): self
+	public function setIdUtilisateur(int $idUtilisateur): self
 	{
 		$this->idUtilisateur = $idUtilisateur;
 		return $this;

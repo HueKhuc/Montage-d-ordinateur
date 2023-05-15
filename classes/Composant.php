@@ -37,7 +37,7 @@ class Composant
 	public function __construct(array $data = [])
 	{
 		if (!empty($data['idComposant'])) {
-			$this->setidComposant($data['idComposant']);
+			$this->setIdComposant($data['idComposant']);
 		}
 		if (!empty($data['nom'])) {
 			$this->setNom($data['nom']);
@@ -68,11 +68,11 @@ class Composant
 		}
 	}
 
-	public function getidComposant(): int
+	public function getIdComposant(): int
 	{
 		return $this->idComposant;
 	}
-	public function setidComposant(int $idComposant): self
+	public function setIdComposant(int $idComposant): self
 	{
 		$this->idComposant = $idComposant;
 		return $this;
