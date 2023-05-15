@@ -32,7 +32,7 @@ if (isset($_POST["nom"]) && isset($_POST["motDePasse"])) {
 
     if (empty($loginErrors) && password_verify($motDePasse, $motDePasseBdd) == true) {
         $_SESSION["nom"] = $_POST["nom"];
-        $_SESSION["id"] = $results['IdU'];
+        $_SESSION["idUtilisateur"] = $results['IdU'];
         $_SESSION['type'] = 'utilisateur';
         if ($results['IdC'] != null) {
             $_SESSION["type"] = "concepteur";

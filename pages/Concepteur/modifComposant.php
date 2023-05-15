@@ -20,7 +20,7 @@ if (isset($_GET['idComposant']) && isset($_SESSION['type']) && $_SESSION['type']
         $pdoStatement->bindValue(':marque', $_POST['marque'], PDO::PARAM_STR);
         $pdoStatement->bindValue(':prix', $_POST['prix'], PDO::PARAM_INT);
         $pdoStatement->bindValue(':quantite', $_POST['quantite'], PDO::PARAM_INT);
-        $pdoStatement->bindValue(':estPortable', $_POST['portable'], PDO::PARAM_INT);
+        $pdoStatement->bindValue(':estPortable', $_POST['estPortable'], PDO::PARAM_INT);
         $pdoStatement->bindValue(':idComposant', $idComposant, PDO::PARAM_INT);
 
         $pdoStatement->execute();

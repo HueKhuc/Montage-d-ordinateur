@@ -2,7 +2,7 @@
 $idModele = $_GET['idModele'];
 
 $pdoStat = $db->prepare('SELECT * FROM modele WHERE idModele = :idModele');
-$pdoStat->bindValue(':idModele', $id, PDO::PARAM_INT);
+$pdoStat->bindValue(':idModele', $idModele, PDO::PARAM_INT);
 $pdoStat->setFetchMode(PDO::FETCH_CLASS, Modele::class);
 $pdoStat->execute();
 $modele = $pdoStat->fetch();
@@ -11,7 +11,7 @@ $pdo = $db->prepare('SELECT utilisateur.nom,
 modele.idUtilisateur FROM utilisateur
 LEFT JOIN modele ON utilisateur.idUtilisateur = modele.idUtilisateur
 WHERE modele.idModele = :idModele');
-$pdo->bindValue(':idModele', $id, PDO::PARAM_INT);
+$pdo->bindValue(':idModele', $idModele, PDO::PARAM_INT);
 $pdo->setFetchMode(PDO::FETCH_CLASS, Utilisateur::class);
 $pdo->execute();
 $util = $pdo->fetch();
@@ -40,7 +40,7 @@ LEFT JOIN memoire_vive ON composant.idComposant = memoire_vive.idComposant
 LEFT JOIN processeur ON composant.idComposant = processeur.idComposant
 LEFT JOIN souris ON composant.idComposant = souris.idComposant
 WHERE idModele = :idModele");
-$sql->bindValue(':idModele', $id, PDO::PARAM_INT);
+$sql->bindValue(':idModele', $idModele, PDO::PARAM_INT);
 $sql->execute();
 $res = $sql->fetchAll();
 

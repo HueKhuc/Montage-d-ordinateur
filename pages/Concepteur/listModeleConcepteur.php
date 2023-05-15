@@ -110,7 +110,7 @@ $modelesfilter = new ModelesFilter($_POST, $results);
                     <td class="text-center">' . $estPortable . '</td>
                     <td class="text-center">' . $dateAjoutModele . '</td>
                     <td class="text-center">' . $prixModele . '€</td>
-                    <td class="text-center"><a class="navbar-brand" href="?page=commun/detailModele&id=' . $idModele . '">Detail</a></td>
+                    <td class="text-center"><a class="navbar-brand" href="?page=commun/detailModele&idModele=' . $idModele . '">Detail</a></td>
                 </tr>';
             } ?>
         </tbody>

@@ -19,7 +19,7 @@ $results = $sth->fetchAll();
         <tbody class="table-group-divider">
             <?php
             foreach ($results as $key=>$modele ) {
-                $idModele = $modele->getId();
+                $idModele = $modele->getidModele();
                 $nom = $modele->getNom();
                 $quantite = $modele->getQuantite();
                 $estPortable = $modele->getEstPortable();
@@ -31,8 +31,8 @@ $results = $sth->fetchAll();
                         <td class="text-center">' . $quantite . '</td>
                         <td class="text-center">' . $estPortable . '</td>
                         <td>' . $dateAjoutModele . '</td>
-                        <td><a class="navbar-brand" href="?page=commun/detailModele&id='.$id.'">Detail</a></td>
-                        <td><a class="navbar-brand" href="?page=monteur/selectTypeComposant&id='.$id.'">Monter</a></td>
+                        <td><a class="navbar-brand" href="?page=commun/detailModele&idModele='.$idModele.'">Detail</a></td>
+                        <td><a class="navbar-brand" href="?page=monteur/selectTypeComposant&id='.$idModele.'">Monter</a></td>
                     </tr>';
             } ?>
         </tbody>

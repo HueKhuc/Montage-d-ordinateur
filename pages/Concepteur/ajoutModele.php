@@ -20,14 +20,14 @@ if (isset($_POST['modele'])) {
         $pdoStat->bindValue(':nom', $_POST['modele'], PDO::PARAM_STR);
         $pdoStat->bindValue(':estPortable', $_POST['estPortable'], PDO::PARAM_BOOL);
         $pdoStat->bindValue(':quantite', 0, PDO::PARAM_INT);
-        $pdoStat->bindValue(':idUtilisateur', $_SESSION["id"], PDO::PARAM_STR);
+        $pdoStat->bindValue(':idUtilisateur', $_SESSION["idUtilisateur"], PDO::PARAM_STR);
         $pdoStat->execute();
         $id = $db->lastInsertId();
         foreach (Composant::CATEGORIES as $slug => $categorie) {
             $sqlComponent = 'INSERT INTO montage VALUES (:idModele, :idComposant, :quantite)';
             $pdoStat = $db->prepare($sqlComponent);
             $pdoStat->bindValue(':quantite', $_POST[$slug . '_quantite'], PDO::PARAM_INT);
-            $pdoStat->bindValue(':idModele', $id, PDO::PARAM_INT);
+            $pdoStat->bindValue(':idModele', $idModele, PDO::PARAM_INT);
             $pdoStat->bindValue(':idComposant', $_POST[$slug], PDO::PARAM_INT);
             $pdoStat->execute();
         }
@@ -49,7 +49,7 @@ if (isset($_POST['modele'])) {
                 foreach ($results as $key => $composant) {
                     if ($composant->getCategorie() == $categorie) {
                         ?>
-                        <option value="<?= $composant->getId(); ?>"><?= $composant->getNom(); ?></option>
+                        <option value="<?= $composant->getidComposant(); ?>"><?= $composant->getNom(); ?></option>
                         <?php
                     }
                 }
