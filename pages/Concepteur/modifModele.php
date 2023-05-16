@@ -1,18 +1,18 @@
 <?php
 
-if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
-    $id = $_GET['id'];
+if (isset($_GET['idModele']) && isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
+    $id = $_GET['idModele'];
     
     // Récupération de données
-    $pdoStat = $db->prepare('SELECT * FROM modele WHERE Id_Modele = :id');
-    $pdoStat->bindValue(':id', $id, PDO::PARAM_INT);
+    $pdoStat = $db->prepare('SELECT * FROM modele WHERE idModele = :idModele');
+    $pdoStat->bindValue(':idModele', $id, PDO::PARAM_INT);
     $pdoStat->setFetchMode(PDO::FETCH_CLASS, Modele::class);
     $pdoStat->execute();
     $modele = $pdoStat->fetch();
 
     $sqlSelect = $db->prepare("SELECT 
     composant.*,
-    assembler.quantite as quantiteModele,
+    montage.quantite as quantiteModele,
     alimentation.*,
     carte_graphique.*,
     carte_mere.*,
@@ -23,17 +23,17 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
     processeur.*,
     souris.*
     FROM composant
-    INNER JOIN assembler ON composant.Id_Composant = assembler.Id_Composant
-    LEFT JOIN alimentation ON composant.Id_Composant = alimentation.Id_Composant
-    LEFT JOIN carte_graphique ON composant.Id_Composant = carte_graphique.Id_Composant
-    LEFT JOIN carte_mere ON composant.Id_Composant = carte_mere.Id_Composant
-    LEFT JOIN clavier ON composant.Id_Composant = clavier.Id_Composant
-    LEFT JOIN disque_dur ON composant.Id_Composant = disque_dur.Id_Composant
-    LEFT JOIN ecran ON composant.Id_Composant = ecran.Id_Composant
-    LEFT JOIN memoire_vive ON composant.Id_Composant = memoire_vive.Id_Composant
-    LEFT JOIN processeur ON composant.Id_Composant = processeur.Id_Composant
-    LEFT JOIN souris ON composant.Id_Composant = souris.Id_Composant
-    WHERE Id_Modele = :idModele");
+    INNER JOIN montage ON composant.idComposant = montage.idComposant
+    LEFT JOIN alimentation ON composant.idComposant = alimentation.idComposant
+    LEFT JOIN carte_graphique ON composant.idComposant = carte_graphique.idComposant
+    LEFT JOIN carte_mere ON composant.idComposant = carte_mere.idComposant
+    LEFT JOIN clavier ON composant.idComposant = clavier.idComposant
+    LEFT JOIN disque_dur ON composant.idComposant = disque_dur.idComposant
+    LEFT JOIN ecran ON composant.idComposant = ecran.idComposant
+    LEFT JOIN memoire_vive ON composant.idComposant = memoire_vive.idComposant
+    LEFT JOIN processeur ON composant.idComposant = processeur.idComposant
+    LEFT JOIN souris ON composant.idComposant = souris.idComposant
+    WHERE idModele = :idModele");
     $sqlSelect->bindValue(':idModele', $id, PDO::PARAM_INT);
     $sqlSelect->execute();
     $res = $sqlSelect->fetchAll();
@@ -44,18 +44,42 @@ if (isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'conc
         $categorie = str_replace(' ', '', $caracTab['categorie']);
         $caracObj = new $categorie($caracTab);
         $results[] = $caracObj;
-        // var_dump($caracTab['nom']);
     }
 
-    $sta = $db->prepare('SELECT categorie,nom, Id_Composant FROM composant');
+    $sta = $db->prepare('SELECT * FROM composant');
+    $sta->setFetchMode(PDO::FETCH_CLASS, Composant::class);
     $sta->execute();
     $composants = $sta->fetchAll();
 
     if (isset($_POST['modifier'])) {
-foreach($results as $composant){
-        var_dump($_POST[str_replace(' ', '', $composant->getCategorie())]);
-    }
-}
+        echo '<div class="alert alert-success my-5" role="alert">Done</div>';
+        // Update la table 'Modele'
+        $sqlUpdateMod = 'UPDATE modele
+                                SET estPortable = :estPortable, quantite = :quantite, nom =:nom
+                                WHERE idModele = :idModele';
+        $pdoUpdateMod = $db->prepare($sqlUpdateMod);
+        $pdoUpdateMod->bindValue(':idModele',$id,PDO::PARAM_INT);
+        $pdoUpdateMod->bindValue(':estPortable',$_POST['estPortable'],PDO::PARAM_INT);
+        $pdoUpdateMod->bindValue(':quantite',$_POST['quantiteModele'],PDO::PARAM_INT);
+        $pdoUpdateMod->bindValue(':nom',$_POST['nom'],PDO::PARAM_STR);
+        $pdoUpdateMod->execute();
+
+        // Update la table 'Montage'
+        $sqlDelMontage = 'DELETE FROM montage WHERE idModele = :idModele';
+        $pdoDelMontage = $db->prepare($sqlDelMontage);
+        $pdoDelMontage->bindValue(':idModele',$id,PDO::PARAM_INT);
+        $pdoDelMontage->execute();
+
+        foreach($results as $composant){
+            $cat = str_replace(' ', '', $composant->getCategorie());
+            $sqlInsertMontage = 'INSERT INTO montage (idModele, idComposant, quantite)
+                                    VALUES (:idModele, :idComposant,:quantite)';
+            $pdoInsertMontage = $db->prepare($sqlInsertMontage);
+            $pdoInsertMontage->bindValue(':idModele',$id,PDO::PARAM_INT);
+            $pdoInsertMontage->bindValue(':idComposant',$_POST[$cat],PDO::PARAM_INT);                      
+            $pdoInsertMontage->bindValue(':quantite',$_POST['quantite'.$cat],PDO::PARAM_INT);  
+            $pdoInsertMontage->execute();
+        }}
     ?>
 
     <div class="container">
@@ -66,18 +90,18 @@ foreach($results as $composant){
                 <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $modele->getNom(); ?>">
             </div>
             <div class="form-group">
-                <label for="isLaptop">Portable</label>
+                <label for="estPortable">Portable</label>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" name="portable" value="1"
-                        <?php if ($modele->getPortable() == 1) {
+                    <input type="radio" class="form-check-input" name="estPortable" value="1"
+                        <?php if ($modele->getEstPortable() == 1) {
                                 echo 'checked';
                             }
                             ?>
                         >Oui
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="portable" value="0" 
-                            <?php if ($modele->getPortable() == 0) {
+                        <input type="radio" class="form-check-input" name="estPortable" value="0" 
+                            <?php if ($modele->getEstPortable() == 0) {
                                 echo 'checked';
                             }
                             ?>
@@ -85,33 +109,33 @@ foreach($results as $composant){
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="quantite">Quantité</label>
+                    <label for="quantiteModele">Quantité</label>
                     <input type="number" min=0 class="form-control" id="quantiteModele" name="quantiteModele"
                         value="<?php echo $modele->getQuantite(); ?>">
                 </div>
                     <?php foreach ($results as $composant) {
+                        $cat = str_replace(' ', '', $composant->getCategorie());
                         ?>
                             <div class=" d-flex gap-3 flex-row align-items-center">
                                 <div class="form-group d-flex col-6 flex-row align-items-center gap-3">
-                                    <label for="<?php echo $composant->getCategorie(); ?>" class="align-items-center col-3">
+                                    <label for="<?php echo $cat; ?>" class="align-items-center col-3">
                                         <?php echo $composant->getCategorie(); ?>
                                     </label>
-                                    <select class="form-select" name="<?php echo $composant->getCategorie(); ?>" 
-                                    <option><?php echo $composant->getNom(); ?></option>
+                                    <select class="form-select" name="<?php echo $cat; ?>">
                                         <?php foreach ($composants as $compo) {
-                                            if ($compo['categorie'] == $composant->getCategorie()) {
-                                                echo '<option value="' . $compo['Id_Composant'] . '"';
-                                                if ($compo['nom'] == $composant->getNom()) {
+                                            if ($compo->getCategorie() == $composant->getCategorie()) {
+                                                echo '<option value="' . $compo->getIdComposant() . '"';
+                                                if ($compo->getIdComposant() == $composant->getIdComposant()) {
                                                     echo 'selected';
                                                 }
-                                                echo '>' . $compo['nom'] . '</option>';
+                                                echo '>' . $compo->getNom() . '</option>';
                                             }
                                         } ?>
                                     </select>
                                 </div>
                                 <div class="form-group d-flex flex-row col-2 align-items-center gap-3">
                                     <label for="quantite" class="align-items-center">Quantité</label>
-                                    <input type="number" min=0 class="form-control align-items-center text-center" id="quantite" name="quantite<?php echo $composant->getCategorie(); ?>"
+                                    <input type="number" min=0 class="form-control align-items-center text-center" id="quantite" name="quantite<?php echo $cat; ?>"
                                         value="<?php echo $composant->getQuantiteModele(); ?>">
                                 </div>
                                 <div class="form-group">

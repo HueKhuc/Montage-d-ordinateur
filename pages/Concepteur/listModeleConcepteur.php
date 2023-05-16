@@ -90,7 +90,7 @@ $modelesfilter = new ModelesFilter($_POST, $results);
                 <th scope="col" class="text-center">Portable</th>
                 <th scope="col" class="text-center">Date Ajout</th>
                 <th scope="col" class="text-center">Prix</th>
-                <th scope="col" class="text-center">Détails</th>
+                <th scope="col" class="text-center" colspan="2">Actions</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -111,6 +111,7 @@ $modelesfilter = new ModelesFilter($_POST, $results);
                     <td class="text-center">' . $dateAjoutModele . '</td>
                     <td class="text-center">' . $prixModele . '€</td>
                     <td class="text-center"><a class="navbar-brand" href="?page=commun/detailModele&idModele=' . $idModele . '">Detail</a></td>
+                    <td class="text-center"><a type="button" class="btn btn-outline-dark align-middle" href="?page=concepteur/modifModele&idModele=' . $idModele . '">Modifier</a></td>
                 </tr>';
             } ?>
         </tbody>
