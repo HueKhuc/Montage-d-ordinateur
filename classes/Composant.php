@@ -32,7 +32,7 @@ class Composant
 	protected int $quantiteModele = 0;
 	protected string $dateAjoutComposant;
 	protected bool $estPortable = false;
-	protected bool $archivage = false;
+	protected bool $archivage = false; 
 
 	public function __construct(array $data = [])
 	{
