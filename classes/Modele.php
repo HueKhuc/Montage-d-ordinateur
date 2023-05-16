@@ -6,7 +6,7 @@ class Modele
 	protected int $quantite;
 	protected bool $estPortable;
 	protected string $dateAjoutModele;
-	protected int $idUtilisateur;
+	protected int $idUtilisateur; 
 	protected float $prixModele = 0.0;
 
 	public function getIdModele(): int

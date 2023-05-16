@@ -47,7 +47,8 @@ $modelesfilter = new ModelesFilter($_POST, $results);
 
 <!-- Affichage du tri de la liste des modèles -->
 <div class="container">
-    <h1>Liste des Modèles</h1>
+    <div class='mt-5'>
+        <h2 class='text-center m-3 text-uppercase'>Liste des modèles</h2>
     <form method="POST" action="">
         <div class="col-2 my-5 mx-2 d-flex flex-row">
             <select class="form-select p-1" aria-label="Default select example" name="trier">

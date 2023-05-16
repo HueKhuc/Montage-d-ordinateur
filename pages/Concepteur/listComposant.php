@@ -11,7 +11,7 @@ if (isset($_POST['trier'])) {
         $sql_order .= ' ORDER BY ' . $tri;
     } elseif ($tri === 'nom') {
         $sql_order .= ' ORDER BY ' . $tri;
-    } elseif ($tri === 'marque') {
+    } elseif ($tri === 'marque') { 
         $sql_order .= ' ORDER BY ' . $tri;
     } elseif ($tri === 'prix') {
         $sql_order .= ' ORDER BY ' . $tri;

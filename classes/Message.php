@@ -6,6 +6,8 @@ class Message
 	protected string $dateMessage;
 	protected bool $estLu;
 	protected ?string $userName = null;
+	protected int $idUtilisateur;
+	protected int $idModele;
 
 	public function getTexte(): string
 	{
@@ -54,6 +56,22 @@ class Message
 	public function setUserName(?string $userName): self
 	{
 		$this->userName = $userName;
+		return $this;
+	}
+
+	public function getIdUtilisateur(): int {
+		return $this->idUtilisateur;
+	}
+	public function setIdUtilisateur(int $idUtilisateur): self {
+		$this->idUtilisateur = $idUtilisateur;
+		return $this;
+	}
+
+	public function getIdModele(): int {
+		return $this->idModele;
+	}
+	public function setIdModele(int $idModele): self {
+		$this->idModele = $idModele;
 		return $this;
 	}
 }
