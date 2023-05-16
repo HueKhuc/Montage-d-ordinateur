@@ -6,14 +6,14 @@ if (isset($_POST["nom"]) && isset($_POST["motDePasse"])) {
     $utilisateur = $_POST['utilisateur'];
     $motDePasse = password_hash($motDePasse, PASSWORD_DEFAULT);
 
-    // Insertion dans la table utilisateur
+// Insertion dans la table utilisateur
     $subStatement = $db->prepare('INSERT INTO utilisateur (nom, motDePasse) VALUES (:nom, :motDePasse)');
     $subStatement->execute([
         ':nom' => $nom,
         ':motDePasse' => $motDePasse
     ]);
 
-    // Insertion dans la table concepteur ou dans la table monteur
+// Insertion dans la table concepteur ou dans la table monteur
     $idUtilisateur = $db->lastInsertId();
     if (isset($_POST['utilisateur']) && $_POST['utilisateur'] == 'concepteur') {
         $stmt = $db->prepare('INSERT INTO concepteur (idUtilisateur) VALUES (:idUtilisateur)');

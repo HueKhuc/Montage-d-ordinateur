@@ -1,5 +1,5 @@
 <?php
-// Tri de la liste modele + Fonction Prix Modèle
+// Tri de la liste des modèles + Fonction prix modèle
 $sql_order = ('SELECT modele.*, sum(montage.quantite*composant.prix) AS prixModele 
 FROM modele 
     LEFT JOIN montage ON modele.idModele = montage.idModele
@@ -22,7 +22,7 @@ $results = $sth->fetchAll();
 $modelesfilter = new ModelesFilter($_POST, $results);
 ?>
 
-<!-- Filtre de la liste modeles -->
+<!-- Filtre de la liste des modèles -->
 <form action="" method="post" class="container">
     <div class="d-flex flex-column gap-2 mt-5">
         <label for="nonLus">Commentaires non-lus</label>
@@ -80,7 +80,7 @@ $modelesfilter = new ModelesFilter($_POST, $results);
         </div>
     </form>
 
-    <!-- Liste de modeles -->
+<!-- Liste de modèles -->
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -116,7 +116,7 @@ $modelesfilter = new ModelesFilter($_POST, $results);
         </tbody>
     </table>
 
-    <!-- Bouton ajouter composant -->
+<!-- Bouton ajouter un modèle -->
     <?php
     if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
         echo

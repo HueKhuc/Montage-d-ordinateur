@@ -1,6 +1,6 @@
 <?php
 class Modele
-{
+{ 
 	protected int $idModele;
 	protected string $nom;
 	protected int $quantite;

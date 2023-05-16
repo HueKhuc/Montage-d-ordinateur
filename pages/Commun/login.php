@@ -65,7 +65,7 @@ if (isset($_POST["nom"]) && isset($_POST["motDePasse"])) {
                     placeholder="Votre mot de passe">
             </div>
 
-            <!-- Bouton de validation de la connexion -->
+<!-- Bouton de validation de la connexion -->
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary">Connexion</button>
             </div>

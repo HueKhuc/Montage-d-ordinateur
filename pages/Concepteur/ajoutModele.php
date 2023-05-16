@@ -13,7 +13,7 @@ if (isset($_POST['modele'])) {
         }
     }
     if (empty($errors)) {
-        // Insertion des données dans la table Modele
+// Insertion des données dans la table Modele
         $sqlModele = 'INSERT INTO modele(nom, estPortable, quantite, idUtilisateur)
             VALUES (:nom, :estPortable, :quantite, :idUtilisateur)';
         $pdoStat = $db->prepare($sqlModele);
@@ -22,7 +22,7 @@ if (isset($_POST['modele'])) {
         $pdoStat->bindValue(':quantite', 0, PDO::PARAM_INT);
         $pdoStat->bindValue(':idUtilisateur', $_SESSION["idUtilisateur"], PDO::PARAM_STR);
         $pdoStat->execute();
-        $id = $db->lastInsertId();
+        $idModele = $db->lastInsertId();
         foreach (Composant::CATEGORIES as $slug => $categorie) {
             $sqlComponent = 'INSERT INTO montage VALUES (:idModele, :idComposant, :quantite)';
             $pdoStat = $db->prepare($sqlComponent);
