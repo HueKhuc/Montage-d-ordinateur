@@ -1,5 +1,5 @@
 <?php
-// Tri de la liste composant
+// Tri de la liste des composants
 $sql_order = 'SELECT nom, marque, composant.quantite, prix, categorie, dateAjoutComposant, estPortable, composant.idComposant, COUNT(DISTINCT montage.idModele) AS quantiteModele 
 FROM composant 
     LEFT JOIN montage ON montage.idComposant = composant.idComposant
@@ -54,7 +54,7 @@ if (isset($_GET['idComposant'])) {
 }
 ?>
 
-<!-- Filtre de la liste composant -->
+<!-- Filtre de la liste des composants -->
 <form action="" method="post" class="container">
     <div class="d-flex flex-column gap-2 mt-5">
         <label for="categorie">Catégorie :</label>
@@ -99,7 +99,7 @@ if (isset($_GET['idComposant'])) {
     </div>
 </form>
 
-<!-- Affichage du tri de la liste composant -->
+<!-- Affichage du tri de la liste des composants -->
 <div class="container">
     <div class='mt-5'>
         <h2 class='text-center m-3 text-uppercase'>Liste des composants</h2>
@@ -142,7 +142,7 @@ if (isset($_GET['idComposant'])) {
             </div>
         </form>
 
-        <!-- Affichage de la liste de composants -->
+<!-- Liste des composants -->
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -196,7 +196,7 @@ if (isset($_GET['idComposant'])) {
         </table>
     </div>
 
-    <!-- Bouton ajouter un nouveau composant -->
+<!-- Bouton ajouter un nouveau composant -->
     <?php
     if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
         echo

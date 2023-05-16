@@ -9,7 +9,7 @@ $results = $sth->fetchAll();
 if (isset($_POST['composant'])) {
     echo '<div class="alert alert-success my-5" role="alert">Done</div>';
 
-    // Insertion de données dans la table Composant
+// Insertion de données dans la table Composant
     $sqlInsertComposant = 'INSERT INTO composant(nom, marque, categorie, prix, quantite, estPortable, archivage)
         VALUES (:nom, :marque, :categorie, :prix, :quantite, :estPortable, :archivage)';
 
@@ -32,7 +32,7 @@ if (isset($_POST['composant'])) {
     $pdoStatement->execute();
     $id = $db->lastInsertId();
 
-    // Insertion de données dans les tables enfants
+// Insertion de données dans les tables enfants
     if ($categorie == 'Alimentation') {
         $sql = 'INSERT INTO alimentation(idComposant, puissance)
         VALUES (:idComposant, :puissance)';
@@ -182,7 +182,7 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
                 </div>
                 
         ';
-        // Chaque type de composant a des caractéristiques spécifiques
+// Chaque type de composant a des caractéristiques spécifiques
         if ($_POST['categorie'] == "Alimentation") {
             echo '
                     <div class="form-group">

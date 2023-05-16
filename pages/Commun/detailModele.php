@@ -104,7 +104,6 @@ foreach ($res as $tableauComposant) {
 
 <?php
 // Requête pour formulaire commentaire
-
 if (isset($_POST['submit'])) {
     echo '<div class="alert alert-success my-5" role="alert">Message envoyé</div>';
     $statement = $db->prepare('INSERT INTO message (texte, idModele, idUtilisateur) VALUES (:texte, :idModele, :idUtilisateur)');
