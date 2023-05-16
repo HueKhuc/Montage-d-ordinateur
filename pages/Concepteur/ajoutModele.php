@@ -22,7 +22,7 @@ if (isset($_POST['modele'])) {
         $pdoStat->bindValue(':quantite', 0, PDO::PARAM_INT);
         $pdoStat->bindValue(':idUtilisateur', $_SESSION["idUtilisateur"], PDO::PARAM_STR);
         $pdoStat->execute();
-        $id = $db->lastInsertId();
+        $idModele = $db->lastInsertId();
         foreach (Composant::CATEGORIES as $slug => $categorie) {
             $sqlComponent = 'INSERT INTO montage VALUES (:idModele, :idComposant, :quantite)';
             $pdoStat = $db->prepare($sqlComponent);

@@ -1,45 +1,46 @@
 <?php
 
-$sqlVerif = "SELECT assembler.quantite as quantiteDemandee, composant.quantite as quantiteDispo 
-FROM `assembler` 
-    INNER JOIN composant ON composant.Id_Composant = assembler.Id_Composant 
-WHERE Id_Modele = :idModele
-GROUP BY assembler.Id_Composant 
+$sqlVerif = "SELECT montage.quantite as quantiteDemandee, composant.quantite as quantiteDispo 
+FROM `montage` 
+    INNER JOIN composant ON composant.idComposant = montage.idComposant 
+WHERE idModele = :idModele
+GROUP BY montage.idComposant 
 HAVING (quantiteDispo - quantiteDemandee < 0)";
 $sthCompte = $db->prepare($sqlVerif);
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $idModele = $_GET['id'];
 
-    $sthCompte->bindValue(':idModele', $id, PDO::PARAM_INT);
+    $sthCompte->bindValue(':idModele', $idModele, PDO::PARAM_INT);
     $sthCompte->execute();
     $resCompte = $sthCompte->fetchAll();
 
     if (empty($resCompte)) {
 
-        $sqlMod = 'UPDATE modele SET quantite = quantite + 1 WHERE Id_Modele = :id';
+        $sqlMod = 'UPDATE modele SET quantite = quantite + 1 WHERE idModele = :id';
         $sthMod = $db->prepare($sqlMod);
-        $sthMod->bindValue(':id', $id, PDO::PARAM_INT);
+        $sthMod->bindValue(':id', $idModele, PDO::PARAM_INT);
         $sthMod->execute();
 
-        $sqlAss = 'SELECT * FROM assembler WHERE Id_Modele = :id';
+        $sqlAss = 'SELECT * FROM montage WHERE idModele = :id';
         $sthAss = $db->prepare($sqlAss);
-        $sthAss->bindValue(':id', $id, PDO::PARAM_INT);
+        $sthAss->bindValue(':id', $idModele, PDO::PARAM_INT);
         $sthAss->execute();
         $ass = $sthAss->fetchAll();
         // var_dump($ass);
         foreach ($ass as $compo) {
             // var_dump($compo['Id_Composant']);
 
-            $sqlCompo = 'UPDATE composant SET quantite = quantite -1 WHERE Id_Composant = :id';
+            $sqlCompo = 'UPDATE composant SET quantite = quantite - :quantite WHERE idComposant = :id';
             $sthCompo = $db->prepare($sqlCompo);
-            $sthCompo->bindValue(':id', $compo['Id_Composant'], PDO::PARAM_INT);
+            $sthCompo->bindValue(':id', $compo['idComposant'], PDO::PARAM_INT);
+            $sthCompo->bindValue(':quantite', $compo['quantite'], PDO::PARAM_INT);
             $sthCompo->execute();
 
-            $sqlStock = 'INSERT INTO gestion_stock(Id_Composant, quantite, entree) VALUES
+            $sqlStock = 'INSERT INTO stock(idComposant, quantite, entree) VALUES
         (:id, :quantite, :entree)';
             $sthStock = $db->prepare($sqlStock);
-            $sthStock->bindValue(':id', $compo['Id_Composant'], PDO::PARAM_INT);
+            $sthStock->bindValue(':id', $compo['idComposant'], PDO::PARAM_INT);
             $sthStock->bindValue(':quantite', $compo['quantite'], PDO::PARAM_INT);
             $sthStock->bindValue(':entree', 0, PDO::PARAM_BOOL);
             $sthStock->execute();
@@ -77,6 +78,10 @@ $results = $sth->fetchAll();
             $quantite = $modele->getQuantite();
             $estPortable = $modele->getEstPortable();
             $dateAjoutModele = $modele->getDateAjoutModele();
+
+            $sthCompte->bindValue(':idModele', $idModele, PDO::PARAM_INT);
+            $sthCompte->execute();
+            $resCompte = $sthCompte->fetchAll();
             echo
                 '<tr>
                         <th scope="row">' . $idModele . '</th>
@@ -88,8 +93,8 @@ $results = $sth->fetchAll();
                         <td>';
             if (empty($resCompte)) {
                 echo '
-                    <a class="navbar-brand" href="?page=monteur/listModeleMonteur&id=' . $id . '">Monter</a>';
-            }
+                    <a class="navbar-brand" href="?page=monteur/listModeleMonteur&id=' . $idModele . '">Monter</a>';
+            } 
             echo '
                         </td>
                     </tr>';
