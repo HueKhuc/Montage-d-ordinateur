@@ -10,10 +10,21 @@ $sth->execute();
 $results = $sth->fetchAll();
 
 $sqlMod = 'SELECT * FROM modele';
-$sth = $db->prepare($sqlMod);
-$sth->setFetchMode(PDO::FETCH_CLASS, Modele::class);
-$sth->execute();
-$res = $sth->fetchAll();
+$sti = $db->prepare($sqlMod);
+$sti->setFetchMode(PDO::FETCH_CLASS, Modele::class);
+$sti->execute();
+$res = $sti->fetchAll();
+
+if (isset($_GET['idModele'])) {
+  $sqlUpdateArchivage = 'UPDATE modele 
+                     SET archivageModele = :archivageModele
+                     WHERE idModele = :idModele';
+  $pdoStatement = $db->prepare($sqlUpdateArchivage);
+  $pdoStatement->bindValue(':archivageModele', 1, PDO::PARAM_BOOL);
+  $pdoStatement->bindValue(':idModele', $_GET['idModele'], PDO::PARAM_INT);
+  $pdoStatement->execute();
+  echo '<div class="alert alert-success my-5" role="alert">Composant archivé</div>';
+}
 ?>
 
 <div class="container">
@@ -73,13 +84,14 @@ $res = $sth->fetchAll();
                 $idModele = $modele->getIdModele();
                 $nomModele = $modele->getNom();
                 $quantite = $modele->getQuantite();
+                $archivageModele = $modele->getArchivageModele();
                 echo
                     '<tr>
                     <th class="text-center" scope="row">' . $idModele . '</th>
                     <td class="text-center">' . $nomModele . '</td>
                     <td class="text-center">' . $quantite . '</td>                  
-                    <td class="text-center"><a type="button" class="btn btn-outline-dark align-middle" href="?page=concepteur/modifModelet&idModele=' . $idModele . '">Modifier</a></td>                  
-                    <td class="text-center"><a type="button" class="btn btn-primary align-middle" name="archiver" href="?page=monteur/listModeleMonteur&idModele=' . $idModele . '">Archiver</a></td>                                                        
+                    <td class="text-center"><a type="button" class="btn btn-outline-dark align-middle" href="?page=concepteur/modifModele&idModele=' . $idModele . '">Modifier</a></td>                  
+                    <td class="text-center"><a type="button" class="btn btn-primary align-middle" name="archiver" href="?page=concepteur/statistics&idModele=' . $idModele . '">Archiver</a></td>                                                        
                     </tr>';
             } ?>
         </tbody>
