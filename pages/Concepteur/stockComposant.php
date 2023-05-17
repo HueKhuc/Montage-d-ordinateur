@@ -33,7 +33,11 @@ $resultStock = $sqlStock->fetchAll();
                     <?= $stock->getDateEntree(); ?>
                 </td>
                 <td class="text-center">
-                    <?= $stock->getQuantite(); ?>
+                    <?php if ($stock->getEntree() == 1) {
+                        echo '+' . $stock->getQuantite();
+                    } else {
+                        echo '-' . $stock->getQuantite();
+                    }?>
                 </td>
                 <td class="text-center">
                     <?php if ($stock->getEntree() == 1) {
