@@ -18,7 +18,6 @@ class CarteGraphique extends Composant {
 	{
 		return $this->chipset;
 	}
-
 	public function setChipset(string $chipset): self
 	{
 		$this->chipset = $chipset;
@@ -29,7 +28,6 @@ class CarteGraphique extends Composant {
 	{
 		return $this->memoire;
 	}
-
 	public function setMemoire(float $memoire): self
 	{
 		$this->memoire = $memoire;

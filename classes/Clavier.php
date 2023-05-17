@@ -27,11 +27,11 @@ class Clavier extends Composant
 		$this->typeTouche = $typeTouche;
 		return $this;
 	}
+	
 	public function getPaveNumerique(): bool
 	{
 		return $this->paveNumerique;
 	}
-
 	public function setPaveNumerique(bool $paveNumerique): self
 	{
 		$this->paveNumerique = $paveNumerique;
@@ -42,7 +42,6 @@ class Clavier extends Composant
 	{
 		return $this->clavierSansFil;
 	}
-
 	public function setSansFil(bool $sansFil): self
 	{
 		$this->clavierSansFil = $sansFil;

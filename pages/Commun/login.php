@@ -19,7 +19,7 @@ if (isset($_POST["nom"]) && isset($_POST["motDePasse"])) {
     $results = $subStatement->fetch();
     $motDePasseBdd = $results['motDePasse'];
 
-    // Gestion des cas d'erreurs possibles
+// Gestion des cas d'erreurs possibles
     if (empty($motDePasse)) {
         $loginErrors[] = "Veuillez saisir un mot de passe";
     } elseif (password_verify($motDePasse, $motDePasseBdd) === false) {

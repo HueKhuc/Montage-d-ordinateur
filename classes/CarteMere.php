@@ -19,7 +19,6 @@ class CarteMere extends Composant {
     {
         return $this->socket;
     }
-
     public function setSocket(string $socket): self
     {
         $this->socket = $socket;

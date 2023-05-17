@@ -1,4 +1,5 @@
 <?php
+// Récupération de données de la table Modèles
 $sta = $db->prepare('SELECT * FROM composant');
 $sta->setFetchMode(PDO::FETCH_CLASS, Composant::class);
 $sta->execute();

@@ -1,5 +1,5 @@
 <?php
-
+// Récupération des données en BDD
 $sqlStat = 'SELECT message.*, utilisateur.nom AS userName
             FROM message
             LEFT JOIN utilisateur ON utilisateur.idUtilisateur = message.idUtilisateur
@@ -15,6 +15,7 @@ $sti->setFetchMode(PDO::FETCH_CLASS, Modele::class);
 $sti->execute();
 $res = $sti->fetchAll();
 
+// Fonction archivage du modèle
 if (isset($_GET['idModele'])) {
   $sqlUpdateArchivage = 'UPDATE modele 
                      SET archivageModele = :archivageModele
@@ -23,13 +24,14 @@ if (isset($_GET['idModele'])) {
   $pdoStatement->bindValue(':archivageModele', 1, PDO::PARAM_BOOL);
   $pdoStatement->bindValue(':idModele', $_GET['idModele'], PDO::PARAM_INT);
   $pdoStatement->execute();
-  echo '<div class="alert alert-success my-5" role="alert">Composant archivé</div>';
+  echo '<div class="alert alert-success my-5" role="alert">Modèle archivé !</div>';
 }
 ?>
 
+<!-- Affichage des commentaires -->
 <div class="container">
     <div class='mt-5'>
-        <h2 class='text-center m-3 text-uppercase'>Liste des commentaires</h2>
+        <h2 class='text-center m-3 text-uppercase'>Commentaires</h2>
         <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -65,6 +67,7 @@ if (isset($_GET['idModele'])) {
     </div>
 </div>
 
+<!-- Affichage de la liste des modèles -->
 <div class="container">
     <div class='mt-5'>
         <h2 class='text-center m-3 text-uppercase'>Liste des modèles</h2>
