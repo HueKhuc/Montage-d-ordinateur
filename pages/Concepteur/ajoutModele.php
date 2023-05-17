@@ -5,7 +5,10 @@ $sta->setFetchMode(PDO::FETCH_CLASS, Composant::class);
 $sta->execute();
 $results = $sta->fetchAll();
 $errors = [];
+
 if (isset($_POST['modele'])) {
+    echo '<div class="alert alert-success my-5" role="alert">Modèle ajouté !</div>';
+    
     foreach (Composant::LIMITS as $slug => $limit) {
         if (empty($_POST[$slug . '_quantite'])) {
             $errors[$slug] = "Veuillez saisir la quantité";
@@ -15,13 +18,14 @@ if (isset($_POST['modele'])) {
     }
     if (empty($errors)) {
 // Insertion des données dans la table Modèles
-        $sqlModele = 'INSERT INTO modele(nom, estPortable, quantite, idUtilisateur)
-            VALUES (:nom, :estPortable, :quantite, :idUtilisateur)';
+        $sqlModele = 'INSERT INTO modele(nom, estPortable, quantite, idUtilisateur, description)
+            VALUES (:nom, :estPortable, :quantite, :idUtilisateur, :description)';
         $pdoStat = $db->prepare($sqlModele);
         $pdoStat->bindValue(':nom', $_POST['modele'], PDO::PARAM_STR);
         $pdoStat->bindValue(':estPortable', $_POST['estPortable'], PDO::PARAM_BOOL);
         $pdoStat->bindValue(':quantite', 0, PDO::PARAM_INT);
         $pdoStat->bindValue(':idUtilisateur', $_SESSION["idUtilisateur"], PDO::PARAM_STR);
+        $pdoStat->bindValue(':description', $_POST["description"], PDO::PARAM_STR);
         $pdoStat->execute();
         $idModele = $db->lastInsertId();
         foreach (Composant::CATEGORIES as $slug => $categorie) {
@@ -82,7 +86,11 @@ if (isset($_POST['modele'])) {
     <div class="m-3">
         <label for="modele">Modele : </label>
         <input type="text" name="modele" id="modele">
-        <input type="submit" value="Envoyer">
     </div>
+    <div class="m-3">
+        <label for="description">Description : </label>
+        <textarea name="description" id="description"></textarea>
+        <input type="submit" value="Envoyer">
+    </div>    
 </form>
 </div>
