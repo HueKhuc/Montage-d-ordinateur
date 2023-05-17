@@ -19,6 +19,7 @@ $resultStock = $sqlStock->fetchAll();
             <tr>
                 <th scope="col" class="text-center">ID</th>
                 <th scope="col" class="text-center">Date</th>
+                <th scope="col" class="text-center">Quantité</th>
                 <th scope="col" class="text-center">Entree/Sortie</th>
             </tr>
         </thead>
@@ -30,6 +31,9 @@ $resultStock = $sqlStock->fetchAll();
                 </td>
                 <td class="text-center">
                     <?= $stock->getDateEntree(); ?>
+                </td>
+                <td class="text-center">
+                    <?= $stock->getQuantite(); ?>
                 </td>
                 <td class="text-center">
                     <?php if ($stock->getEntree() == 1) {
