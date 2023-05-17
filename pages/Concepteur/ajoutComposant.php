@@ -131,57 +131,55 @@ if (isset($_POST['composant'])) {
 if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
     echo '
 <div class="container">
-    <h4 class="text-center m-5">Ajouter un nouveau composant</h4>
-        <form class="d-flex flex-row gap-3 align-items-end mb-3" method="POST">
-            <div class="form-group">
-                <label for="categorie">Catégorie</label>
-                <select class="form-control" id="categorie" name="categorie"> 
-            ';
-    foreach (Composant::CATEGORIES as $key => $categorie) {
-        echo '<option value = "' . $categorie . '"';
-        if (isset($_POST['categorie']) && $_POST['categorie'] == $categorie) {
-            echo ' selected';
-        }
-        echo '>' . $categorie . '</option>';
+    <h2 class="text-center m-3 text-uppercase">Ajouter un nouveau composant</h2>
+    <form class="d-flex flex-row gap-3 align-items-end mb-3" method="POST">
+        <div class="form-group">
+            <label for="categorie">Catégorie</label>
+            <select class="form-control" id="categorie" name="categorie"> 
+';
+foreach (Composant::CATEGORIES as $key => $categorie) {
+    echo '<option value = "' . $categorie . '"';
+    if (isset($_POST['categorie']) && $_POST['categorie'] == $categorie) {
+        echo ' selected';
     }
-    echo '   
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Choisir</button>
-        </form>';
+        echo '>' . $categorie . '</option>';
+}
+echo '   
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Choisir</button>
+    </form>';
     if (isset($_POST['categorie'])) {
         echo '
         <form class="d-flex flex-column gap-3" method="POST">
-                <div class="form-group">
-                    <label for="nom">Nom</label>
-                    <input type="text" class="form-control" id="nom" name="nom" required>
+            <div class="form-group">
+                <label for="nom">Nom</label>
+                <input type="text" class="form-control" id="nom" name="nom" required>
+            </div>
+            <div class="form-group">
+                <label for="marque">Marque</label>
+                <input type="text" class="form-control" id="marque" name="marque" required>
+            </div>
+            <div class="form-group">
+                <label for="prix">Prix</label>
+                <input type="number" step="0.01" min = 0 class="form-control" id="prix" name="prix" required>
+            </div>
+            <div class="form-group">
+                <label for="quantite">Quantite</label>
+                <input type="number" min = 0 class="form-control" id="quantite" name="quantite" required>
+            </div>
+            <div class="form-group">
+                <label for="estPortable">Compatible</label>
+                <div class="form-check">
+                    <label class="form-check-label" for="estPortable">Compatible avec ordinateur portable</label>
+                    <input type="radio" class="form-check-input" id="estPortable" name="estPortable" value="on" required>
                 </div>
-                <div class="form-group">
-                    <label for="marque">Marque</label>
-                    <input type="text" class="form-control" id="marque" name="marque" required>
+                <div class="form-check">
+                    <label class="form-check-label" for="tour">Compatible avec ordinateur fixe</label>
+                    <input type="radio" class="form-check-input" id="tour" name="estPortable" value="off" required>
                 </div>
-
-                <div class="form-group">
-                    <label for="prix">Prix</label>
-                    <input type="number" step="0.01" min = 0 class="form-control" id="prix" name="prix" required>
-                </div>
-                <div class="form-group">
-                    <label for="quantite">Quantite</label>
-                    <input type="number" min = 0 class="form-control" id="quantite" name="quantite" required>
-                </div>
-                <div class="form-group">
-                    <label for="estPortable">Compatible</label>
-                    <div class="form-check">
-                        <label class="form-check-label" for="estPortable">Compatible avec ordinateur portable</label>
-                        <input type="radio" class="form-check-input" id="estPortable" name="estPortable" value="on" required>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label" for="tour">Compatible avec ordinateur fixe</label>
-                        <input type="radio" class="form-check-input" id="tour" name="estPortable" value="off" required>
-                    </div>
-                </div>
-                
-        ';
+            </div>';          
+        
 // Chaque type de composant a des caractéristiques spécifiques
         if ($_POST['categorie'] == "Alimentation") {
             echo '
@@ -239,33 +237,33 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
                 </div>';
         } elseif ($_POST['categorie'] == "Clavier") {
             echo '
-                    <div class="form-group">
-                        <label for="capacite">Avec ou sans fil</label>
-                        <div class="form-check">
-                            <label class="form-check-label" for="avecFil">Avec fil</label>
-                            <input type="radio" class="form-check-input" id="portable" name="avecFil" required>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label" for="sansFil">Sans fil</label>
-                            <input type="radio" class="form-check-input" id="tour" name="sansFil" required>
-                        </div>
+                <div class="form-group">
+                    <label for="capacite">Avec ou sans fil</label>
+                    <div class="form-check">
+                        <label class="form-check-label" for="avecFil">Avec fil</label>
+                        <input type="radio" class="form-check-input" id="portable" name="avecFil" required>
                     </div>
-                    <div class="form-group">
-                        <label for="barrette">Avec ou sans pavé numérique</label>
-                        <div class="form-check">
-                            <label class="form-check-label" for="avecPave">Avec pavé</label>
-                            <input type="radio" class="form-check-input" id="portable" name="avecPave" required>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label" for="sansPave">Sans pavé</label>
-                            <input type="radio" class="form-check-input" id="tour" name="sansPave" required>
-                        </div>
+                    <div class="form-check">
+                        <label class="form-check-label" for="sansFil">Sans fil</label>
+                        <input type="radio" class="form-check-input" id="tour" name="sansFil" required>
                     </div>
-                    <div class="form-group">
-                        <label for="typeTouche">Type de touches</label>
-                        <input type="text" class="form-control" name="typeTouche" required>
+                </div>
+                <div class="form-group">
+                    <label for="barrette">Avec ou sans pavé numérique</label>
+                    <div class="form-check">
+                        <label class="form-check-label" for="avecPave">Avec pavé</label>
+                        <input type="radio" class="form-check-input" id="portable" name="avecPave" required>
                     </div>
-                    ';
+                    <div class="form-check">
+                        <label class="form-check-label" for="sansPave">Sans pavé</label>
+                        <input type="radio" class="form-check-input" id="tour" name="sansPave" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="typeTouche">Type de touches</label>
+                    <input type="text" class="form-control" name="typeTouche" required>
+                </div>
+                ';
         } elseif ($_POST['categorie'] == "Souris") {
             echo '
                 <div class="form-group">
@@ -311,10 +309,9 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
                 ';
         }
         echo '<input type="hidden" value="' . $_POST['categorie'] . '" name="categorie">
-            <button type="submit" class="btn btn-primary my-3" name = "composant">Créer</button>
-        </form>
-</div>
-';
+                <button type="submit" class="btn btn-primary my-3" name ="composant">Créer</button>
+        </form>';        
     }
+echo '</div>';
 }
 ?>

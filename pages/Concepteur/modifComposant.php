@@ -159,7 +159,7 @@ if (isset($_GET['idComposant']) && isset($_SESSION['type']) && $_SESSION['type']
         $categorie = $caracTab['categorie'];
         echo '
         <div class="container">
-            <h4 class="text-center m-5">Formulaire de modification du composant</h4>
+        <h2 class="text-center m-3 text-uppercase">Modifier un composant</h2>
             <form class="d-flex flex-column gap-3" method="POST" action="">
                 <div class="form-group">
                     <label for="nom">Nom</label>

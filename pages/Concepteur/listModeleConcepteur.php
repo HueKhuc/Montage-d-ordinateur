@@ -127,4 +127,5 @@ $modelesfilter = new ModelesFilter($_POST, $results);
         </div>';
     }
     ?>
+    </div>
 </div>
