@@ -68,6 +68,9 @@ foreach ($res as $tableauComposant) {
     <p><strong>Concepteur :</strong>
         <?php echo $util->getNom(); ?>
     </p>
+    <p><strong>Description :</strong>
+        <?php echo $modele->getDescription(); ?>
+    </p>
 </div>
 
 <!-- Composants du modèle -->
