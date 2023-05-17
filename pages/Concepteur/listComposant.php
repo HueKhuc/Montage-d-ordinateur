@@ -52,6 +52,7 @@ if (isset($_GET['idComposant'])) {
         echo '<div class="alert alert-success my-5" role="alert">Composant archivé</div>';
     }
 }
+
 ?>
 
 <!-- Filtre de la liste des composants -->
@@ -155,6 +156,7 @@ if (isset($_GET['idComposant'])) {
                     <th scope="col" class="text-center">Catégorie</th>
                     <th scope="col" class="text-center">Modifier</th>
                     <th scope="col" class="text-center">Action</th>
+                    <th scope="col" class="text-center">Stock</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -187,10 +189,13 @@ if (isset($_GET['idComposant'])) {
                             '<td><a type="button" class="btn btn-danger align-middle" name="supprimer" href="?page=concepteur/listComposant&idComposant=' . $idComposant . '&delete=1">Supprimer</a></td>';
                     } else {
                         echo '<td> 
-                                <a type="button" class="btn btn-primary align-middle" name="archiver" href="?page=concepteur/listComposant&idComposant=' . $idComposant . '">Archiver</a></td>';
-                    }
-                    '</tr>';
-                }
+                                <a type="button" class="btn btn-primary align-middle" name="archiver" href="?page=concepteur/listComposant&idComposant=' . $idComposant . '">Archiver</a>';
+                    } '</td>';
+                    
+                        echo '<td> 
+                        <a class="btn btn-primary align-middle" href="?page=concepteur/stockComposant&idStock=' . $idComposant . '">Stock</a></td>';
+                
+            }'</tr>';
                 ?>
             </tbody>
         </table>
