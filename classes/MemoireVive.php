@@ -44,8 +44,7 @@ class MemoireVive extends Composant {
 
 	public function getMore(): string
 	{
-		return 'Capacite : '.$this->getCapaciteMemoireVive().', NbBarrette : '.$this->getNbBarrettes().', Type : '.$this->getType();
-		
+		return 'Capacite : '.$this->getCapaciteMemoireVive().', NbBarrette : '.$this->getNbBarrettes().', Type : '.$this->getType();	
 	}
 }
 ?>

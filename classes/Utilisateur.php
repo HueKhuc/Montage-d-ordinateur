@@ -2,9 +2,7 @@
 class Utilisateur
 {
 	protected int $idUtilisateur;
-
 	protected string $motDePasse;
-
 	protected string $nom;
 
 	public function getIdUtilisateur(): int

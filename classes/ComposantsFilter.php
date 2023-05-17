@@ -136,6 +136,5 @@ class composantsFilter
 		$this->idComposant = $idComposant;
 		return $this;
 	}
-
 }
 ?>

@@ -1,16 +1,17 @@
 <?php
 $idModele = $_GET['idModele'];
 
+// Récupération des infos en BDD
 $pdoStat = $db->prepare('SELECT * FROM modele WHERE idModele = :idModele');
 $pdoStat->bindValue(':idModele', $idModele, PDO::PARAM_INT);
 $pdoStat->setFetchMode(PDO::FETCH_CLASS, Modele::class);
 $pdoStat->execute();
 $modele = $pdoStat->fetch();
 
-$pdo = $db->prepare('SELECT utilisateur.nom,
-modele.idUtilisateur FROM utilisateur
-LEFT JOIN modele ON utilisateur.idUtilisateur = modele.idUtilisateur
-WHERE modele.idModele = :idModele');
+$pdo = $db->prepare('SELECT utilisateur.nom, modele.idUtilisateur 
+                    FROM utilisateur
+                    LEFT JOIN modele ON utilisateur.idUtilisateur = modele.idUtilisateur
+                    WHERE modele.idModele = :idModele');
 $pdo->bindValue(':idModele', $idModele, PDO::PARAM_INT);
 $pdo->setFetchMode(PDO::FETCH_CLASS, Utilisateur::class);
 $pdo->execute();
@@ -52,7 +53,7 @@ foreach ($res as $tableauComposant) {
 }
 ?>
 
-<!-- Infos du modèle -->
+<!-- Détails du modèle -->
 <h1 class="text-center mt-5">Détails du modèle</h1>
 <div class="m-3">
     <p><strong>Nom :</strong>
@@ -103,7 +104,7 @@ foreach ($res as $tableauComposant) {
 </div>
 
 <?php
-// Requête pour formulaire commentaire
+// Requête pour le formulaire de commentaire
 if (isset($_POST['submit'])) {
     echo '<div class="alert alert-success my-5" role="alert">Message envoyé</div>';
     $statement = $db->prepare('INSERT INTO message (texte, idModele, idUtilisateur) VALUES (:texte, :idModele, :idUtilisateur)');
@@ -131,7 +132,7 @@ $updateCo->bindValue(':idUtilisateur', $_SESSION["idUtilisateur"], PDO::PARAM_IN
 $updateCo->execute();
 ?>
 
-
+<!-- Affichage du formulaire de commentaire -->
 <div class=" container">
     <form class="row g-3 mt-5" method="post" action="">
         <div class="mb-3">

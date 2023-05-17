@@ -5,7 +5,7 @@ if (isset($_GET['idComposant']) && isset($_SESSION['type']) && $_SESSION['type']
 
     if (isset($_POST['modifier'])) {
         echo '<div class="alert alert-success my-5" role="alert">Done</div>';
-// L'insertion de données dans la table Composant
+// Insertion de données dans la table Composant
         $sqlUpdateComposant = '
             UPDATE composant
             SET nom = :nom,
@@ -25,7 +25,7 @@ if (isset($_GET['idComposant']) && isset($_SESSION['type']) && $_SESSION['type']
 
         $pdoStatement->execute();
 
-//L'insertion de données dans les tables enfants
+// Insertion de données dans les tables enfants
         $categorie = $_POST['categorie'];
         if ($categorie == 'Alimentation') {
             $sql = 'UPDATE alimentation
@@ -155,13 +155,8 @@ if (isset($_GET['idComposant']) && isset($_SESSION['type']) && $_SESSION['type']
     $sqlSelect->execute();
     $res = $sqlSelect->fetchAll();
 
-    // $results = [];
     foreach ($res as $caracTab) {
-        // $categorie = str_replace(' ', '', $caracTab['categorie']);
         $categorie = $caracTab['categorie'];
-        // $caracObj = new $categorie($caracTab);
-        // $results[] = $caracObj;
-        // var_dump($caracTab['clavierSansFil']);
         echo '
         <div class="container">
             <h4 class="text-center m-5">Formulaire de modification du composant</h4>
@@ -389,9 +384,7 @@ if (isset($_GET['idComposant']) && isset($_SESSION['type']) && $_SESSION['type']
         echo '
                 <button type="submit" class="btn btn-primary my-3" name = "modifier" href="?page=concepteur/modifComposant">Envoyer</button>
             </form>
-</div>
-        ';
-
+</div>';        
     }
 }
 ?>
