@@ -51,16 +51,17 @@ if (isset($_GET['idModele']) && isset($_SESSION['type']) && $_SESSION['type'] ==
     $composants = $sta->fetchAll();
 
     if (isset($_POST['modifier'])) {
-        echo '<div class="alert alert-success my-5" role="alert">Done</div>';
+        echo '<div class="alert alert-success my-5" role="alert">Modèle modifié !</div>';
         // Update la table 'Modele'
         $sqlUpdateMod = 'UPDATE modele
-                                SET estPortable = :estPortable, quantite = :quantite, nom =:nom
+                                SET estPortable = :estPortable, quantite = :quantite, nom =:nom, description = :description
                                 WHERE idModele = :idModele';
         $pdoUpdateMod = $db->prepare($sqlUpdateMod);
         $pdoUpdateMod->bindValue(':idModele',$id,PDO::PARAM_INT);
         $pdoUpdateMod->bindValue(':estPortable',$_POST['estPortable'],PDO::PARAM_INT);
         $pdoUpdateMod->bindValue(':quantite',$_POST['quantiteModele'],PDO::PARAM_INT);
         $pdoUpdateMod->bindValue(':nom',$_POST['nom'],PDO::PARAM_STR);
+        $pdoUpdateMod->bindValue(':description',$_POST['description'],PDO::PARAM_STR);
         $pdoUpdateMod->execute();
 
         // Update la table 'Montage'
@@ -87,6 +88,10 @@ if (isset($_GET['idModele']) && isset($_SESSION['type']) && $_SESSION['type'] ==
         <div class="form-group">
             <label for="nom">Nom</label>
             <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $modele->getNom(); ?>">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" name="description" value="<?php echo $modele->getDescription(); ?>">
         </div>
         <div class="form-group">
             <label for="estPortable">Portable</label>

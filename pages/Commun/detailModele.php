@@ -69,7 +69,7 @@ foreach ($res as $tableauComposant) {
         <?php echo $util->getNom(); ?>
     </p>
     <p><strong>Description :</strong>
-        <?php echo $modele->getDescription(); ?>
+        <?php echo nl2br($modele->getDescription()); ?>
     </p>
 </div>
 

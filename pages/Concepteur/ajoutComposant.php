@@ -7,7 +7,7 @@ $sth->execute();
 $results = $sth->fetchAll();
 
 if (isset($_POST['composant'])) {
-    echo '<div class="alert alert-success my-5" role="alert">Done</div>';
+    echo '<div class="alert alert-success my-5" role="alert">Composant ajouté !</div>';
 
 // Insertion de données dans la table Composant
     $sqlInsertComposant = 'INSERT INTO composant(nom, marque, categorie, prix, quantite, estPortable, archivage)

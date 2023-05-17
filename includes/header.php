@@ -65,7 +65,6 @@ require_once 'config.inc.php';
                                 ?>       
                             </a>
                         </li>                        
-                        
                         <?php
                         if (isset($_SESSION['nom'])) {
                         ?>
