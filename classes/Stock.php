@@ -3,9 +3,11 @@ class Stock
 {
 	protected int $idStock;
 	protected string $dateEntree;
-	protected string $nom;
+	
 	protected int $quantite;
 	protected bool $entree;
+
+	protected int $idComposant;
 
 	public function getIdStock(): int
 	{
@@ -27,15 +29,7 @@ class Stock
 		return $this;
 	}
 
-	public function getNom(): string
-	{
-		return $this->nom;
-	}
-	public function setNom(string $nom): self
-	{
-		$this->nom = $nom;
-		return $this;
-	}
+	
 
 	public function getQuantite(): int
 	{
@@ -54,6 +48,22 @@ class Stock
 	public function setEntree(bool $entree): self
 	{
 		$this->entree = $entree;
+		return $this;
+	}
+
+	/**
+	 * @return 
+	 */
+	public function getIdComposant(): int {
+		return $this->idComposant;
+	}
+	
+	/**
+	 * @param  $idComposant 
+	 * @return self
+	 */
+	public function setIdComposant(int $idComposant): self {
+		$this->idComposant = $idComposant;
 		return $this;
 	}
 }
