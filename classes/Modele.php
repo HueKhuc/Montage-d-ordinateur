@@ -9,6 +9,7 @@ class Modele
 	protected int $idUtilisateur; 
 	protected float $prixModele = 0.0;
 	protected bool $archivageModele = false;
+	protected string $description;
 
 	public function getIdModele(): int
 	{
@@ -85,6 +86,14 @@ class Modele
 	}
 	public function setArchivageModele(bool $archivageModele): self {
 		$this->archivageModele = $archivageModele;
+		return $this;
+	}
+
+	public function getDescription(): string {
+		return $this->description;
+	}
+	public function setDescription(string $description): self {
+		$this->description = $description;
 		return $this;
 	}
 }

@@ -1,5 +1,5 @@
 <?php
-// Récupération de données de la table Modèles
+// Récupération de données de la table Composants
 $sta = $db->prepare('SELECT * FROM composant');
 $sta->setFetchMode(PDO::FETCH_CLASS, Composant::class);
 $sta->execute();
@@ -14,7 +14,7 @@ if (isset($_POST['modele'])) {
         }
     }
     if (empty($errors)) {
-// Insertion des données dans la table Modele
+// Insertion des données dans la table Modèles
         $sqlModele = 'INSERT INTO modele(nom, estPortable, quantite, idUtilisateur)
             VALUES (:nom, :estPortable, :quantite, :idUtilisateur)';
         $pdoStat = $db->prepare($sqlModele);
@@ -55,7 +55,7 @@ if (isset($_POST['modele'])) {
                         <?php
                     }
                 }
-                ?>
+                        ?>
             </select>
             <label for="<?= $slug; ?>_quantite">
                 <input type="number" name="<?= $slug; ?>_quantite" id="<?= $slug; ?>_quantite" placeholder="Quantite" value="<?php if (isset($_POST[$slug . '_quantite'])) {
