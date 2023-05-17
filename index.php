@@ -12,11 +12,10 @@ $pages = [
   'concepteur/listModeleConcepteur'          => 'Liste des modèles',
   'concepteur/ajoutModele'                   => 'Ajouter un modèle',  
   'concepteur/modifModele'                   => 'Modifier un modèle',
-  'concepteur/statistics'                    => 'Statistiques',
+  'concepteur/statistiques'                  => 'Statistiques',
   'concepteur/stockComposant'                => 'Gestion du stock',
   'concepteur/formReponse'                   => 'Formulaire de réponse',  
   'monteur/listModeleMonteur'                => 'Liste des modèles',
-  'monteur/formCommentaire'                  => 'Formulaire de commentaire',
 ];
 $page = 'commun/home';
 if (isset($_GET['page']) && array_key_exists($_GET['page'], $pages)) {

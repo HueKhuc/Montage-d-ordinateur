@@ -58,7 +58,7 @@ require_once 'config.inc.php';
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="?page=concepteur/statistics">
+                            <a class="nav-link active" aria-current="page" href="?page=concepteur/statistiques">
                                 <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { 
                                     echo "Statistiques";
                                     }
