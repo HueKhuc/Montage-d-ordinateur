@@ -37,7 +37,8 @@ if (isset($_POST['modele'])) {
 ?>
 
 <!-- Formulaire d'ajout modele -->
-<h1 class="text-center mt-5">Création ou modification modèle</h1>
+<div class="container">
+<h2 class="text-center m-3 text-uppercase">Ajouter un nouveau modèle</h2>
 <form action="" method="post">
     <?php
     foreach (Composant::CATEGORIES as $slug => $categorie) {
@@ -84,3 +85,4 @@ if (isset($_POST['modele'])) {
         <input type="submit" value="Envoyer">
     </div>
 </form>
+</div>

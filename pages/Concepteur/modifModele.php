@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_GET['idModele']) && isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
     $id = $_GET['idModele'];
     
@@ -83,7 +82,7 @@ if (isset($_GET['idModele']) && isset($_SESSION['type']) && $_SESSION['type'] ==
     ?>
 
 <div class="container">
-    <h4 class="text-center m-5">Formulaire de modification du modèle</h4>
+<h2 class="text-center m-3 text-uppercase">Modifier un modèle</h2>
     <form class="d-flex flex-column gap-3" method="POST" action="">
         <div class="form-group">
             <label for="nom">Nom</label>
