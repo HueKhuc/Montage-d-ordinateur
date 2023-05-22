@@ -1,36 +1,11 @@
 <?php
-// Récupération des données POST
-if (isset($_POST["nom"]) && isset($_POST["motDePasse"])) {
-    $motDePasse = $_POST['motDePasse'];
-    $nom = $_POST['nom'];
-    $utilisateur = $_POST['utilisateur'];
-    $motDePasse = password_hash($motDePasse, PASSWORD_DEFAULT);
-
-// Insertion dans la table utilisateur
-    $subStatement = $db->prepare('INSERT INTO utilisateur (nom, motDePasse) VALUES (:nom, :motDePasse)');
-    $subStatement->execute([
-        ':nom' => $nom,
-        ':motDePasse' => $motDePasse
-    ]);
-
-// Insertion dans la table concepteur ou dans la table monteur
-    $idUtilisateur = $db->lastInsertId();
-    if (isset($_POST['utilisateur']) && $_POST['utilisateur'] == 'concepteur') {
-        $stmt = $db->prepare('INSERT INTO concepteur (idUtilisateur) VALUES (:idUtilisateur)');
-        $stmt->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
-        $stmt->execute();
-    } elseif (isset($_POST['utilisateur']) && $_POST['utilisateur'] == 'monteur') {
-        $stmt = $db->prepare('INSERT INTO monteur (idUtilisateur) VALUES (:idUtilisateur)');
-        $stmt->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
-        $stmt->execute();
-    }
-    ?>
-
+if ($idUtilisateur){
+?>
 <!-- Message d'inscription validée -->
-    <div class="alert alert-success" role="alert">
-        Inscription réussie !
-    </div>
-    <?php
+<div class="alert alert-success" role="alert">
+    Inscription réussie !
+</div>
+<?php
 }
 ?>
 

@@ -1,8 +1,12 @@
 <?php
-ob_start();
+use Controller\Commun\InscriptionController;
+use Controller\Commun\HomeController;
+
+include 'includes/autoload.php';
+include 'includes/config.inc.php';
 $pages = [
-  'commun/home'                              => 'Accueil',
-  'commun/inscription'                       => 'Inscription',
+  'commun/home'                              => HomeController::class,
+  'commun/inscription'                       => InscriptionController::class,
   'commun/login'                             => 'Connexion',
   'commun/logout'                            => 'Déconnexion',
   'commun/detailModele'                      => 'Détails du modèle',
@@ -21,9 +25,7 @@ $page = 'commun/home';
 if (isset($_GET['page']) && array_key_exists($_GET['page'], $pages)) {
   $page = $_GET['page'];
 }
-$pageTitle = $pages[$page];
-require_once 'includes/header.php';
-include 'pages/' . $page . '.php';
-require_once 'includes/footer.php';
-ob_end_flush();
+$controller = $pages[$page];
+$current = new $controller($db);
+$current->render();
 ?>

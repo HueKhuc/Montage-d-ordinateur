@@ -14,7 +14,7 @@ public function render()
   session_start();
   ob_start();
 
-  require_once 'includes/functions.php';
+  require_once 'includes/function.php';
 
   $pageTitle = $this->getPageTitle();
 
@@ -30,10 +30,7 @@ public function render()
 }
 
 abstract public function getContent(): array;
-
 abstract public function getFileName(): string;
-
 abstract public function getPageTitle(): string;
-
 }
 ?>
