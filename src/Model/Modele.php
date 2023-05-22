@@ -1,4 +1,5 @@
 <?php
+namespace Model;
 class Modele
 { 
 	protected int $idModele;

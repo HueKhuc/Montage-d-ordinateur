@@ -1,5 +1,6 @@
 <?php
-class composantsFilter
+namespace Model;
+class ComposantsFilter
 {
 	protected int $quantite = 1;
 	protected string $marque = '';

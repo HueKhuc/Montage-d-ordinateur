@@ -84,12 +84,12 @@ $results = $sth->fetchAll();
                     $resCompte = $sthCompte->fetchAll();
                 echo
                     '<tr>
-                        <th scope="row">' . $idModele . '</th>
+                        <th class="text-center" scope="row">' . $idModele . '</th>
                             <td class="text-center">' . $nom . '</td>
                             <td class="text-center">' . $quantite . '</td>
                             <td class="text-center">' . $estPortable . '</td>
                             <td class="text-center">' . $dateAjoutModele . '</td>
-                            <td class="text-center"><a class="navbar-brand" href="?page=commun/detailModele&idModele=' . $idModele . '">Detail</a></td>
+                            <td class="text-center"><a class="navbar-brand" href="?page=commun/detailModele&idModele=' . $idModele . '">Détail</a></td>
                             <td class="text-center">';
                             if (empty($resCompte)) {
                                 echo 
@@ -97,7 +97,7 @@ $results = $sth->fetchAll();
                             } 
                             echo 
                                 '</td>
-                                </tr>';
+                    </tr>';
                 } 
             ?>
             </tbody>

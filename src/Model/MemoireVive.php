@@ -1,4 +1,5 @@
 <?php
+namespace Model;
 class MemoireVive extends Composant {
 	protected string $capaciteMemoireVive;
 	protected int $nbBarrettes;

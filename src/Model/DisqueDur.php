@@ -1,4 +1,5 @@
 <?php
+namespace Model;
 class DisqueDur extends Composant
 {
 	protected bool $estSsd = false;

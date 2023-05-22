@@ -1,4 +1,5 @@
 <?php
+namespace Model;
 class Alimentation extends Composant {
     protected float $puissance;
 

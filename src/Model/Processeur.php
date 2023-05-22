@@ -1,4 +1,5 @@
 <?php
+namespace Model;
 class Processeur extends Composant {
 
 	protected float $frequence;

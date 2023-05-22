@@ -1,4 +1,5 @@
 <?php
+namespace Model;
 class Clavier extends Composant
 {
 	protected bool $clavierSansFil = false;
