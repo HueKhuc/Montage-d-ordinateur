@@ -1,4 +1,5 @@
 <?php
+namespace Model;
 class Ecran extends Composant {
 	protected float $taille;
 

@@ -1,4 +1,5 @@
 <?php
+namespace Model;
 class Souris extends Composant
 {
     protected bool $sourisSansFil = false;

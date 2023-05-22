@@ -1,4 +1,5 @@
 <?php
+namespace Model;
 class ModelesFilter
 {
 	protected bool $nonLus = false;
