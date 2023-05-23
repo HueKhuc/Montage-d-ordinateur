@@ -1,4 +1,13 @@
 <?php
+use Model\Alimentation;
+use Model\CarteGraphique;
+use Model\CarteMere;
+use Model\Clavier;
+use Model\DisqueDur;
+use Model\Ecran;
+use Model\MemoireVive;
+use Model\Processeur;
+use Model\Souris;
 spl_autoload_register(function ($class) {
     require_once 'src/' . $class . '.php';
 });

@@ -1,5 +1,5 @@
 <?php
-if ($idUtilisateur){
+if ($idUtilisateur){ 
 ?>
 <!-- Message d'inscription validée -->
 <div class="alert alert-success" role="alert">
@@ -8,7 +8,6 @@ if ($idUtilisateur){
 <?php
 }
 ?>
-
 <!-- Formulaire d'inscription -->
 <div class="container-fluid">
     <div class="row d-flex justify-content-center mt-5 mb-5">

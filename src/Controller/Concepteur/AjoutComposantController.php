@@ -2,6 +2,7 @@
 namespace Controller\Concepteur;
 
 use Controller\AbstractController;
+use Model\Composant;
 use PDO;
 class AjoutComposantController extends AbstractController {
 
@@ -87,11 +88,11 @@ if (isset($_POST['composant'])) {
         ];
     } elseif ($categorie == 'Clavier') {
         $fil = 0;
-        if ($_POST['avecFil'] == 'on') {
+        if ($_POST['Fil'] == '1') {
             $fil = 1;
         }
         $pave = 0;
-        if ($_POST['avecPave'] == 'on') {
+        if ($_POST['Pave'] == '1') {
             $pave = 1;
         }
         $sql = 'INSERT INTO clavier

@@ -1,7 +1,5 @@
 <?php
 use Model\Composant;
-
-
 // Formulaire d'ajout composant
 if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
     echo '
@@ -116,22 +114,22 @@ echo '
                     <label for="capacite">Avec ou sans fil</label>
                     <div class="form-check">
                         <label class="form-check-label" for="avecFil">Avec fil</label>
-                        <input type="radio" class="form-check-input" id="portable" name="avecFil" required>
+                        <input type="radio" class="form-check-input" id="portable" name="Fil" value="1" required>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="sansFil">Sans fil</label>
-                        <input type="radio" class="form-check-input" id="tour" name="sansFil" required>
+                        <input type="radio" class="form-check-input" id="tour" name="Fil" value="0" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="barrette">Avec ou sans pavé numérique</label>
                     <div class="form-check">
                         <label class="form-check-label" for="avecPave">Avec pavé</label>
-                        <input type="radio" class="form-check-input" id="portable" name="avecPave" required>
+                        <input type="radio" class="form-check-input" id="portable" name="Pave" value="1" required>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="sansPave">Sans pavé</label>
-                        <input type="radio" class="form-check-input" id="tour" name="sansPave" required>
+                        <input type="radio" class="form-check-input" id="tour" name="Pave" value="0" required>
                     </div>
                 </div>
                 <div class="form-group">

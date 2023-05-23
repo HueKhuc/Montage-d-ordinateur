@@ -32,7 +32,7 @@ $pages = [
   'concepteur/statistiques'                  => StatistiquesController::class,
   'concepteur/stockComposant'                => StockComposantController::class,
   'concepteur/formReponse'                   => FormReponseController::class,  
-  'monteur/listModeleMonteur'                => ListModeleController::class,
+  'monteur/listModeleMonteur'                => ListModeleMonteurController::class,
 ];
 $page = 'commun/home';
 if (isset($_GET['page']) && array_key_exists($_GET['page'], $pages)) {
