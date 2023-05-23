@@ -64,7 +64,10 @@ GROUP BY composant.idComposant';
             }
         }
 
-        return ['composantsfilter'=>$composantsfilter];
+        return [
+            'composantsfilter'=>$composantsfilter,
+            'tri'=>$tri
+    ];
     }
     public function getFileName(): string
     {

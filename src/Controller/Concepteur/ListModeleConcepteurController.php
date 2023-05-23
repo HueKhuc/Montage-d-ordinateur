@@ -32,7 +32,10 @@ class ListModeleConcepteurController extends AbstractController
         $results = $sth->fetchAll();
         $modelesfilter = new ModelesFilter($_POST, $results);
 
-        return ['modelesfilter' => $modelesfilter];
+        return [
+            'modelesfilter' => $modelesfilter,
+            'tri' => $tri
+        ];
     }
 
     public function getFileName(): string

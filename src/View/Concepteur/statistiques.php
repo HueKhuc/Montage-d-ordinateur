@@ -25,10 +25,10 @@
                     <td class="text-center">' . $dateMessage . '</td>';                    
                     if ($estLu == 0) {
                         echo
-                            '<td class="text-center"> x </td>';
+                            '<td class="text-center"> Non </td>';
                     } else {
                         echo
-                            '<td class="text-center"> v </td>';
+                            '<td class="text-center"> Oui </td>';
                     }                                      
                 '</tr>';
             } ?>
