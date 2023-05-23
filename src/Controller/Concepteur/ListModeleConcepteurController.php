@@ -3,6 +3,7 @@ namespace Controller\Concepteur;
 
 use Controller\AbstractController;
 use Model\ModelesFilter;
+use Model\Modele;
 use PDO;
 
 class ListModeleConcepteurController extends AbstractController
