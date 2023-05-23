@@ -1,6 +1,11 @@
 <?php
-if (!empty($_POST)) {
-    echo '<div class="alert alert-success my-5" role="alert">Message envoyé</div>';
+if (isset($_POST)){ 
+?>
+<!-- Message validé -->
+<div class="alert alert-success" role="alert">
+    Message envoyé !
+</div>
+<?php
 }
 ?>
 <div class=" container">
@@ -8,7 +13,7 @@ if (!empty($_POST)) {
         <div class="mb-3">
             <h5>Commentaire : </h5>
             <p>
-                <?php echo $message->getTexte(); ?>
+                <?= $message->getTexte(); ?>
             </p>
         </div>
         <div class="mb-3">
