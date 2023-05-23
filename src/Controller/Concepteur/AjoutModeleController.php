@@ -15,7 +15,6 @@ $results = $sta->fetchAll();
 $errors = [];
 
 if (isset($_POST['modele'])) {
-    echo '<div class="alert alert-success my-5" role="alert">Modèle ajouté !</div>';
     
     foreach (Composant::LIMITS as $slug => $limit) {
         if (empty($_POST[$slug . '_quantite'])) {

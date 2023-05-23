@@ -1,6 +1,9 @@
 <?php
 use Model\Composant;
-?>
+
+if (isset($_POST['modele'])) {?>
+    <div class="alert alert-success my-5" role="alert">Modèle ajouté !</div>;
+<?php } ?>
 <!-- Formulaire d'ajout modele -->
 <div class="container">
 <h2 class="text-center m-3 text-uppercase">Ajouter un nouveau modèle</h2>
