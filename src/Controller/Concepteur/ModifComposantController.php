@@ -4,6 +4,7 @@ namespace Controller\Concepteur;
 use Controller\AbstractController;
 use PDO;
 
+
 class ModifComposantController extends AbstractController
 {
 
@@ -164,10 +165,12 @@ class ModifComposantController extends AbstractController
       $sqlSelect->bindValue(':idComposant', $idComposant, PDO::PARAM_INT);
       $sqlSelect->execute();
       $res = $sqlSelect->fetchAll();
-      return [
-        'res' => $res,
-      ];
+
     }
+    return [
+      'res' => $res,
+      
+    ];
   }
   public function getFileName(): string
   {

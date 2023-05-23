@@ -52,56 +52,46 @@ foreach ($res as $caracTab) {
             <?php } elseif ($categorie == "Carte Graphique") { ?>
                                     <div class="form-group">
                                         <label for="chipset">Chipset</label>
-                                        <input type="text" class="form-control" name="chipset" value = "
-                                <?= $caracTab['chipset'] ?>">
+                                        <input type="text" class="form-control" name="chipset" value = "<?= $caracTab['chipset'] ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="memoire">Mémoire (en Go)</label>
-                                        <input type="number" class="form-control" name="memoire" value = "
-                                <?= $caracTab['memoire'] ?>">
+                                        <input type="number" class="form-control" name="memoire" value = "<?= $caracTab['memoire'] ?>">
                                     </div>
                                 <?php } elseif ($categorie == "Carte Mere") { ?>
                                     <div class="form-group">
                                         <label for="socket">Socket / chipset</label>
-                                        <input type="text" class="form-control" name="socket" value = "
-                                <?= $caracTab['socket'] ?>">
+                                        <input type="text" class="form-control" name="socket" value = "<?= $caracTab['socket'] ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="format">Format (ATX, micro-ATX, etc.)</label>
-                                        <input type="text" class="form-control" name="format" value = "
-                                <?= $caracTab['format'] ?>">
+                                        <input type="text" class="form-control" name="format" value = "<?= $caracTab['format'] ?>">
                                     </div>
                                 <?php } elseif ($categorie == "Processeur") { ?>
                                     <div class="form-group">
                                         <label for="frequence">Fréquence CPU (en GHz)</label>
-                                        <input type="number" step="0.01" min = 0 class="form-control" name="frequence" value = "
-                                <?= $caracTab['frequence'] ?>">
+                                        <input type="number" step="0.01" min = 0 class="form-control" name="frequence" value = "<?= $caracTab['frequence'] ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="nbCoeurs">Nombre de cœurs</label>
-                                        <input type="number" class="form-control" name="nbCoeurs" value = "
-                                <?= $caracTab['nbCoeurs'] ?>">
+                                        <input type="number" class="form-control" name="nbCoeurs" value = "<?= $caracTab['nbCoeurs'] ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="chipsetCompatible">Chipsets compatibles</label>
-                                        <input type="text" class="form-control" name="chipsetCompatible" value = "
-                                <?= $caracTab['chipsetCompatible'] ?>">
+                                        <input type="text" class="form-control" name="chipsetCompatible" value = "<?= $caracTab['chipsetCompatible'] ?>">
                                     </div>
             <?php } elseif ($categorie == "Memoire vive") { ?>
                                 <div class="form-group">
                                     <label for="capacite">Capacité (en Go)</label>
-                                    <input type="number" class="form-control" name="capaciteMemoireVive" value = "
-                            <?= $caracTab['capacite'] ?>">
+                                    <input type="number" class="form-control" name="capaciteMemoireVive" value = "<?= $caracTab['capaciteMemoireVive'] ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="nbBarrettes">Nombre de barrettes</label>
-                                    <input type="number" class="form-control" name="nbBarrettes" value = "
-                            <?= $caracTab['nbBarrettes'] ?>">
+                                    <input type="number" class="form-control" name="nbBarrettes" value = "<?= $caracTab['nbBarrettes'] ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="type">Type + Fréquence + norme mémoire (exemple : DDR4 3200 MHz PC4-25600)</label>
-                                    <input type="text" class="form-control" name="type" value = "
-                            <?= $caracTab['type'] ?>">
+                                    <input type="text" class="form-control" name="type" value = "<?= $caracTab['type'] ?>">
                                 </div>
                             <?php } elseif ($categorie == "Clavier") { ?>
                                     <div class="form-group">
@@ -172,9 +162,9 @@ foreach ($res as $caracTab) {
                                     <div class="form-check">
                                         <label class="form-check-label" for="ssd">SSD</label>
                                         <input type="radio" class="form-check-input" id="ssd" name="estSsd" value = "1" 
-                    <?php if ($caracTab['ssd'] == 1) {
+                    <?php  if ($caracTab['estSsd'] == 1) {
                         echo 'checked';
-                    } ?>>
+                    }  ?>>
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label" for="disqueDur">Disque dur</label>
