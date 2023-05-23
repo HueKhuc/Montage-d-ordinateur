@@ -7,6 +7,11 @@ use Controller\Commun\LogoutController;
 use Controller\Concepteur\AjoutComposantController;
 use Controller\Concepteur\AjoutModeleController;
 use Controller\Concepteur\FormReponseController;
+use Controller\Concepteur\ListComposantController;
+use Controller\Concepteur\ListModeleConcepteurController;
+use Controller\Concepteur\ModifComposantController;
+use Controller\Concepteur\ModifModeleController;
+use Controller\Concepteur\StatistiquesController;
 use Controller\Concepteur\StockComposantController;
 use Controller\Monteur\ListModeleController;
 
@@ -18,13 +23,13 @@ $pages = [
   'commun/login'                             => LoginController::class,
   'commun/logout'                            => LogoutController::class,
   'commun/detailModele'                      => DetailModeleController::class,
-  'concepteur/listComposant'                 => 'Liste des composants',
+  'concepteur/listComposant'                 => ListComposantController::class,
   'concepteur/ajoutComposant'                => AjoutComposantController::class,
-  'concepteur/modifComposant'                => 'Modifier un composant',
-  'concepteur/listModeleConcepteur'          => 'Liste des modèles',
+  'concepteur/modifComposant'                => ModifComposantController::class,
+  'concepteur/listModeleConcepteur'          => ListModeleConcepteurController::class,
   'concepteur/ajoutModele'                   => AjoutModeleController::class,  
-  'concepteur/modifModele'                   => 'Modifier un modèle',
-  'concepteur/statistiques'                  => 'Statistiques',
+  'concepteur/modifModele'                   => ModifModeleController::class,
+  'concepteur/statistiques'                  => StatistiquesController::class,
   'concepteur/stockComposant'                => StockComposantController::class,
   'concepteur/formReponse'                   => FormReponseController::class,  
   'monteur/listModeleMonteur'                => ListModeleController::class,
