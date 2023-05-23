@@ -13,8 +13,6 @@ use Model\Processeur;
 use Model\DisqueDur;
 use Model\Ecran;
 use Model\MemoireVive;
-// use Model\Message;
-// use Model\Utilisateur;
 
 use PDO;
 
@@ -64,7 +62,7 @@ class ModifModeleController extends AbstractController
 
       $results = [];
       foreach ($res as $caracTab) {
-        $categorie = 'Modele\\'. str_replace(' ', '', $caracTab['categorie']);
+        $categorie = 'Model\\'. str_replace(' ', '', $caracTab['categorie']);
         $caracObj = new $categorie($caracTab);
         $results[] = $caracObj;
       }
