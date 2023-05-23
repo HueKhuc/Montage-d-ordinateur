@@ -47,7 +47,9 @@ if (isset($_POST['modele'])) {
     }
 }
 
-  return [];
+  return [
+    'results' => $results
+];
 }
 public function getFileName(): string {
   return 'Concepteur/ajoutModele';
