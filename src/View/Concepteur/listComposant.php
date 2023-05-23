@@ -1,60 +1,3 @@
-<?php
-// Tri de la liste des composants
-$sql_order = 'SELECT nom, marque, composant.quantite, prix, categorie, dateAjoutComposant, estPortable, composant.idComposant, COUNT(DISTINCT montage.idModele) AS quantiteModele 
-FROM composant 
-    LEFT JOIN montage ON montage.idComposant = composant.idComposant
-GROUP BY composant.idComposant';
-$tri = '';
-if (isset($_POST['trier'])) {
-    $tri = $_POST['trier'];
-    if ($tri === 'quantite') {
-        $sql_order .= ' ORDER BY ' . $tri;
-    } elseif ($tri === 'nom') {
-        $sql_order .= ' ORDER BY ' . $tri;
-    } elseif ($tri === 'marque') { 
-        $sql_order .= ' ORDER BY ' . $tri;
-    } elseif ($tri === 'prix') {
-        $sql_order .= ' ORDER BY ' . $tri;
-    } elseif ($tri === 'dateAjoutComposant') {
-        $sql_order .= ' ORDER BY ' . $tri;
-    } else {
-        $sql_order .= ' ORDER BY idComposant';
-    }
-}
-$sth = $db->prepare($sql_order);
-$sth->setFetchMode(PDO::FETCH_CLASS, Composant::class);
-$sth->execute();
-$results = $sth->fetchAll();
-$composantsfilter = new composantsFilter($_POST, $results);
-
-// Fonction archivage/suppression de composant
-if (isset($_GET['idComposant'])) {
-    if (isset($_GET['delete'])) {
-        foreach (Composant::CATEGORIES as $categorie => $label) {
-            $sqlSupp = 'DELETE FROM ' . $categorie . ' WHERE idComposant = :idComposant';
-            $pdoStatement = $db->prepare($sqlSupp);
-            $pdoStatement->bindValue(':idComposant', $_GET['idComposant'], PDO::PARAM_INT);
-            $pdoStatement->execute();
-        }
-        $sqlSupp = 'DELETE FROM composant WHERE idComposant = :idComposant';
-        $pdoStatement = $db->prepare($sqlSupp);
-        $pdoStatement->bindValue(':idComposant', $_GET['idComposant'], PDO::PARAM_INT);
-        $pdoStatement->execute();
-        echo '<div class="alert alert-danger my-5" role="alert">Composant supprimé</div>';
-    } else {
-        $sqlUpdateArchivage = 'UPDATE composant 
-                           SET archivage = :archivage
-                           WHERE idComposant = :idComposant';
-        $pdoStatement = $db->prepare($sqlUpdateArchivage);
-        $pdoStatement->bindValue(':archivage', 1, PDO::PARAM_BOOL);
-        $pdoStatement->bindValue(':idComposant', $_GET['idComposant'], PDO::PARAM_INT);
-        $pdoStatement->execute();
-        echo '<div class="alert alert-success my-5" role="alert">Composant archivé</div>';
-    }
-}
-
-?>
-
 <!-- Filtre de la liste des composants -->
 <form action="" method="post" class="container">
     <div class="d-flex flex-column gap-2 mt-5">
@@ -62,6 +5,8 @@ if (isset($_GET['idComposant'])) {
         <select name="categorie" id="categorie">
             <option value=""></option>
             <?php
+            use Model\Composant;
+
             foreach (Composant::CATEGORIES as $idComposant => $categorie) {
                 ?>
                 <option value="<?= $categorie ?>" <?php if ($composantsfilter->getCategorie() == $categorie) {
@@ -143,7 +88,7 @@ if (isset($_GET['idComposant'])) {
             </div>
         </form>
 
-<!-- Liste des composants -->
+        <!-- Liste des composants -->
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -190,18 +135,20 @@ if (isset($_GET['idComposant'])) {
                     } else {
                         echo '<td> 
                                 <a type="button" class="btn btn-primary align-middle" name="archiver" href="?page=concepteur/listComposant&idComposant=' . $idComposant . '">Archiver</a>';
-                    } '</td>';
-                    
-                        echo '<td> 
+                    }
+                    '</td>';
+
+                    echo '<td> 
                         <a class="btn btn-primary align-middle" href="?page=concepteur/stockComposant&idStock=' . $idComposant . '">Stock</a></td>';
-                
-            }'</tr>';
+
+                }
+                '</tr>';
                 ?>
             </tbody>
         </table>
     </div>
 
-<!-- Bouton ajouter un nouveau composant -->
+    <!-- Bouton ajouter un nouveau composant -->
     <?php
     if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') {
         echo

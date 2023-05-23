@@ -1,27 +1,6 @@
 <?php
-// Tri de la liste des modèles + Fonction prix modèle
-$sql_order = ('SELECT modele.*, sum(montage.quantite*composant.prix) AS prixModele 
-FROM modele 
-    LEFT JOIN montage ON modele.idModele = montage.idModele
-    LEFT JOIN composant ON composant.idComposant = montage.idComposant
-    GROUP BY modele.idModele');
-$tri = '';
-if (isset($_POST['trier'])) {
-    $tri = $_POST['trier'];
-    $choixTri = ['idModele', 'quantite', 'nom', 'dateAjoutModele'];
-    if (in_array($tri, $choixTri, true)) {
-        $sql_order .= ' ORDER BY ' . $tri;
-    } else {
-        $sql_order .= ' ORDER BY idModele';
-    }
-}
-$sth = $db->prepare($sql_order);
-$sth->setFetchMode(PDO::FETCH_CLASS, Modele::class);
-$sth->execute();
-$results = $sth->fetchAll();
-$modelesfilter = new ModelesFilter($_POST, $results);
+use Model\ModelesFilter;
 ?>
-
 <!-- Filtre de la liste des modèles -->
 <form action="" method="post" class="container">
     <div class="d-flex flex-column gap-2 mt-5">
