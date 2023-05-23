@@ -4,6 +4,10 @@ use Controller\Commun\InscriptionController;
 use Controller\Commun\HomeController;
 use Controller\Commun\LoginController;
 use Controller\Commun\LogoutController;
+use Controller\Concepteur\AjoutComposantController;
+use Controller\Concepteur\AjoutModeleController;
+use Controller\Concepteur\FormReponseController;
+use Controller\Concepteur\StockComposantController;
 use Controller\Monteur\ListModeleController;
 
 include 'includes/autoload.php';
@@ -15,14 +19,14 @@ $pages = [
   'commun/logout'                            => LogoutController::class,
   'commun/detailModele'                      => DetailModeleController::class,
   'concepteur/listComposant'                 => 'Liste des composants',
-  'concepteur/ajoutComposant'                => 'Ajouter un composant',
+  'concepteur/ajoutComposant'                => AjoutComposantController::class,
   'concepteur/modifComposant'                => 'Modifier un composant',
   'concepteur/listModeleConcepteur'          => 'Liste des modèles',
-  'concepteur/ajoutModele'                   => 'Ajouter un modèle',  
+  'concepteur/ajoutModele'                   => AjoutModeleController::class,  
   'concepteur/modifModele'                   => 'Modifier un modèle',
   'concepteur/statistiques'                  => 'Statistiques',
-  'concepteur/stockComposant'                => 'Gestion du stock',
-  'concepteur/formReponse'                   => 'Formulaire de réponse',  
+  'concepteur/stockComposant'                => StockComposantController::class,
+  'concepteur/formReponse'                   => FormReponseController::class,  
   'monteur/listModeleMonteur'                => ListModeleController::class,
 ];
 $page = 'commun/home';

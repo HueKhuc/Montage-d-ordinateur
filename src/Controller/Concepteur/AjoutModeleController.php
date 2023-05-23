@@ -1,5 +1,5 @@
 <?php
-namespace Controller\Commun;
+namespace Controller\Concepteur;
 use Controller\AbstractController;
 use PDO;
 class AjoutModeleController extends AbstractController {
