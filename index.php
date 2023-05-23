@@ -13,7 +13,7 @@ use Controller\Concepteur\ModifComposantController;
 use Controller\Concepteur\ModifModeleController;
 use Controller\Concepteur\StatistiquesController;
 use Controller\Concepteur\StockComposantController;
-use Controller\Monteur\ListModeleController;
+use Controller\Monteur\ListModeleMonteurController;
 
 include 'includes/autoload.php';
 include 'includes/config.inc.php';
@@ -32,7 +32,7 @@ $pages = [
   'concepteur/statistiques'                  => StatistiquesController::class,
   'concepteur/stockComposant'                => StockComposantController::class,
   'concepteur/formReponse'                   => FormReponseController::class,  
-  'monteur/listModeleMonteur'                => ListModeleController::class,
+  'monteur/listModeleMonteur'                => ListModeleMonteurController::class,
 ];
 $page = 'commun/home';
 if (isset($_GET['page']) && array_key_exists($_GET['page'], $pages)) {
