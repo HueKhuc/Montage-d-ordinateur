@@ -10,9 +10,9 @@ if (isset($_SESSION['type']) && $_SESSION['type'] == 'concepteur') { ?>
                 <label for="categorie">Catégorie</label>
                 <select class="form-control" id="categorie" name="categorie">
                     <?php foreach (Composant::CATEGORIES as $key => $categorie) { ?>
-                        <option value="' . $categorie . '" <?php if (isset($_POST['categorie']) && $_POST['categorie'] == $categorie) {
-                            echo ' selected';
-                        } ?>> <?= $categorie ?></option>
+                        <option value="<?= $categorie; ?>" <?php if (isset($_POST['categorie']) && $_POST['categorie'] == $categorie) {
+                              echo ' selected';
+                          } ?>> <?= $categorie ?></option>
                     <?php } ?>
                 </select>
             </div>
