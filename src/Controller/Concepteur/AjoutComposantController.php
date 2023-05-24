@@ -135,7 +135,9 @@ if (isset($_POST['composant'])) {
     $stmt = $this->db->prepare($sql);
     $stmt->execute($params);
 }
-  return [];
+  return [
+    'results' => $results,
+];
 }
 public function getFileName(): string {
   return 'Concepteur/ajoutComposant';
