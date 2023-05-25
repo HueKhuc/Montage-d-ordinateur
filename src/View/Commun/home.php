@@ -1,0 +1,1 @@
+<img src="./ressources/images/Index_Img.jpg" alt="">
