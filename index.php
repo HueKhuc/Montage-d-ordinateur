@@ -6,7 +6,6 @@ use Controller\Commun\LoginController;
 use Controller\Commun\LogoutController;
 use Controller\Concepteur\AjoutComposantController;
 use Controller\Concepteur\AjoutModeleController;
-use Controller\Concepteur\FormReponseController;
 use Controller\Concepteur\ListComposantController;
 use Controller\Concepteur\ListModeleConcepteurController;
 use Controller\Concepteur\ModifComposantController;
@@ -30,8 +29,7 @@ $pages = [
   'concepteur/ajoutModele'                   => AjoutModeleController::class,  
   'concepteur/modifModele'                   => ModifModeleController::class,
   'concepteur/statistiques'                  => StatistiquesController::class,
-  'concepteur/stockComposant'                => StockComposantController::class,
-  'concepteur/formReponse'                   => FormReponseController::class,  
+  'concepteur/stockComposant'                => StockComposantController::class, 
   'monteur/listModeleMonteur'                => ListModeleMonteurController::class,
 ];
 $page = 'commun/home';
