@@ -41,4 +41,3 @@ class CarteGraphique extends Composant {
 		
 	}
 }
-?>

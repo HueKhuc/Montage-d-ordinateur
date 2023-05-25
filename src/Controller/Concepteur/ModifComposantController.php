@@ -181,4 +181,3 @@ class ModifComposantController extends AbstractController
     return 'Modifier un composant';
   }
 }
-?>

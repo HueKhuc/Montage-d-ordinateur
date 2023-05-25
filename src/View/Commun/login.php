@@ -1,7 +1,4 @@
 <?php
-
-
-
     foreach ($loginErrors as $loginError) {
         ?>
         <div class="d-flex justify-content-center alert alert-danger" role="alert">
@@ -9,7 +6,6 @@
         </div>
         <?php
     }
-
 ?>
 
 <!-- Formulaire de connexion -->

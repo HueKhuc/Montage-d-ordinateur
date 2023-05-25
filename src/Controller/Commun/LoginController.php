@@ -71,4 +71,3 @@ class LoginController extends AbstractController
     return 'Connexion';
   }
 }
-?>

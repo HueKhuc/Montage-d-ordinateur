@@ -85,4 +85,3 @@ class ModelesFilter
 		return $this;
 	}
 }
-?>

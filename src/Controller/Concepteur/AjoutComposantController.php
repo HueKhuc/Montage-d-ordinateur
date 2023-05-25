@@ -149,4 +149,3 @@ class AjoutComposantController extends AbstractController
         return 'Ajouter un composant';
     }
 }
-?>

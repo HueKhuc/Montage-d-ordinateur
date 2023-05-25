@@ -43,4 +43,3 @@ class DisqueDur extends Composant
 		return 'Capacite : '.$this->getCapacite().'GO, SSD : '.($this->getEstSsd() ? 'oui':'non');
 	}
 }
-?>

@@ -576,4 +576,3 @@ foreach ($composants as $composant) {
     $stmt = $db->prepare($sql);
     $stmt->execute($params);
 }
-?>

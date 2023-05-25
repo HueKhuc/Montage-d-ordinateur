@@ -54,4 +54,3 @@ class Clavier extends Composant
 		return 'Type touche : ' . $this->getTypeTouche() . ', Sans Fil : ' . ($this->getSansFil() ? 'oui' : 'non') . ', Pave Num : ' . ($this->getPaveNumerique() ? 'oui' : 'non');
 	}
 }
-?>

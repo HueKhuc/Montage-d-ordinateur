@@ -41,4 +41,3 @@ class CarteMere extends Composant {
 		return 'Socket : '.$this->getSocket(). ', Format : '.$this->getFormat();
 	}
 }
-?>

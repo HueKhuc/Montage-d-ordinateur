@@ -26,4 +26,3 @@ class Ecran extends Composant {
 		return 'Taille : '.$this->getTaille(). 'pouce';
 	}
 }
-?>

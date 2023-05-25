@@ -44,4 +44,3 @@ public function getPageTitle(): string {
   return 'Inscription';
 }
 }
-?>

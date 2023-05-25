@@ -98,4 +98,3 @@ class Modele
 		return $this;
 	}
 }
-?>

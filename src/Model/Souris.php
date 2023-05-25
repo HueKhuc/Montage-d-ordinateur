@@ -43,4 +43,3 @@ class Souris extends Composant
         return 'Nb de touche : ' . $this->getnbTouches() . ', Sans Fil : ' . ($this->getSansFil() ? 'oui' : 'non');
     }
 }
-?>

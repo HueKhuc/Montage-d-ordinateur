@@ -33,4 +33,3 @@ abstract public function getContent(): array;
 abstract public function getFileName(): string;
 abstract public function getPageTitle(): string;
 }
-?>

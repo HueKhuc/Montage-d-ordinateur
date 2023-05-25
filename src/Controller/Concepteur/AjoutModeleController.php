@@ -57,4 +57,3 @@ public function getPageTitle(): string {
   return 'Ajouter un modèle';
 }
 }
-?>

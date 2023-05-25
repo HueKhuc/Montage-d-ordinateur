@@ -14,4 +14,3 @@ public function getPageTitle(): string {
   return 'Formulaire de réponse';
 }
 }
-?>
