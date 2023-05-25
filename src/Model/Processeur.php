@@ -50,4 +50,3 @@ class Processeur extends Composant {
 		return 'Frequence : '.$this->getFrequence().'Htz, Nombre de coeurs :'.$this->getNbCoeurs(). ', Chipset :'.$this->getChipsetCompatible();
 	}
 }
-?>

@@ -41,4 +41,3 @@ if (isset($_GET['page']) && array_key_exists($_GET['page'], $pages)) {
 $controller = $pages[$page];
 $current = new $controller($db);
 $current->render();
-?>

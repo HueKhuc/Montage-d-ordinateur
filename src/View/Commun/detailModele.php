@@ -1,4 +1,3 @@
-
 <?php
 // Requête pour le formulaire de commentaire
 if (isset($_POST['submit'])){?>

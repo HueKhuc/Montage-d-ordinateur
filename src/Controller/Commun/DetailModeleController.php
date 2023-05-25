@@ -70,7 +70,7 @@ WHERE idModele = :idModele");
 
         $results = [];
         foreach ($res as $tableauComposant) {
-            $categorie = 'Model\\'.str_replace(' ', '', $tableauComposant['categorie']);
+            $categorie = 'Model\\' . str_replace(' ', '', $tableauComposant['categorie']);
             $composantObj = new $categorie($tableauComposant);
             $results[] = $composantObj;
         }
@@ -117,4 +117,3 @@ WHERE idModele = :idModele ORDER BY dateMessage ');
         return 'Détails du modèle';
     }
 }
-?>

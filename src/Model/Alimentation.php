@@ -26,4 +26,3 @@ class Alimentation extends Composant {
 		return 'Puissance : '.$this->getPuissance().'W';
 	}
 }
-?>

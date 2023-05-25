@@ -51,4 +51,3 @@ class StatistiquesController extends AbstractController
     return 'Statistiques';
   }
 }
-?>

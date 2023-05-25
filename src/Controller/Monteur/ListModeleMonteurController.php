@@ -78,4 +78,3 @@ $results = $sth->fetchAll();
         return 'Liste des modèles';
     }
 }
-?>

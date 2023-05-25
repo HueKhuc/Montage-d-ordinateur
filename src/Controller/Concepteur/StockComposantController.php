@@ -24,4 +24,3 @@ public function getPageTitle(): string {
   return 'Gestion du stock';
 }
 }
-?>

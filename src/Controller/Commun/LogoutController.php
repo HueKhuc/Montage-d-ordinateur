@@ -21,4 +21,3 @@ class LogoutController extends AbstractController
     return 'Déconnexion';
   }
 }
-?>
