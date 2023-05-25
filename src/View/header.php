@@ -104,5 +104,3 @@
         }
         ?>
     </header>
-</body>
-</html>
