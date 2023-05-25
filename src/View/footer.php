@@ -1,5 +1,5 @@
 <!-- Footer avec onglet Accueil et onglet Connexion -->
-<footer class="py-3 border-top bg-dark text-white">
+<footer class="py-3 bg-dark text-white">
   <ul class="d-flex nav align-items-center justify-content-between">
     <li class="nav-item ps-1"><a href="#" class="nav-link text-white">Accueil</a></li>
     <li class="nav-item"><a class="nav-link text-white">CLDL © 2023</a></li>    

@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="./Styles/style.css">
 </head>
 <body>
-    <header>
+    <header class="py-3 bg-dark text-white">
         <nav class="navbar navbar-dark navbar-expand-lg bg-dark" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="?page=commun/home">
